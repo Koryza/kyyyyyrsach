@@ -1,11 +1,27 @@
-"""Начальное приложение FastAPI для третьего этапа проекта."""
+"""Приложение FastAPI с подготовкой базы данных при запуске."""
+
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+
+from app.database import engine, init_db
+
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
+    init_db()
+    try:
+        yield
+    finally:
+        engine.dispose()
+
 
 app = FastAPI(
     title="Модуль управления каталогом товаров",
     description="Учебный проект курсовой работы МФЮА.",
     version="0.1.0",
+    lifespan=lifespan,
 )
 
 
