@@ -10,6 +10,7 @@ import re
 
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_TAB_ALIGNMENT, WD_TAB_LEADER
+from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Mm, Pt as WordPt, RGBColor as WordColor
@@ -23,6 +24,7 @@ DOCS = ROOT / "docs"
 WORD_FILE = DOCS / "coursework" / "coursework_draft.docx"
 SLIDES_FILE = DOCS / "defense" / "catalog_defense.pptx"
 BLUE, INK, GRAY, BACK, WHITE = "345DE3", "18253B", "64748B", "F5F7FB", "FFFFFF"
+STUDENT = json.loads((DOCS / "coursework" / "student.json").read_text())
 
 
 def plain(text):
@@ -88,23 +90,13 @@ def make_word():
 
     cover("Аккредитованное образовательное частное учреждение\nвысшего образования")
     cover("«Московский финансово-юридический университет МФЮА»\n(МФЮА)", bold=True)
-    cover("КАФЕДРА «[УКАЗАТЬ]»", before=14)
+    cover(f"КАФЕДРА «{STUDENT['department'].upper()}»", before=14)
     cover("КУРСОВАЯ РАБОТА", bold=True, before=35, after=12)
-    cover("по дисциплине: «[УКАЗАТЬ]»", after=12)
+    cover(f"по дисциплине: «{STUDENT['discipline']}»", after=12)
     cover("на тему: «Разработка модуля управления каталогом\nтоваров для интернет-магазина»", bold=True, after=25)
-    cover("Направление подготовки: [УКАЗАТЬ]\nПрофиль: [УКАЗАТЬ]", align=WD_ALIGN_PARAGRAPH.LEFT, after=18)
-    cover("Автор работы: [ФИО]\nКурс: [УКАЗАТЬ]       Группа: [УКАЗАТЬ]\nРуководитель: [ФИО, ДОЛЖНОСТЬ]\nПодписи и даты: [ЗАПОЛНЯЮТСЯ УЧАСТНИКАМИ]", align=WD_ALIGN_PARAGRAPH.LEFT, after=25)
-    cover("ТЕХНИЧЕСКИЙ ЧЕРНОВИК ДЛЯ ДОРАБОТКИ", bold=True, size=12)
-    cover("[ГОРОД] — 2026", before=25)
-    document.add_page_break()
-    document.add_heading("СОСТОЯНИЕ ЧЕРНОВИКА", 1)
-    for text in [
-        "Документ собран по фактически реализованному учебному проекту. Персональные реквизиты оставлены для заполнения. Служебные подписи, утверждение задания и оценка не подставлены.",
-        "Содержательная часть включает введение, три главы, заключение и технические первоисточники. Ссылки [T1]–[T6] временные: научная библиография, окончательная нумерация и её оформление ещё не завершены. Шесть технических документов не выполняют весь минимум источников МФЮА.",
-        "Базовые параметры: A4, поля слева 30 мм, справа 10 мм, сверху и снизу 20 мм, Times New Roman 14, интервал 1,5, абзац 1,25 см. После заполнения реквизитов нужно проверить итоговый объём 25–30 страниц без приложений и согласовать неоднозначности нумерации с преподавателем.",
-        "Иллюстрации получены из реального приложения. В рабочей базе по запросу пользователя 1200 синтетических товаров. Цены и остатки демонстрационные; исследование действующего предприятия и измерение экономического эффекта не проводились.",
-        "Проверка оригинальности в системе вуза не выполнялась. Перед сдачей студент должен проверить текст, источники и понимание кода. Эта служебная страница удаляется из итоговой версии.",
-    ]: document.add_paragraph(text)
+    cover(f"Специальность: {STUDENT['specialty_code']}\n{STUDENT['specialty']}\nПрофиль: {STUDENT['profile']}", align=WD_ALIGN_PARAGRAPH.LEFT, after=18)
+    cover(f"Автор работы: {STUDENT['student_name']}\nКурс: {STUDENT['course']}       Группа: {STUDENT['group']} ({STUDENT['group_short']})\nРуководитель работы: {STUDENT['supervisor']}\nПодписи и даты: ________________________", align=WD_ALIGN_PARAGRAPH.LEFT, after=25)
+    cover(f"{STUDENT['city']} — {STUDENT['year']}", before=25)
     document.add_page_break()
     document.add_heading("СОДЕРЖАНИЕ", 1)
     toc_anchor = document.add_paragraph()
@@ -149,13 +141,54 @@ def make_word():
                         run.bold = row_index == 0
         document.add_paragraph()
 
+    def diagram(kind):
+        if kind == "model":
+            values = ["КАТЕГОРИЯ\nid (PK)\nname\nname_normalized\ndescription", "1 : N\n→", "ТОВАР\nid (PK) · sku (UQ)\ncategory_id (FK)\nname · description\nprice_kopecks · quantity\ncreated_at · updated_at"]
+            widths = (57, 21, 92)
+            caption = "Рисунок 1 — Логическая структура данных каталога"
+        else:
+            values = ["Браузер\nФормы", "→", "FastAPI\nHTML / API", "→", "catalog.py\nОперации", "→", "SQLAlchemy\nSession", "→", "SQLite\nДанные"]
+            widths = (28, 7.5, 28, 7.5, 28, 7.5, 28, 7.5, 28)
+            caption = "Рисунок 2 — Обработка запроса в приложении"
+        drawing = document.add_table(rows=1, cols=len(values))
+        drawing.autofit = False
+        for column, width in zip(drawing.columns, widths): column.width = Mm(width)
+        for index, (cell, value, width) in enumerate(zip(drawing.rows[0].cells, values, widths)):
+            cell.width = Mm(width)
+            cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
+            cell.text = value
+            if index % 2 == 0:
+                properties = cell._tc.get_or_add_tcPr()
+                borders = OxmlElement("w:tcBorders")
+                for side in ("top", "left", "bottom", "right"):
+                    edge = OxmlElement("w:" + side)
+                    edge.set(qn("w:val"), "single"); edge.set(qn("w:sz"), "6")
+                    borders.append(edge)
+                properties.append(borders)
+            for paragraph in cell.paragraphs:
+                paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                paragraph.paragraph_format.first_line_indent = Mm(0)
+                paragraph.paragraph_format.keep_with_next = True
+                paragraph.paragraph_format.line_spacing = 1.15
+                for run in paragraph.runs:
+                    run.font.name = "Times New Roman"; run.font.size = WordPt(12)
+        paragraph = document.add_paragraph(caption)
+        paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        paragraph.paragraph_format.first_line_indent = Mm(0)
+        paragraph.paragraph_format.keep_with_next = True
+        paragraph = document.add_paragraph("Источник: составлено по модели и исходному коду проекта.")
+        paragraph.paragraph_format.first_line_indent = Mm(0)
+        paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+
     lines = (DOCS / "coursework" / "DRAFT.md").read_text().splitlines()
     active = False
     for line in lines:
         if line.startswith("## Введение"): active = True
         if line.startswith("## Что осталось"): break
         if not active or not line.strip(): continue
-        if line.startswith("## "):
+        if line.startswith("<!-- figure:"):
+            diagram(line.split(":", 1)[1].split()[0])
+        elif line.startswith("## "):
             heading(line[3:].replace(" — рабочая основа", ""))
         elif line.startswith("### "):
             heading(line[4:], 2)
@@ -213,13 +246,12 @@ def make_word():
                     ("SQLite большого набора", "integrity_check, foreign_key_check", "ok; ошибок связей нет"),
                 ], (67, 45, 58))
 
-    heading("Технические первоисточники (предварительный список)")
-    sources = json.loads((DOCS / "coursework" / "sources-verified.json").read_text())["sources"]
-    names = ["FastAPI. Templates", "SQLAlchemy. Session Basics", "Jinja. Template Designer Documentation",
-             "Python 3.12. unicodedata — Unicode Database", "Pydantic. Strict Mode", "HTTP Working Group. RFC 9110: HTTP Semantics"]
-    for source, name in zip(sources, names):
-        document.add_paragraph(f"[{source['id']}] {name}. Исходный документ в официальном репозитории. URL: {source['source_url']} (дата обращения: 21.10.2026).")
-    document.add_paragraph("Список требует дополнения изученной научной литературой и окончательного оформления по ГОСТ. Реестр проверки источников: docs/coursework/SOURCES.md.")
+    heading("Список использованных источников")
+    sources = json.loads((DOCS / "coursework" / "bibliography.json").read_text())["sources"]
+    for source in sources:
+        paragraph = document.add_paragraph(f"{source['id']}. {source['description']}")
+        paragraph.paragraph_format.first_line_indent = Mm(0)
+        paragraph.paragraph_format.space_after = WordPt(6)
     heading("Приложение А. Экраны и результаты демонстрации")
     images = [
         ("large-catalog/04-catalog-viewport.png", "А.1", "Каталог из 1200 демонстрационных товаров"),
@@ -247,9 +279,9 @@ def make_word():
         field(paragraph, f" PAGEREF {bookmark} \\h ", "?")
     update = OxmlElement("w:updateFields"); update.set(qn("w:val"), "true")
     document.settings.element.append(update)
-    document.core_properties.title = "Разработка модуля управления каталогом товаров — технический черновик"
-    document.core_properties.author = ""
-    document.core_properties.subject = "Курсовая работа МФЮА; требует завершения библиографии и реквизитов"
+    document.core_properties.title = STUDENT["topic"]
+    document.core_properties.author = STUDENT["student_name"]
+    document.core_properties.subject = "Курсовая работа; Разработка программных модулей; 09.02.07"
     document.save(WORD_FILE)
     return WORD_FILE
 
@@ -258,7 +290,7 @@ def make_slides():
     deck = Presentation()
     deck.slide_width, deck.slide_height = Inches(13.333), Inches(7.5)
     deck.core_properties.title = "Модуль управления каталогом товаров"
-    deck.core_properties.author = ""
+    deck.core_properties.author = STUDENT["student_name"]
 
     def box(slide, x, y, w, h, color=WHITE, line=None, rounded=True):
         shape = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE if rounded else MSO_SHAPE.RECTANGLE,
@@ -292,9 +324,9 @@ def make_slides():
         item.notes_slide.notes_text_frame.text = note
         return item
 
-    s = slide("Модуль управления каталогом товаров", "Курсовая работа · Python / FastAPI / SQLite", "Представиться, назвать тему и цель. Личные реквизиты заполнить перед защитой. Это действующее локальное приложение, а не внедрённая промышленная система.")
+    s = slide("Модуль управления каталогом товаров", "Курсовая работа · Python / FastAPI / SQLite", "Представиться, назвать тему и цель. Автор: Чемоданов Никита Сергеевич, группа ИПо-41. Это действующее локальное приложение, а не внедрённая промышленная система.")
     text(s, "Товары, категории,\nцены и остатки", .85, 2.3, 7.5, 2.1, 44, bold=True)
-    text(s, "[ФИО] · [Группа]\n[Дисциплина] · Руководитель: [ФИО]", .85, 5.0, 10.9, .9, 19, GRAY)
+    text(s, f"{STUDENT['student_name']} · {STUDENT['group_short']}\n{STUDENT['discipline']}\nРуководитель: {STUDENT['supervisor']} · {STUDENT['city']}, {STUDENT['year']}", .85, 4.85, 11.6, 1.75, 17, GRAY)
     box(s, 9.4, 2.45, 2.9, 2.9, BLUE)
     text(s, "К", 10.22, 2.7, 1.3, 1.6, 92, WHITE, True)
 

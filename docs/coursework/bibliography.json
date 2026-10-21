@@ -1,0 +1,538 @@
+{
+  "sources": [
+    {
+      "id": 1,
+      "key": "gost",
+      "kind": "standard",
+      "description": "ГОСТ 19.201–78. Единая система программной документации. Техническое задание.",
+      "read_sections": [],
+      "verification_notes": "Обозначение и краткое наименование прямо указаны в выданном задании. Полный текст стандарта в текущей среде не получен; ссылки на его конкретные пункты и заявление о полном соответствии не используются.",
+      "evidence": [],
+      "verification_level": "provided_assignment_metadata"
+    },
+    {
+      "id": 2,
+      "key": "mfua",
+      "kind": "institutional",
+      "description": "Московский финансово-юридический университет МФЮА. Методические указания по подготовке и оформлению курсовых работ/проектов. — Москва, 2025. — Текст : электронный.",
+      "read_sections": [
+        "Общие требования; оформление; источники и ссылки"
+      ],
+      "verification_notes": "Документ предоставлен пользователем в исходном архиве; название, город и год проверены по титулу. Общедоступный URL не указан.",
+      "evidence": [],
+      "verification_level": "provided_full_document"
+    },
+    {
+      "id": 3,
+      "key": "think",
+      "kind": "book",
+      "description": "Downey, A. B. Think Python: How to Think Like a Computer Scientist / A. B. Downey. — 3rd ed. — O’Reilly Media, 2024. — ISBN 978-1-098-15543-8. — URL: https://github.com/AllenDowney/ThinkPython/tree/v3 (дата обращения: 21.10.2026). — Текст : электронный.",
+      "read_sections": [
+        "Preface",
+        "Dictionaries",
+        "Classes and Functions"
+      ],
+      "verification_notes": "",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/AllenDowney/ThinkPython/v3/README.md",
+          "http_status": 200,
+          "bytes": 669,
+          "sha256": "e917b68ca919e1287415a7fead19f0126b28028790baa94dbc4ab100fcae6bdf",
+          "checked_on": "2026-10-21"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/AllenDowney/ThinkPython/v3/chapters/chap00.ipynb",
+          "http_status": 200,
+          "bytes": 14107,
+          "sha256": "05e5da95761a7974b11225dbf054e6fec4449d2125f36fd012f0461f1fb3d065",
+          "checked_on": "2026-10-21"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/AllenDowney/ThinkPython/v3/chapters/chap10.ipynb",
+          "http_status": 200,
+          "bytes": 48688,
+          "sha256": "68f930d786d12f95f723572e0834d0742dfed1b8157df41796e063d6014f4e89",
+          "checked_on": "2026-10-21"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/AllenDowney/ThinkPython/v3/chapters/chap14.ipynb",
+          "http_status": 200,
+          "bytes": 46242,
+          "sha256": "8659967e4be5d8f2fc70f0ec0005dba3a483a9fe58e03940d56b0ac42e15ec3f",
+          "checked_on": "2026-10-21"
+        }
+      ],
+      "verification_level": "selected_primary_text_and_metadata"
+    },
+    {
+      "id": 4,
+      "key": "research",
+      "kind": "book",
+      "description": "Research Software Engineering with Python: Building Software that Makes Research Possible / D. Irving, K. Hertweck, L. Johnston [et al.]. — Chapman & Hall/CRC Press, 2021. — ISBN 978-0-367-69834-8. — URL: https://github.com/merely-useful/py-rse (дата обращения: 21.10.2026). — Текст : электронный.",
+      "read_sections": [
+        "Testing Software",
+        "Documenting Programs",
+        "Tracking Provenance"
+      ],
+      "verification_notes": "",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/merely-useful/py-rse/master/CITATION.cff",
+          "http_status": 200,
+          "bytes": 1610,
+          "sha256": "edc7ee28079090271164af8d31a12100f82be8110143dff6ea53bf383cf344ff",
+          "checked_on": "2026-10-21"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/merely-useful/py-rse/master/chapters/testing.Rmd",
+          "http_status": 200,
+          "bytes": 44072,
+          "sha256": "2c720e7f1457647e1a89afecb95125e7deac89c851352c5509be8c763a826afe",
+          "checked_on": "2026-10-21"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/merely-useful/py-rse/master/chapters/documentation.Rmd",
+          "http_status": 200,
+          "bytes": 12926,
+          "sha256": "b1c4d5b30604b2c545bd40b0f98510642d782c12453e3e12d3662169ab0b8414",
+          "checked_on": "2026-10-21"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/merely-useful/py-rse/master/chapters/provenance.Rmd",
+          "http_status": 200,
+          "bytes": 21295,
+          "sha256": "7bf6473787329433ef8b97686ec0e6eb21a45947e472363303c2a79f36d2b8b5",
+          "checked_on": "2026-10-21"
+        }
+      ],
+      "verification_level": "selected_primary_text_and_metadata"
+    },
+    {
+      "id": 5,
+      "key": "architecture",
+      "kind": "book",
+      "description": "Percival, H. Architecture Patterns with Python / H. Percival, B. Gregory. — O’Reilly Media, 2020. — ISBN 978-1-492-05220-3. — URL: https://github.com/cosmicpython/book (дата обращения: 21.10.2026). — Текст : электронный.",
+      "read_sections": [
+        "Service Layer: разделение business logic и interfacing code",
+        "Unit of Work: atomic operations"
+      ],
+      "verification_notes": "Фундаментальная работа 2020 года используется для принципов архитектуры, а не как руководство к версиям библиотек 2026 года.",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/cosmicpython/book/master/copyright.html",
+          "http_status": 200,
+          "bytes": 3597,
+          "sha256": "e1d3f6a7846fea47902c977e8f698f019e133f5914a30cdbe86fb69d0c6192b0",
+          "checked_on": "2026-10-21"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/cosmicpython/book/master/chapter_04_service_layer.asciidoc",
+          "http_status": 200,
+          "bytes": 35559,
+          "sha256": "3a8cdfd171ff9633689f02661de5be1facca178b0e791479d682353c3c9e2e5c",
+          "checked_on": "2026-10-21"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/cosmicpython/book/master/chapter_06_uow.asciidoc",
+          "http_status": 200,
+          "bytes": 29162,
+          "sha256": "e5512861b046134a8d16bc87e3a21ee8585b13eb6cdf48bf13beb6985b67da34",
+          "checked_on": "2026-10-21"
+        }
+      ],
+      "verification_level": "selected_primary_text_and_metadata"
+    },
+    {
+      "id": 6,
+      "key": "tdd",
+      "kind": "book",
+      "description": "Percival, H. J. W. Test-Driven Development with Python / H. J. W. Percival. — 3rd ed. — O’Reilly Media, 2025. — ISBN 978-1-098-14871-3. — URL: https://github.com/hjwp/Book-TDD-Web-Dev-Python (дата обращения: 21.10.2026). — Текст : электронный.",
+      "read_sections": [
+        "What Are We Doing with All These Tests?",
+        "Preface: distinction between functional and unit checks"
+      ],
+      "verification_notes": "CITATION.md репозитория содержит старую запись 2014 года. Для третьего издания использованы copyright.html и предисловие: October 2025, Third Edition, ISBN 978-1-098-14871-3.",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/hjwp/Book-TDD-Web-Dev-Python/master/copyright.html",
+          "http_status": 200,
+          "bytes": 3919,
+          "sha256": "e24b6070baee28a70eb73b0f82b06a90d80394438d9f198b1c04d7f920ce70dc",
+          "checked_on": "2026-10-21"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/hjwp/Book-TDD-Web-Dev-Python/master/chapter_04_philosophy_and_refactoring.asciidoc",
+          "http_status": 200,
+          "bytes": 37491,
+          "sha256": "7ec05bbbcb93cdc8a50992248a81983a8d16a5f057cae615b01939e55ab85c66",
+          "checked_on": "2026-10-21"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/hjwp/Book-TDD-Web-Dev-Python/master/preface.asciidoc",
+          "http_status": 200,
+          "bytes": 15592,
+          "sha256": "7013b4e34d636f27291c8bab237aa2fc34d37ef5296f43c458bccdc814489d2c",
+          "checked_on": "2026-10-21"
+        }
+      ],
+      "verification_level": "selected_primary_text_and_metadata"
+    },
+    {
+      "id": 7,
+      "key": "design",
+      "kind": "online_book",
+      "description": "Wilson, G. Software Design by Example: A Tool-Based Introduction with Python / G. Wilson. — URL: https://github.com/gvwilson/sdxpy (дата обращения: 21.10.2026). — Текст : электронный.",
+      "read_sections": [
+        "Introduction",
+        "Object Persistence",
+        "A Database",
+        "Running Tests"
+      ],
+      "verification_notes": "Цитируется проверенная открытая электронная версия. Год и ISBN печатного издания в доступных первичных материалах не подтверждены и в запись не подставлены.",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/gvwilson/sdxpy/main/README.md",
+          "http_status": 200,
+          "bytes": 14831,
+          "sha256": "33080ff63176c64f657cc7ad230a887ec05d71394746cd55993e060b00a63587",
+          "checked_on": "2026-10-21"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/gvwilson/sdxpy/main/intro/index.md",
+          "http_status": 200,
+          "bytes": 13198,
+          "sha256": "d5c957041d4002d0a17ec4a02d7f8efe904ab0fc4376cf7f7b909ab6bb5b3d73",
+          "checked_on": "2026-10-21"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/gvwilson/sdxpy/main/persist/index.md",
+          "http_status": 200,
+          "bytes": 15386,
+          "sha256": "5f0db5009dce6fd8858d67c975d18607ee5475b7c80f232252832fb25d412b5d",
+          "checked_on": "2026-10-21"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/gvwilson/sdxpy/main/db/index.md",
+          "http_status": 200,
+          "bytes": 13599,
+          "sha256": "d78fcc3bc9ac2e55dec10fa5420b9fbb73219d28455f7e3b1ee39a667b93a739",
+          "checked_on": "2026-10-21"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/gvwilson/sdxpy/main/test/index.md",
+          "http_status": 200,
+          "bytes": 9873,
+          "sha256": "0f8412e08349d083e3f22b2fba3a0745bab6bc87907ae50ad1a04c7e1d171f87",
+          "checked_on": "2026-10-21"
+        }
+      ],
+      "verification_level": "selected_primary_text_and_metadata"
+    },
+    {
+      "id": 8,
+      "key": "google",
+      "kind": "book",
+      "description": "Winters, T. Software Engineering at Google: Lessons Learned from Programming Over Time / T. Winters, T. Manshreck, H. Wright. — O’Reilly Media, 2020. — ISBN 978-1-492-08279-8. — URL: https://github.com/abseil/abseil.github.io/blob/master/resources/swe-book/html/ch11.html (дата обращения: 21.10.2026). — Текст : электронный.",
+      "read_sections": [
+        "Testing Overview: автоматическая проверка и поддержка изменений"
+      ],
+      "verification_notes": "Для обоснования регрессионных проверок используется фундаментальная книга 2020 года; её практики не выдаются за измеренный эффект данного проекта.",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/abseil/abseil.github.io/master/resources/swe-book/html/copyright.html",
+          "http_status": 200,
+          "bytes": 4880,
+          "sha256": "fe25e1472cb8b3c7140bf6e042ce5d50a0d131f43f9def36d4d4ad926ace07d0",
+          "checked_on": "2026-10-21"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/abseil/abseil.github.io/master/resources/swe-book/html/ch11.html",
+          "http_status": 200,
+          "bytes": 76729,
+          "sha256": "7d1cda8593e96faf81bfd06349f07491913ebf7e1d0c33734ba66af966955a40",
+          "checked_on": "2026-10-21"
+        }
+      ],
+      "verification_level": "selected_primary_text_and_metadata"
+    },
+    {
+      "id": 9,
+      "key": "debugging",
+      "kind": "online_book",
+      "description": "Zeller, A. The Debugging Book / A. Zeller. — 2021. — URL: https://github.com/uds-se/debuggingbook (дата обращения: 21.10.2026). — Текст : электронный.",
+      "read_sections": [
+        "Introduction to Debugging: систематическое воспроизведение и исправление отказа"
+      ],
+      "verification_notes": "Автор и год взяты из preferred-citation в CITATION.cff; отдельное печатное издание не заявляется.",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/uds-se/debuggingbook/master/CITATION.cff",
+          "http_status": 200,
+          "bytes": 518,
+          "sha256": "4d91749f405c7154b32eba875fc53665388447eca3b9a80b433ed3b58f0e8e55",
+          "checked_on": "2026-10-21"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/uds-se/debuggingbook/master/notebooks/Intro_Debugging.ipynb",
+          "http_status": 200,
+          "bytes": 99289,
+          "sha256": "d4594de5f1940459376c371940d3658140fb752b8f00261695549bbf67d0a526",
+          "checked_on": "2026-10-21"
+        }
+      ],
+      "verification_level": "selected_primary_text_and_metadata"
+    },
+    {
+      "id": 10,
+      "key": "fuzzing",
+      "kind": "online_book",
+      "description": "The Fuzzing Book / A. Zeller, R. Gopinath, M. Böhme [et al.]. — 2021. — URL: https://github.com/uds-se/fuzzingbook (дата обращения: 21.10.2026). — Текст : электронный.",
+      "read_sections": [
+        "Introduction to Software Testing: ожидание, проверка, границы достаточности тестов"
+      ],
+      "verification_notes": "Год 2021 подтверждён CITATION.cff. Наличие цитаты не означает применение автоматического фаззинга в проекте.",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/uds-se/fuzzingbook/master/CITATION.cff",
+          "http_status": 200,
+          "bytes": 1126,
+          "sha256": "8dfef82ddab240dc7f244997b7a46df97f923b8816c88811c019d29b86567024",
+          "checked_on": "2026-10-21"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/uds-se/fuzzingbook/master/notebooks/Intro_Testing.ipynb",
+          "http_status": 200,
+          "bytes": 68818,
+          "sha256": "2cb50aa61c9222a2d385953ef92209d3c50db7d7119c774b0792e28171e86ace",
+          "checked_on": "2026-10-21"
+        }
+      ],
+      "verification_level": "selected_primary_text_and_metadata"
+    },
+    {
+      "id": 11,
+      "key": "python",
+      "kind": "documentation",
+      "description": "Python Software Foundation. Python 3.12 Documentation: sqlite3, decimal, unicodedata. — URL: https://github.com/python/cpython/tree/3.12/Doc/library (дата обращения: 21.10.2026). — Текст : электронный.",
+      "read_sections": [
+        "sqlite3: introduction, backup",
+        "decimal: exact decimal representation",
+        "unicodedata: normalize, NFKC"
+      ],
+      "verification_notes": "",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/python/cpython/3.12/Doc/library/sqlite3.rst",
+          "http_status": 200,
+          "bytes": 92590,
+          "sha256": "ae534aa61fb6ab8d7bff2e7d33ac3f79e3b06e18acf4ec8081250ef7ff542d76",
+          "checked_on": "2026-10-21"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/python/cpython/3.12/Doc/library/decimal.rst",
+          "http_status": 200,
+          "bytes": 81969,
+          "sha256": "fe460be1001d858a45ff46fe435f5162ac88968be2eeb7995b4b4fc2461e605f",
+          "checked_on": "2026-10-21"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/python/cpython/3.12/Doc/library/unicodedata.rst",
+          "http_status": 200,
+          "bytes": 5972,
+          "sha256": "972edaf26d7ed3989ade46fbeba6dfac4d9003c79154355e6345eed0c9f2f0ab",
+          "checked_on": "2026-10-21"
+        }
+      ],
+      "verification_level": "selected_primary_text_and_metadata"
+    },
+    {
+      "id": 12,
+      "key": "postgres",
+      "kind": "documentation",
+      "description": "PostgreSQL Global Development Group. PostgreSQL 18 Documentation: Data Definition. — URL: https://github.com/postgres/postgres/blob/REL_18_STABLE/doc/src/sgml/ddl.sgml (дата обращения: 21.10.2026). — Текст : электронный.",
+      "read_sections": [
+        "Table Basics; Constraints",
+        "Overview of PostgreSQL Internals: The Path of a Query"
+      ],
+      "verification_notes": "Используется для анализа модели и сравнения СУБД. Фактически модуль работает с SQLite; работа на PostgreSQL не заявляется.",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/postgres/postgres/REL_18_STABLE/doc/src/sgml/ddl.sgml",
+          "http_status": 200,
+          "bytes": 212910,
+          "sha256": "ce1919d9236f2e71672660e1a347146472e966e4d19b77fde5ae345dd1db6ec7",
+          "checked_on": "2026-10-21"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/postgres/postgres/REL_18_STABLE/doc/src/sgml/arch-dev.sgml",
+          "http_status": 200,
+          "bytes": 25124,
+          "sha256": "cf312531d5c2816e8b868a5e04c476805381194818c53d4030894a55864d5d88",
+          "checked_on": "2026-10-21"
+        }
+      ],
+      "verification_level": "selected_primary_text_and_metadata"
+    },
+    {
+      "id": 13,
+      "key": "fastapi",
+      "kind": "documentation",
+      "description": "FastAPI. Templates: официальная документация. — URL: https://github.com/fastapi/fastapi/blob/master/docs/en/docs/advanced/templates.md (дата обращения: 21.10.2026). — Текст : электронный.",
+      "read_sections": [
+        "Using Jinja2Templates; Templates and static files"
+      ],
+      "verification_notes": "",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/fastapi/fastapi/master/docs/en/docs/advanced/templates.md",
+          "http_status": 200,
+          "bytes": 4398,
+          "sha256": "d00f44b1d685db9dfc31c2a796126718154dc5e323d87bb674771df131ad3661",
+          "checked_on": "2026-10-21"
+        }
+      ],
+      "verification_level": "selected_primary_text_and_metadata"
+    },
+    {
+      "id": 14,
+      "key": "sqlalchemy",
+      "kind": "documentation",
+      "description": "SQLAlchemy. Session Basics: официальная документация. — URL: https://github.com/sqlalchemy/sqlalchemy/blob/main/doc/build/orm/session_basics.rst (дата обращения: 21.10.2026). — Текст : электронный.",
+      "read_sections": [
+        "What does the Session do?; commit and rollback"
+      ],
+      "verification_notes": "",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/sqlalchemy/sqlalchemy/main/doc/build/orm/session_basics.rst",
+          "http_status": 200,
+          "bytes": 46752,
+          "sha256": "fdaeee879d1c6eac1bd85b351cc19d35a7e8060f2f8eb15d98362fa1a74daed9",
+          "checked_on": "2026-10-21"
+        }
+      ],
+      "verification_level": "selected_primary_text_and_metadata"
+    },
+    {
+      "id": 15,
+      "key": "jinja",
+      "kind": "documentation",
+      "description": "Jinja. Template Designer Documentation. — URL: https://github.com/pallets/jinja/blob/main/docs/templates.rst (дата обращения: 21.10.2026). — Текст : электронный.",
+      "read_sections": [
+        "HTML Escaping; Working with Automatic Escaping"
+      ],
+      "verification_notes": "",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/pallets/jinja/main/docs/templates.rst",
+          "http_status": 200,
+          "bytes": 63165,
+          "sha256": "dc180165969ba92e85273ba648c1626abf978ccc25eb4357ccec7d37f2bd6941",
+          "checked_on": "2026-10-21"
+        }
+      ],
+      "verification_level": "selected_primary_text_and_metadata"
+    },
+    {
+      "id": 16,
+      "key": "pydantic",
+      "kind": "documentation",
+      "description": "Pydantic. Strict Mode: официальная документация. — URL: https://github.com/pydantic/pydantic/blob/main/docs/concepts/strict_mode.md (дата обращения: 21.10.2026). — Текст : электронный.",
+      "read_sections": [
+        "At the field level; Field(strict=True)"
+      ],
+      "verification_notes": "",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/pydantic/pydantic/main/docs/concepts/strict_mode.md",
+          "http_status": 200,
+          "bytes": 6309,
+          "sha256": "ba862d10c09759f6f339856a03167c3efb0b1555d55078df330b41068891f9c1",
+          "checked_on": "2026-10-21"
+        }
+      ],
+      "verification_level": "selected_primary_text_and_metadata"
+    },
+    {
+      "id": 17,
+      "key": "pytest",
+      "kind": "documentation",
+      "description": "pytest. How to Use Fixtures: официальная документация. — URL: https://github.com/pytest-dev/pytest/blob/main/doc/en/how-to/fixtures.rst (дата обращения: 21.10.2026). — Текст : электронный.",
+      "read_sections": [
+        "Requesting fixtures; yield fixtures and teardown"
+      ],
+      "verification_notes": "",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/pytest-dev/pytest/main/doc/en/how-to/fixtures.rst",
+          "http_status": 200,
+          "bytes": 62068,
+          "sha256": "0c2fca477f8032b8f898756cb184b06490ea3ac44c047b0cb5f84b562269de92",
+          "checked_on": "2026-10-21"
+        }
+      ],
+      "verification_level": "selected_primary_text_and_metadata"
+    },
+    {
+      "id": 18,
+      "key": "http",
+      "kind": "standard",
+      "description": "Fielding, R. HTTP Semantics / R. Fielding, M. Nottingham, J. Reschke. — 2022. — RFC 9110. — URL: https://github.com/httpwg/http-core/blob/main/rfc9110.xml (дата обращения: 21.10.2026). — Текст : электронный.",
+      "read_sections": [
+        "HTTP methods; 303 See Other, § 15.4.4"
+      ],
+      "verification_notes": "",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/httpwg/http-core/main/rfc9110.xml",
+          "http_status": 200,
+          "bytes": 601561,
+          "sha256": "22797e1c392d3a08cca9dca4d8affd7f3461fe574b333658c97b397627efb4d1",
+          "checked_on": "2026-10-21"
+        }
+      ],
+      "verification_level": "selected_primary_text_and_metadata"
+    },
+    {
+      "id": 19,
+      "key": "playwright",
+      "kind": "documentation",
+      "description": "Microsoft. Playwright for Python: Getting Started — Library. — URL: https://github.com/microsoft/playwright/blob/main/docs/src/library-python.md (дата обращения: 21.10.2026). — Текст : электронный.",
+      "read_sections": [
+        "Synchronous API; browser launch, page, browser contexts"
+      ],
+      "verification_notes": "",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/microsoft/playwright/main/docs/src/library-python.md",
+          "http_status": 200,
+          "bytes": 5932,
+          "sha256": "4b4fd64e65ff0d00205acdd477fb4f8d23bc4c83075eaaa71887393641af7820",
+          "checked_on": "2026-10-21"
+        }
+      ],
+      "verification_level": "selected_primary_text_and_metadata"
+    },
+    {
+      "id": 20,
+      "key": "uvicorn",
+      "kind": "documentation",
+      "description": "Uvicorn. Settings: официальная документация. — URL: https://github.com/encode/uvicorn/blob/main/docs/settings.md (дата обращения: 21.10.2026). — Текст : электронный.",
+      "read_sections": [
+        "Application; Socket Binding; Development"
+      ],
+      "verification_notes": "",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/encode/uvicorn/main/docs/settings.md",
+          "http_status": 200,
+          "bytes": 12458,
+          "sha256": "e40d7b31ef278aea50e57eeda437778dc2ce5e6a90dcef7862cdda33c58de67f",
+          "checked_on": "2026-10-21"
+        }
+      ],
+      "verification_level": "selected_primary_text_and_metadata"
+    }
+  ]
+}

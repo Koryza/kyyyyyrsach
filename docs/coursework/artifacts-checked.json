@@ -1,39 +1,82 @@
 {
   "checked_on": "2026-10-21",
   "word": {
-    "pages_in_pdf": 23,
-    "includes_appendices_and_draft_service_page": true,
-    "tables": 5,
-    "pictures": 4,
+    "pages_in_pdf": 32,
+    "pages_before_appendices": 28,
+    "appendix_pages": 4,
+    "introduction_pages": 2,
+    "conclusion_pages": 2,
+    "data_tables": 5,
+    "editable_diagrams": 2,
+    "word_table_objects_including_diagrams": 7,
+    "screenshots": 4,
+    "bibliography_entries": 20,
+    "all_sources_cited": true,
     "cached_page_references": 16,
+    "heading_pages": {
+      "ВВЕДЕНИЕ": 3,
+      "1 ТЕОРЕТИЧЕСКИЕ ОСНОВЫ И АНАЛИЗ УПРАВЛЕНИЯ ТОВАРНЫМ КАТАЛОГОМ": 5,
+      "1.1 ОСОБЕННОСТИ ВЕДЕНИЯ КАТАЛОГА ТОВАРОВ ИНТЕРНЕТ-МАГАЗИНА": 5,
+      "1.2 ПОДХОДЫ К АВТОМАТИЗАЦИИ И ТРЕБОВАНИЯ К МОДУЛЮ": 6,
+      "1.3 ОБОСНОВАНИЕ ВЫБОРА ТЕХНОЛОГИЙ": 8,
+      "2 ПРОЕКТИРОВАНИЕ МОДУЛЯ УПРАВЛЕНИЯ КАТАЛОГОМ": 11,
+      "2.1 ПОЛЬЗОВАТЕЛЬСКИЕ СЦЕНАРИИ И ФУНКЦИОНАЛЬНАЯ МОДЕЛЬ": 11,
+      "2.2 ПРОЕКТИРОВАНИЕ БАЗЫ ДАННЫХ И ОГРАНИЧЕНИЙ ЦЕЛОСТНОСТИ": 13,
+      "2.3 АРХИТЕКТУРА ПРИЛОЖЕНИЯ И ПРОЕКТИРОВАНИЕ ИНТЕРФЕЙСА": 16,
+      "3 РАЗРАБОТКА И ТЕСТИРОВАНИЕ МОДУЛЯ": 18,
+      "3.1 РЕАЛИЗАЦИЯ ОПЕРАЦИЙ С ТОВАРАМИ И КАТЕГОРИЯМИ": 18,
+      "3.2 РЕАЛИЗАЦИЯ ПОИСКА, ФИЛЬТРАЦИИ И ВЕБ-ИНТЕРФЕЙСА": 19,
+      "3.3 ТЕСТИРОВАНИЕ, АНАЛИЗ РЕЗУЛЬТАТОВ И ОГРАНИЧЕНИЯ РЕШЕНИЯ": 21,
+      "ЗАКЛЮЧЕНИЕ": 24,
+      "СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ": 26,
+      "ПРИЛОЖЕНИЕ А. ЭКРАНЫ И РЕЗУЛЬТАТЫ ДЕМОНСТРАЦИИ": 29
+    },
     "blank_pages": 0,
-    "status": "Черновик; объём и научная библиография не завершены"
+    "student_metadata_filled": true,
+    "all_pages_visually_reviewed": true,
+    "status": "Подготовлено для проверки студентом и руководителем; академическое утверждение и проверка оригинальности не выполнялись"
   },
   "presentation": {
     "slides": 8,
     "speaker_notes": true,
-    "all_slide_text_present_in_pdf": true
+    "all_slide_text_present_in_pdf": true,
+    "student_metadata_filled": true
   },
+  "assignment": {
+    "pages_in_pdf": 1,
+    "docx_identical_to_upload": true
+  },
+  "bibliography_limitations": "Смешанный состав: книги, документация, стандарты, методические указания. Полный текст ГОСТ 19.201–78 не получен; подтверждены данные задания. См. SOURCES.md.",
   "files": [
     {
       "path": "docs/coursework/coursework_draft.docx",
-      "bytes": 325758,
-      "sha256": "447445415d1a10d5b88256cea8c5ac8bad16e57cce64479fa25e18080cf335b5"
+      "bytes": 333904,
+      "sha256": "4567147e016135d852a6dc121c3cee1b8b47cdea8399ebe25d0b46244f9c3076"
     },
     {
       "path": "docs/coursework/coursework_draft.pdf",
-      "bytes": 514777,
-      "sha256": "b8ef23e1e81560859a8b193f6bc794331afa09c8f86c63e269a09a3035cc0807"
+      "bytes": 566744,
+      "sha256": "a1ffe7f06a9782c875e3ec1f4723e8ef8d1d13d2f9c505e12a3ba9e02790ce92"
     },
     {
       "path": "docs/defense/catalog_defense.pptx",
-      "bytes": 127012,
-      "sha256": "12bbac368935cd6bfb642aae2a4f0f12802515eaf61f219649d94a5d0cbe7d27"
+      "bytes": 127148,
+      "sha256": "9993de3f7b4627e67914fa9c30dece00f67cfc00e1a4e923f04ed98e66a8e2b5"
     },
     {
       "path": "docs/defense/catalog_defense.pdf",
-      "bytes": 378575,
-      "sha256": "419165d9d9353caacc9b187311f722ad7947a6f9aaff5a79396cc1985c23d82a"
+      "bytes": 381163,
+      "sha256": "692b3037e263aaab59a86f201d228c0f65cd62fd1b50fbe36c884c518820dc90"
+    },
+    {
+      "path": "docs/coursework/assignment.docx",
+      "bytes": 19881,
+      "sha256": "48dd09373d81df73a3a228957757f7367113d1805185be8595ed5361a3251bf6"
+    },
+    {
+      "path": "docs/coursework/assignment.pdf",
+      "bytes": 128463,
+      "sha256": "92ba6b95db7e0a3c64a32350c3d4b6b1989950207ffd10f581bfb84c52e9873e"
     }
   ]
 }
