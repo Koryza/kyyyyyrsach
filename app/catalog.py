@@ -1,4 +1,4 @@
-"""Общие операции каталога для API и будущих HTML-страниц."""
+"""Общие операции каталога для API и HTML-страниц."""
 
 from sqlalchemy import func, select
 from sqlalchemy.exc import IntegrityError

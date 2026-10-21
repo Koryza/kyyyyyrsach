@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}{% if product %}Редактирование товара{% else %}Новый товар{% endif %}{% endblock %}
+{% block content %}
+<a class="back-link" href="{% if product %}/products/{{ product.id }}{% else %}/products{% endif %}">← {% if product %}К карточке товара{% else %}Все товары{% endif %}</a>
+<div class="page-heading"><div><div class="eyebrow">ТОВАРЫ</div><h1>{% if product %}Редактирование товара{% else %}Новый товар{% endif %}</h1><p>Заполните сведения о товаре. Обязательные поля отмечены *.</p></div></div>
+{% include '_errors.html' %}
+{% if not categories %}<div class="notice"><strong>Сначала создайте категорию</strong><p>Каждый товар должен относиться к категории.</p><a class="text-link" href="/categories/new">Добавить категорию →</a></div>{% endif %}
+<form class="card editor" method="post" action="{% if product %}/products/{{ product.id }}/edit{% else %}/products{% endif %}">
+  <h2>Основная информация</h2><div class="form-grid">
+  <div class="full-width"><label for="name">Название *</label><input id="name" name="name" required maxlength="200" value="{{ values.get('name', '') }}" placeholder="Например, ручка шариковая синяя"></div>
+  <div><label for="sku">Артикул *</label><input id="sku" name="sku" required maxlength="64" pattern="[A-Za-z0-9_-]+" value="{{ values.get('sku', '') }}" placeholder="PEN-001" aria-describedby="sku-help"><p class="field-help" id="sku-help">Латинские буквы, цифры, дефис, подчёркивание.</p></div>
+  <div><label for="category_id">Категория *</label><select id="category_id" name="category_id" required><option value="">Выберите категорию</option>{% for category in categories %}<option value="{{ category.id }}" {% if values.get('category_id')|string == category.id|string %}selected{% endif %}>{{ category.name }}</option>{% endfor %}</select></div>
+  <div class="full-width"><label for="description">Описание</label><textarea id="description" name="description" rows="4" maxlength="2000" placeholder="Материал, особенности, назначение…">{{ values.get('description') or '' }}</textarea><p class="field-help">До 2000 символов.</p></div>
+  </div><div class="section-divider"></div><h2>Цена и наличие</h2><div class="form-grid">
+  <div><label for="price">Цена, ₽ *</label><input id="price" name="price" required inputmode="decimal" maxlength="32" value="{{ values.get('price', '') }}" placeholder="49,90" aria-describedby="price-help"><p class="field-help" id="price-help">Не меньше нуля, до двух знаков после запятой.</p></div>
+  <div><label for="quantity">Остаток, шт. *</label><input id="quantity" name="quantity" type="number" min="0" max="9223372036854775807" step="1" required value="{{ values.get('quantity', '0') }}"></div>
+  </div><div class="form-actions"><button class="button" type="submit" {% if not categories %}disabled{% endif %}>{% if product %}Сохранить изменения{% else %}Добавить товар{% endif %}</button><a class="button button-secondary" href="{% if product %}/products/{{ product.id }}{% else %}/products{% endif %}">Отмена</a></div>
+</form>
+{% endblock %}

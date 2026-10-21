@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>{% block title %}Каталог{% endblock %} · Управление товарами</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+  <script src="{{ url_for('static', path='/app.js') }}" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+  <aside class="sidebar">
+    <a class="brand" href="/products"><span class="brand-mark" aria-hidden="true">К</span><span>Каталог<span class="brand-caption">Панель управления</span></span></a>
+    <div class="nav-label">РАБОЧЕЕ ПРОСТРАНСТВО</div>
+    <nav aria-label="Основное меню">
+      <a href="/products" {% if active == 'products' %}aria-current="page"{% endif %}><span aria-hidden="true">▦</span> Товары</a>
+      <a href="/categories" {% if active == 'categories' %}aria-current="page"{% endif %}><span aria-hidden="true">▤</span> Категории</a>
+    </nav>
+    <div class="sidebar-note"><span class="status-dot"></span> Локальный каталог<p>Товары, цены и остатки<br>в одном месте.</p></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><span>Управление ассортиментом</span><span class="workspace-badge">Рабочее пространство</span></header>
+    <main id="main" tabindex="-1">{% block content %}{% endblock %}</main>
+    <footer>Каталог товаров <span>Учебный проект · МФЮА</span></footer>
+  </div>
+</body>
+</html>
