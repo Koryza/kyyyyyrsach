@@ -12,3 +12,4 @@ htmlcov/
 data/*.db*
 data/*.sqlite*
 *.log
+data/backups/
