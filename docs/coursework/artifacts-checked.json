@@ -1,0 +1,39 @@
+{
+  "checked_on": "2026-10-21",
+  "word": {
+    "pages_in_pdf": 23,
+    "includes_appendices_and_draft_service_page": true,
+    "tables": 5,
+    "pictures": 4,
+    "cached_page_references": 16,
+    "blank_pages": 0,
+    "status": "Черновик; объём и научная библиография не завершены"
+  },
+  "presentation": {
+    "slides": 8,
+    "speaker_notes": true,
+    "all_slide_text_present_in_pdf": true
+  },
+  "files": [
+    {
+      "path": "docs/coursework/coursework_draft.docx",
+      "bytes": 325758,
+      "sha256": "447445415d1a10d5b88256cea8c5ac8bad16e57cce64479fa25e18080cf335b5"
+    },
+    {
+      "path": "docs/coursework/coursework_draft.pdf",
+      "bytes": 514777,
+      "sha256": "b8ef23e1e81560859a8b193f6bc794331afa09c8f86c63e269a09a3035cc0807"
+    },
+    {
+      "path": "docs/defense/catalog_defense.pptx",
+      "bytes": 127012,
+      "sha256": "12bbac368935cd6bfb642aae2a4f0f12802515eaf61f219649d94a5d0cbe7d27"
+    },
+    {
+      "path": "docs/defense/catalog_defense.pdf",
+      "bytes": 378575,
+      "sha256": "419165d9d9353caacc9b187311f722ad7947a6f9aaff5a79396cc1985c23d82a"
+    }
+  ]
+}
