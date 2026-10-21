@@ -1,0 +1,53 @@
+{
+  "note": "Проверены исходные тексты официальных документов, не готовая научная библиография",
+  "sources": [
+    {
+      "id": "T1",
+      "source_url": "https://raw.githubusercontent.com/fastapi/fastapi/master/docs/en/docs/advanced/templates.md",
+      "access_date": "2026-10-21",
+      "http_status": 200,
+      "bytes": 4398,
+      "sha256": "d00f44b1d685db9dfc31c2a796126718154dc5e323d87bb674771df131ad3661"
+    },
+    {
+      "id": "T2",
+      "source_url": "https://raw.githubusercontent.com/sqlalchemy/sqlalchemy/main/doc/build/orm/session_basics.rst",
+      "access_date": "2026-10-21",
+      "http_status": 200,
+      "bytes": 46752,
+      "sha256": "fdaeee879d1c6eac1bd85b351cc19d35a7e8060f2f8eb15d98362fa1a74daed9"
+    },
+    {
+      "id": "T3",
+      "source_url": "https://raw.githubusercontent.com/pallets/jinja/main/docs/templates.rst",
+      "access_date": "2026-10-21",
+      "http_status": 200,
+      "bytes": 63165,
+      "sha256": "dc180165969ba92e85273ba648c1626abf978ccc25eb4357ccec7d37f2bd6941"
+    },
+    {
+      "id": "T4",
+      "source_url": "https://raw.githubusercontent.com/python/cpython/3.12/Doc/library/unicodedata.rst",
+      "access_date": "2026-10-21",
+      "http_status": 200,
+      "bytes": 5972,
+      "sha256": "972edaf26d7ed3989ade46fbeba6dfac4d9003c79154355e6345eed0c9f2f0ab"
+    },
+    {
+      "id": "T5",
+      "source_url": "https://raw.githubusercontent.com/pydantic/pydantic/main/docs/concepts/strict_mode.md",
+      "access_date": "2026-10-21",
+      "http_status": 200,
+      "bytes": 6309,
+      "sha256": "ba862d10c09759f6f339856a03167c3efb0b1555d55078df330b41068891f9c1"
+    },
+    {
+      "id": "T6",
+      "source_url": "https://raw.githubusercontent.com/httpwg/http-core/main/rfc9110.xml",
+      "access_date": "2026-10-21",
+      "http_status": 200,
+      "bytes": 601561,
+      "sha256": "22797e1c392d3a08cca9dca4d8affd7f3461fe574b333658c97b397627efb4d1"
+    }
+  ]
+}
