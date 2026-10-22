@@ -11,16 +11,16 @@
 <body>
   <a class="skip-link" href="#main">Перейти к содержимому</a>
   <aside class="sidebar">
-    <a class="brand" href="/products"><span class="brand-mark" aria-hidden="true">К</span><span>Каталог<span class="brand-caption">Панель управления</span></span></a>
-    <div class="nav-label">РАБОЧЕЕ ПРОСТРАНСТВО</div>
+    <a class="brand" href="/products"><span>Каталог<span class="brand-caption">Панель управления</span></span></a>
+    <div class="nav-label">РАЗДЕЛЫ</div>
     <nav aria-label="Основное меню">
-      <a href="/products" {% if active == 'products' %}aria-current="page"{% endif %}><span aria-hidden="true">▦</span> Товары</a>
-      <a href="/categories" {% if active == 'categories' %}aria-current="page"{% endif %}><span aria-hidden="true">▤</span> Категории</a>
+      <a href="/products" {% if active == 'products' %}aria-current="page"{% endif %}>Товары</a>
+      <a href="/categories" {% if active == 'categories' %}aria-current="page"{% endif %}>Категории</a>
     </nav>
-    <div class="sidebar-note"><span class="status-dot"></span> Локальный каталог<p>Товары, цены и остатки<br>в одном месте.</p></div>
+    <div class="sidebar-note">Локальный каталог<p>Изменения сохраняются<br>после отправки формы.</p></div>
   </aside>
   <div class="workspace">
-    <header class="topbar"><span>Управление ассортиментом</span><span class="workspace-badge">Рабочее пространство</span></header>
+    <header class="topbar"><span>Управление ассортиментом</span><span class="workspace-badge">Каталог</span></header>
     <main id="main" tabindex="-1">{% block content %}{% endblock %}</main>
     <footer>Каталог товаров <span>Учебный проект · МФЮА</span></footer>
   </div>

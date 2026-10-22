@@ -24,8 +24,7 @@ def backup_database(database_path: Path) -> Path | None:
     folder.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     destination = folder / f"catalog-before-demo-{timestamp}-{uuid4().hex[:8]}.db"
-    # backup() корректно читает SQLite, включая зафиксированные данные журнала.
-    # Обычное копирование открытого файла базы для этого не используется.
+    # backup() включает зафиксированные данные WAL в согласованную копию базы.
     try:
         with closing(sqlite3.connect(database_path.resolve().as_uri() + "?mode=ro", uri=True)) as source:
             with closing(sqlite3.connect(destination)) as target:

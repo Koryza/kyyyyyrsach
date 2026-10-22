@@ -1,4 +1,4 @@
-// Основные сценарии работают без JavaScript; даты дополняются местным временем.
+// Показываем даты в часовом поясе браузера; исходный UTC указан в datetime.
 for (const element of document.querySelectorAll('time[datetime]')) {
   const date = new Date(element.dateTime);
   if (!Number.isNaN(date.getTime())) {

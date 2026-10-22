@@ -11,7 +11,7 @@ DATABASE_PATH = PROJECT_ROOT / "data" / "catalog.db"
 
 
 class Base(DeclarativeBase):
-    """Общий реестр моделей SQLAlchemy."""
+    """Базовый класс моделей SQLAlchemy."""
 
 
 def create_sqlite_engine(database_path: Path) -> Engine:
@@ -43,7 +43,7 @@ def get_db() -> Iterator[Session]:
 
 
 def init_db(db_engine: Engine = engine) -> None:
-    """Создать только отсутствующие таблицы; это не механизм миграций."""
+    """Создать отсутствующие таблицы, сохранив существующую схему и записи."""
     from app.models import Category, Product
 
     database_file = db_engine.url.database

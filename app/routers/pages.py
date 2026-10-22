@@ -57,7 +57,7 @@ def category_form(request, values, *, category=None, errors=None, status=200):
 @router.get("/products")
 def products(request: Request, session: Database):
     values = dict(request.query_params)
-    # Служебные уведомления никогда не становятся произвольным HTML-текстом.
+    # Текст уведомления выбирается из фиксированного списка по коду параметра.
     deleted = values.pop("deleted", "") == "1"
     categories = catalog.list_categories(session)
     try:

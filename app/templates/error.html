@@ -1,3 +1,3 @@
 {% extends 'base.html' %}
 {% block title %}Ошибка {{ status }}{% endblock %}
-{% block content %}<div class="empty-state card"><div class="eyebrow">ОШИБКА {{ status }}</div><h1>{{ detail }}</h1><p>Вернитесь к каталогу и повторите действие.</p><a class="button" href="/products">К товарам</a><a class="button button-secondary" href="/categories">К категориям</a></div>{% endblock %}
+{% block content %}<div class="empty-state card"><div class="eyebrow">ОШИБКА {{ status }}</div><h1>{{ detail }}</h1><p>Откройте список товаров или категорий.</p><a class="button" href="/products">К товарам</a><a class="button button-secondary" href="/categories">К категориям</a></div>{% endblock %}
