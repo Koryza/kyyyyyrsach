@@ -60,4 +60,4 @@ python -m scripts.seed_demo --database /tmp/catalog-demo.db
 
 В Chromium пройдены ещё 6 сценариев большого каталога: числа API, пагинация и последняя страница, совместные фильтры, счётчики категорий и мобильная ширина. В этих сценариях проверялось поведение каталога; скорость и предельная нагрузка не измерялись.
 
-Снимки: [список](figures/large-catalog/01-catalog-1200.png), [фильтры](figures/large-catalog/02-filters.png), [категории](figures/large-catalog/03-categories.png). [Машинный отчёт браузера](figures/large-catalog/report.json). Предыдущие 14 браузерных сценариев интерфейса описаны отдельно в STAGE_7.md.
+Снимки: [список](figures/large-catalog/01-catalog-1200.png), [фильтры](figures/large-catalog/02-filters.png), [категории](figures/large-catalog/03-categories.png). [Машинный отчёт браузера](figures/large-catalog/report.json). Основные 14 браузерных сценариев интерфейса описаны отдельно в [TESTING.md](TESTING.md).
