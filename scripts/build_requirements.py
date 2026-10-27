@@ -122,7 +122,7 @@ def build():
             paragraph.paragraph_format.left_indent = Mm(6.35)
         else:
             paragraph = document.add_paragraph()
-            match = re.match(r"^((?:ПТ-\d+\.\d+|БП-\d+|НФТ-\d+)\.) (.+)$", line)
+            match = re.match(r"^((?:ПТ-\d+\.\d+|ФТ-\d+|БП-\d+|НФТ-\d+)\.) (.+)$", line)
             if match:
                 paragraph.add_run(match[1] + " ").bold = True
                 paragraph.add_run(match[2])
@@ -152,7 +152,7 @@ def build():
     run.font.name, run.font.size = "Times New Roman", Pt(12)
 
     document.core_properties.title = "Технические требования к модулю управления каталогом товаров"
-    document.core_properties.subject = "Курсовой проект. Функциональные требования и бизнес-правила"
+    document.core_properties.subject = "Курсовой проект. Пользовательские, функциональные и нефункциональные требования"
     document.core_properties.author = "Чемоданов Никита Сергеевич"
     document.core_properties.last_modified_by = "Сборка проекта"
     document.core_properties.created = document.core_properties.modified = datetime.now(timezone.utc)
