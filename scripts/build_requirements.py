@@ -9,6 +9,7 @@ from pathlib import Path
 import re
 
 from docx import Document
+from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
@@ -30,6 +31,47 @@ def set_font(style, size, *, bold=False):
         fonts.set(qn(f"w:{name}"), "Times New Roman")
     for name in ("asciiTheme", "hAnsiTheme", "eastAsiaTheme", "cstheme"):
         fonts.attrib.pop(qn(f"w:{name}"), None)
+
+
+def add_table(document, lines):
+    rows = [[cell.strip() for cell in line.strip().strip("|").split("|")] for line in lines]
+    headers = rows[0]
+    if len(headers) != 3 or len(rows) < 3:
+        raise ValueError("Ожидается таблица с тремя столбцами, заголовком и строками данных")
+    if not all(re.fullmatch(r":?-{3,}:?", cell) for cell in rows[1]):
+        raise ValueError("После заголовка таблицы должна идти строка разделителей")
+    data = [headers, *rows[2:]]
+    if any(len(row) != len(headers) for row in data):
+        raise ValueError("Число ячеек должно совпадать с числом столбцов")
+
+    section = document.sections[0]
+    available_mm = (section.page_width - section.left_margin - section.right_margin) / 36000
+    first, second = (42, 35) if headers[0] == "Атрибут" else (20, 40)
+    widths = (first, second, available_mm - first - second)
+    table = document.add_table(rows=1, cols=3)
+    table.style = "Table Grid"
+    table.autofit = False
+    for column, width in zip(table.columns, widths):
+        column.width = Mm(width)
+
+    for row_index, values in enumerate(data):
+        row = table.rows[0] if row_index == 0 else table.add_row()
+        row._tr.get_or_add_trPr().append(OxmlElement("w:cantSplit"))
+        if row_index == 0:
+            row._tr.get_or_add_trPr().append(OxmlElement("w:tblHeader"))
+        for cell_index, (cell, value, width) in enumerate(zip(row.cells, values, widths)):
+            cell.width = Mm(width)
+            cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
+            paragraph = cell.paragraphs[0]
+            paragraph.alignment = WD_ALIGN_PARAGRAPH.LEFT
+            paragraph.paragraph_format.line_spacing = 1.0
+            paragraph.paragraph_format.space_before = Pt(0)
+            paragraph.paragraph_format.space_after = Pt(3)
+            paragraph.paragraph_format.keep_with_next = row_index == 0
+            run = paragraph.add_run(value)
+            run.font.name, run.font.size = "Times New Roman", Pt(12)
+            run.bold = row_index == 0 or cell_index == 0
+    document.add_paragraph().paragraph_format.space_after = Pt(0)
 
 
 def build():
@@ -58,10 +100,20 @@ def build():
     document.styles["Title"].paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
     document.styles["Heading 1"].paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
-    for line in SOURCE.read_text(encoding="utf-8").splitlines():
+    lines = SOURCE.read_text(encoding="utf-8").splitlines()
+    index = 0
+    while index < len(lines):
+        line = lines[index]
+        index += 1
         if not line.strip():
             continue
-        if line.startswith("# "):
+        if line.startswith("|"):
+            table_lines = [line]
+            while index < len(lines) and lines[index].startswith("|"):
+                table_lines.append(lines[index])
+                index += 1
+            add_table(document, table_lines)
+        elif line.startswith("# "):
             document.add_paragraph(line[2:], "Title")
         elif line.startswith("## "):
             document.add_heading(line[3:], level=1)
