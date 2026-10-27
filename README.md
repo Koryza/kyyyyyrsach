@@ -105,6 +105,7 @@ python -m pytest -q
 - [Библиография и сведения о проверке источников](docs/coursework/SOURCES.md).
 - [Презентация, PPTX/PDF](docs/defense/README.md).
 - [Выступление, демонстрация и вопросы](docs/DEFENSE.md).
+- [Технические требования: Word/PDF](docs/requirements/README.md).
 - [Требования к модулю и учебной работе](docs/REQUIREMENTS.md).
 - [Модель данных, маршруты и устройство приложения](docs/DESIGN.md).
 - [Команды и результаты проверок](docs/TESTING.md).

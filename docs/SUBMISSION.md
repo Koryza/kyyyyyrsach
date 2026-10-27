@@ -22,6 +22,7 @@
 | Материал | Файлы |
 |---|---|
 | Пояснительная записка | [Word](coursework/coursework_draft.docx), [PDF](coursework/coursework_draft.pdf), [исходный текст](coursework/DRAFT.md) |
+| Технические требования | [Word](requirements/technical_requirements.docx), [PDF](requirements/technical_requirements.pdf) |
 | Выданное задание | [Word](coursework/assignment.docx), [PDF](coursework/assignment.pdf) |
 | Презентация | [PowerPoint](defense/catalog_defense.pptx), [PDF](defense/catalog_defense.pdf) |
 | Демонстрация | [Сценарий и вопросы](DEFENSE.md) |
