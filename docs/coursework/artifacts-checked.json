@@ -1,5 +1,5 @@
 {
-  "checked_on": "2026-10-22",
+  "checked_on": "2026-10-28",
   "word": {
     "pages_in_pdf": 41,
     "pages_before_appendices": 37,
@@ -35,7 +35,7 @@
     "student_metadata_filled": true,
     "all_pages_visually_reviewed": true,
     "status": "Подготовлено для просмотра; перед сдачей нужен PDF с Times New Roman, согласование библиографии и служебные документы.",
-    "layout_review": "Просмотрены контактные листы всех 41 страниц. Реквизиты, оглавление и границы разделов проверены извлечением текста; пустых страниц и текста за границами листа нет.",
+    "layout_review": "Просмотрены контактные листы всех 41 страниц после редактуры 28.10.2026. Проверены текст абзацев, 16 ссылок оглавления и границы разделов. Пустых страниц и текста за границами листа нет.",
     "pdf_font": "Liberation Serif; Times New Roman задан в DOCX, но отсутствует в облачной среде.",
     "main_text_pages": 32,
     "main_text_page_range": [
@@ -51,7 +51,8 @@
     "speaker_notes": true,
     "all_slide_text_present_in_pdf": true,
     "student_metadata_filled": true,
-    "font_note": "Arial задан в PPTX; при облачном экспорте используется Liberation Sans."
+    "font_note": "Arial задан в PPTX; при облачном экспорте используется Liberation Sans.",
+    "layout_review": "Просмотрены все 8 слайдов PDF; текст каждого абзаца PPTX найден в PDF."
   },
   "assignment": {
     "pages_in_pdf": 1,
@@ -61,23 +62,23 @@
   "files": [
     {
       "path": "docs/coursework/coursework_draft.docx",
-      "bytes": 340830,
-      "sha256": "cab4497effa1aeebfe2b325c1fc51ac6bf8bdc1090d4307df69c6fcf7309e2de"
+      "bytes": 340574,
+      "sha256": "acdc587ef2a64bca186fcf7149cedacb3fd6bd093717a7d73fd174180a7bd200"
     },
     {
       "path": "docs/coursework/coursework_draft.pdf",
-      "bytes": 605037,
-      "sha256": "e13d6ae64958a3672c1ff89df0c2d0dc1a3e00791175063f50d58f5cc100a576"
+      "bytes": 604460,
+      "sha256": "8e6206f0ad226998258af0c9be35d5680500a9f1870a4d7b466d11fc024b57a3"
     },
     {
       "path": "docs/defense/catalog_defense.pptx",
-      "bytes": 127169,
-      "sha256": "ac8b6d1569e5b9702bab87fb6a17553897685884733067a01829b7b72c4b00e0"
+      "bytes": 127138,
+      "sha256": "8f1bf625aa3927274f340cc38d614283688ca035018286b298226bb6eca732c9"
     },
     {
       "path": "docs/defense/catalog_defense.pdf",
-      "bytes": 383023,
-      "sha256": "1be308cf1e1373836f10b295dce3b50c338e6064094be6877a1e6088d6497930"
+      "bytes": 383587,
+      "sha256": "33fc1fc2ceb5cc016759d51f663e5cd47262e08845e7b371b18dcf1ebed63550"
     },
     {
       "path": "docs/coursework/assignment.docx",
@@ -88,13 +89,23 @@
       "path": "docs/coursework/assignment.pdf",
       "bytes": 128463,
       "sha256": "92ba6b95db7e0a3c64a32350c3d4b6b1989950207ffd10f581bfb84c52e9873e"
+    },
+    {
+      "path": "docs/requirements/technical_requirements.docx",
+      "bytes": 47732,
+      "sha256": "1e4949b9c8b55ecd0eccec7c7fbe319fa2ab3d3e59b97292afb17f7c1c8a65f8"
+    },
+    {
+      "path": "docs/requirements/technical_requirements.pdf",
+      "bytes": 205869,
+      "sha256": "6228006f311505739a81385ddef8e8a53548b7fe808eb61deeed5f9e1acf5da3"
     }
   ],
   "office_metadata": {
     "author": "Чемоданов Никита Сергеевич",
     "last_modified_by": "Сборка проекта",
     "template_author_removed": true,
-    "word_created_and_modified_utc": "2026-10-22T16:10:58Z"
+    "word_created_and_modified_utc": "2026-10-28T15:32:22Z"
   },
   "latest_html_check": {
     "checked_on": "2026-10-22",
@@ -103,5 +114,36 @@
     "warnings": 1,
     "reason": "Удаление декоративных значков из шаблонов",
     "server_check_ready": "passed"
+  },
+  "technical_requirements": {
+    "pages_in_pdf": 12,
+    "business_requirements": 4,
+    "user_requirements": 23,
+    "functional_requirements": 15,
+    "business_rules": 12,
+    "nonfunctional_requirements": 8,
+    "constraints": 15,
+    "system_characteristics": 14,
+    "acceptance_scenarios": 14,
+    "logical_attributes": 12,
+    "all_pages_visually_reviewed": true,
+    "blank_pages": 0,
+    "text_outside_page": 0,
+    "source_sha256": "8a0827d4005c42e3ff0eef20d1eed01825f6a4d0a04dac0541b8930f5cb32ccf"
+  },
+  "latest_automated_check": {
+    "checked_on": "2026-10-28",
+    "passed": 154,
+    "failed": 0,
+    "warnings": 1,
+    "dependency_check": "passed",
+    "application_code_changed": false
+  },
+  "text_review": {
+    "checked_on": "2026-10-28",
+    "coursework_paragraphs_checked": 107,
+    "coursework_source_matches_pdf": true,
+    "cached_contents_matches_pdf": true,
+    "assignment_changed": false
   }
 }
