@@ -92,13 +92,13 @@
     },
     {
       "path": "docs/requirements/technical_requirements.docx",
-      "bytes": 47732,
-      "sha256": "1e4949b9c8b55ecd0eccec7c7fbe319fa2ab3d3e59b97292afb17f7c1c8a65f8"
+      "bytes": 49660,
+      "sha256": "5fcc513804ca5d65cbbb62d51831c18617a24b8958a7c5addc9f6bb62ad74ccf"
     },
     {
       "path": "docs/requirements/technical_requirements.pdf",
-      "bytes": 205869,
-      "sha256": "6228006f311505739a81385ddef8e8a53548b7fe808eb61deeed5f9e1acf5da3"
+      "bytes": 227008,
+      "sha256": "5d96e7786e2cbcd399cf3741308959a6c09092b6c8e6f400cf30a485728c6bf2"
     }
   ],
   "office_metadata": {
@@ -116,7 +116,7 @@
     "server_check_ready": "passed"
   },
   "technical_requirements": {
-    "pages_in_pdf": 12,
+    "pages_in_pdf": 14,
     "business_requirements": 4,
     "user_requirements": 23,
     "functional_requirements": 15,
@@ -129,7 +129,11 @@
     "all_pages_visually_reviewed": true,
     "blank_pages": 0,
     "text_outside_page": 0,
-    "source_sha256": "8a0827d4005c42e3ff0eef20d1eed01825f6a4d0a04dac0541b8930f5cb32ccf"
+    "source_sha256": "31f2694ac017b92b5f76b84e5fe1c23f7def8a28c534dee659342768e3d128a3",
+    "quality_attributes": 8,
+    "quality_table_rows": 8,
+    "data_tables": 6,
+    "layout_review": "Проверен весь текст Word в PDF; просмотрены страницы после добавления восьми атрибутов качества. Заголовки таблиц повторяются, строки не разрываются, текст не выходит за края листа."
   },
   "latest_automated_check": {
     "checked_on": "2026-10-28",

@@ -46,7 +46,12 @@ def add_table(document, lines):
 
     section = document.sections[0]
     available_mm = (section.page_width - section.left_margin - section.right_margin) / 36000
-    first, second = (42, 35) if headers[0] == "Атрибут" else (20, 40)
+    if headers[0] == "Атрибут":
+        first, second = 42, 35
+    elif headers[0] == "Код и атрибут":
+        first, second = 46, 57
+    else:
+        first, second = 20, 40
     widths = (first, second, available_mm - first - second)
     table = document.add_table(rows=1, cols=3)
     table.style = "Table Grid"
