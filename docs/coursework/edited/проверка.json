@@ -1,0 +1,87 @@
+{
+  "checked_on": "2026-10-29",
+  "source_commit": "c01fd6b39d9ae8d09eb25518867de80c665076f7",
+  "original_sha256": "acdc587ef2a64bca186fcf7149cedacb3fd6bd093717a7d73fd174180a7bd200",
+  "original_unchanged": true,
+  "word_sha256": "f941b9ff2e4f5d127499e8b22f70e819deec3ccd63eb922e7563900b1fd6ccc1",
+  "pdf_sha256": "29d8984621b725afd6fb884ac9ca426919b0ee97e10985ba053ca23e7b842bc3",
+  "total_pages": 39,
+  "main_text_pages": 30,
+  "main_text_range": [
+    3,
+    32
+  ],
+  "heading_pages": {
+    "ВВЕДЕНИЕ": 3,
+    "1 ТЕОРЕТИЧЕСКИЕ ОСНОВЫ И АНАЛИЗ УПРАВЛЕНИЯ ТОВАРНЫМ КАТАЛОГОМ": 5,
+    "1.1 ОСОБЕННОСТИ ВЕДЕНИЯ КАТАЛОГА ТОВАРОВ ИНТЕРНЕТ-МАГАЗИНА": 5,
+    "1.2 ПОДХОДЫ К АВТОМАТИЗАЦИИ И ТРЕБОВАНИЯ К МОДУЛЮ": 6,
+    "1.3 ОБОСНОВАНИЕ ВЫБОРА ТЕХНОЛОГИЙ": 9,
+    "2 ПРОЕКТИРОВАНИЕ МОДУЛЯ УПРАВЛЕНИЯ КАТАЛОГОМ": 12,
+    "2.1 ПОЛЬЗОВАТЕЛЬСКИЕ СЦЕНАРИИ И ФУНКЦИОНАЛЬНАЯ МОДЕЛЬ": 12,
+    "2.2 ПРОЕКТИРОВАНИЕ БАЗЫ ДАННЫХ И ОГРАНИЧЕНИЙ ЦЕЛОСТНОСТИ": 15,
+    "2.3 АРХИТЕКТУРА ПРИЛОЖЕНИЯ И ПРОЕКТИРОВАНИЕ ИНТЕРФЕЙСА": 19,
+    "3 РАЗРАБОТКА И ТЕСТИРОВАНИЕ МОДУЛЯ": 22,
+    "3.1 РЕАЛИЗАЦИЯ ОПЕРАЦИЙ С ТОВАРАМИ И КАТЕГОРИЯМИ": 22,
+    "3.2 РЕАЛИЗАЦИЯ ПОИСКА, ФИЛЬТРАЦИИ И ВЕБ-ИНТЕРФЕЙСА": 24,
+    "3.3 ТЕСТИРОВАНИЕ, АНАЛИЗ РЕЗУЛЬТАТОВ И ОГРАНИЧЕНИЯ РЕШЕНИЯ": 27,
+    "ЗАКЛЮЧЕНИЕ": 32,
+    "СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ": 33,
+    "ПРИЛОЖЕНИЕ А. ЭКРАНЫ И РЕЗУЛЬТАТЫ ДЕМОНСТРАЦИИ": 36
+  },
+  "word_tables": 7,
+  "data_tables": 5,
+  "editable_diagrams": 2,
+  "embedded_images": 4,
+  "bibliography_entries": 20,
+  "source_citations_preserved": true,
+  "paragraph_format_preserved": true,
+  "all_word_text_found_in_pdf": true,
+  "contents_page_references_checked": 16,
+  "blank_pages": 0,
+  "text_outside_page": 0,
+  "tests_by_module": {
+    "tests.test_api": 81,
+    "tests.test_database": 35,
+    "tests.test_demo_data": 7,
+    "tests.test_pages": 31
+  },
+  "tests_passed": 154,
+  "warnings": 1,
+  "demo_data": {
+    "products": 1200,
+    "categories": 12,
+    "per_category": [
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100
+    ],
+    "zero_stock": 133,
+    "min_kopecks": 1900,
+    "max_kopecks": 34610,
+    "integrity_check": "ok",
+    "foreign_key_check": [],
+    "second_products_added": 0
+  },
+  "browser_reports_rechecked": false,
+  "browser_report_dates": [
+    "2026-10-21"
+  ],
+  "pdf_font": "Liberation Serif; Times New Roman установлен в DOCX, но отсутствует в среде экспорта.",
+  "all_pages_visually_reviewed": true,
+  "changed_body_paragraphs": 72,
+  "unconfirmed_original_claims": [
+    "Запуск на macOS: отдельный протокол не найден.",
+    "Причины и ход исправления мобильной вёрстки и выравнивания: отчёт до исправления не найден.",
+    "Отдельный HTTP-прогон с перезапуском на этапе разработки API: исходный отчёт не найден."
+  ]
+}
