@@ -52,7 +52,12 @@
     "all_slide_text_present_in_pdf": true,
     "student_metadata_filled": true,
     "font_note": "Arial задан в PPTX; при облачном экспорте используется Liberation Sans.",
-    "layout_review": "Просмотрены все 8 слайдов PDF; текст каждого абзаца PPTX найден в PDF."
+    "layout_review": "Просмотрены все 8 слайдов PDF; текст каждого абзаца PPTX найден в PDF.",
+    "speaker_notes_updated_on": "2026-11-02",
+    "rehearsal_notes_slides": [
+      1
+    ],
+    "speaker_notes_check": "Текст вступления сохранён в заметках слайда 1 и исходнике сборки. Видимые слайды, остальные заметки и PDF сохранены."
   },
   "assignment": {
     "pages_in_pdf": 1,
@@ -72,8 +77,8 @@
     },
     {
       "path": "docs/defense/catalog_defense.pptx",
-      "bytes": 127138,
-      "sha256": "8f1bf625aa3927274f340cc38d614283688ca035018286b298226bb6eca732c9"
+      "bytes": 127317,
+      "sha256": "f7d72bc385f244f28f0c74cdda1b463c1fe6d77192913e26f901513534fb67fd"
     },
     {
       "path": "docs/defense/catalog_defense.pdf",
