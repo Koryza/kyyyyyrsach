@@ -72,7 +72,9 @@
     "goal_and_tasks_verbatim": true,
     "introduction_source": "docs/coursework/edited/Курсовая_после_редактуры.docx",
     "conclusions": 7,
-    "last_slide_repeats_cover": true
+    "last_slide_repeats_cover": true,
+    "theme": "Нежно-розовая с сиреневыми акцентами",
+    "relevance_slide": "Обоснована задачами ведения каталога: актуальные цены и остатки, проверка ввода и поиск."
   },
   "assignment": {
     "pages_in_pdf": 1,
@@ -92,13 +94,13 @@
     },
     {
       "path": "docs/defense/catalog_defense.pptx",
-      "bytes": 130571,
-      "sha256": "5b9b9983aff38be6cff220d966a0eaf2512e5152ff9f32adbc5e69a14900f32c"
+      "bytes": 130950,
+      "sha256": "620d8eacfeb6294b58ba8049c850fbff38f080205fb59cbc943efcc698cb8e6d"
     },
     {
       "path": "docs/defense/catalog_defense.pdf",
-      "bytes": 359989,
-      "sha256": "a3ffdc2f073274ceb71f211327900f227a30c9c34f7382f8356422578a203707"
+      "bytes": 362070,
+      "sha256": "fb3b57c426fff7c6a286eaf9234a0940f409cb1d0fe10a026b092e8245f84e13"
     },
     {
       "path": "docs/coursework/assignment.docx",
