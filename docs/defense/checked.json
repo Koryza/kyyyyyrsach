@@ -3,8 +3,8 @@
   "slides": 11,
   "pdf_pages": 11,
   "speaker_notes_slides": 11,
-  "speaker_notes_words": 647,
-  "planned_seconds": 385,
+  "speaker_notes_words": 654,
+  "planned_seconds": 395,
   "speech_duration_measured": false,
   "introduction_source": "docs/coursework/edited/Курсовая_после_редактуры.docx",
   "introduction_paragraph_sha256": "ce88ac834d2d76d3ba7d7bca76af09ee457083223b207fc0face74beb0209d61",
@@ -25,18 +25,38 @@
   "files": [
     {
       "path": "catalog_defense.pptx",
-      "bytes": 130950,
-      "sha256": "620d8eacfeb6294b58ba8049c850fbff38f080205fb59cbc943efcc698cb8e6d"
+      "bytes": 130923,
+      "sha256": "0765343f859c3dc6ebec14c748ea86ed5a9eb4ccc02fccf996edac9d8b5dfed4"
     },
     {
       "path": "catalog_defense.pdf",
-      "bytes": 362070,
-      "sha256": "fb3b57c426fff7c6a286eaf9234a0940f409cb1d0fe10a026b092e8245f84e13"
+      "bytes": 370198,
+      "sha256": "cbb23c29da8a5edfb61b140477da11fcfda92be6ecbb0747ccc72881174c6701"
     },
     {
       "path": "SPEAKER_NOTES.md",
-      "bytes": 9956,
-      "sha256": "2970e6b3416a2262842144c7f3e0c034e104b3647d4a240169d8180ea145f339"
+      "bytes": 10071,
+      "sha256": "37820ce0829ce0a76deca6830a4c209fe855800409f87c444a90350eb732e1eb"
+    },
+    {
+      "path": "relevance_slide.pptx",
+      "bytes": 34809,
+      "sha256": "75cd8064ebac9f03f0edb6dd7e07a420c021de784cf29820780060a3542494c6"
+    },
+    {
+      "path": "relevance_slide.pdf",
+      "bytes": 72122,
+      "sha256": "e6a952b11ad758be554fefd282a2a97aba781b26581466723955ecb570c2c2e1"
+    },
+    {
+      "path": "relevance_slide.png",
+      "bytes": 62294,
+      "sha256": "074832205bb81692bf5952549fd9c1ac470f155dbcde218e370409f94ab123b2"
+    },
+    {
+      "path": "relevance-evidence.json",
+      "bytes": 1154,
+      "sha256": "40f0a9588a6ffd6ca97f0af80659a373dfd8fa7cd60484a0a8204b060ab666c1"
     }
   ],
   "theme": {
@@ -47,5 +67,16 @@
     "text": "493B50",
     "description": "Нежно-розовая палитра с сиреневыми акцентами и тёмным текстом."
   },
-  "relevance_slide": "Потребность в обновлении данных каталога, контроле ошибок ввода и поиске товаров."
+  "relevance_slide": {
+    "problem": "Риск расхождения каталога и наличия",
+    "number": 133,
+    "metric_type": "Показатель из учебного набора проекта; не отраслевая статистика ошибок.",
+    "evidence": "relevance-evidence.json",
+    "main_text_words": 24,
+    "theses": 3,
+    "other_slides_unchanged": true,
+    "standalone_pptx_slides": 1,
+    "standalone_pdf_pages": 1,
+    "standalone_matches_full_slide": true
+  }
 }

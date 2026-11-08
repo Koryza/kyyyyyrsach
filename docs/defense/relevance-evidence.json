@@ -1,0 +1,25 @@
+{
+  "checked_on": "2026-11-08",
+  "metric": {
+    "value": 133,
+    "unit": "товара с нулевым остатком",
+    "total_products": 1200,
+    "population": "демонстрационный учебный набор проекта",
+    "interpretation": "Количество позиций, для которых важно корректно отражать отсутствие остатка. Число не является количеством ошибок или долей ошибок реального магазина."
+  },
+  "method": "Загрузка seed_catalog в новую временную SQLite-базу и подсчёт записей Product.quantity == 0.",
+  "sources": [
+    {
+      "path": "app/demo_data.py",
+      "sha256": "a434213f2756434fa3c18a4ed4f9294cf283b4c86dc6c7d80452e850d4d1ea8f"
+    },
+    {
+      "path": "tests/test_demo_data.py",
+      "sha256": "51d13ecf0d6e0b32582e5dac8d60ec32f17485bfc0c2efa28179ca84173b12b2"
+    },
+    {
+      "path": "docs/coursework/edited/проверка.json",
+      "sha256": "b51d05b0c9041484d36f628cf5d47e574fdc63f1d0e550f399f28f431246e016"
+    }
+  ]
+}

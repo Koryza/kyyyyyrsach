@@ -74,7 +74,8 @@
     "conclusions": 7,
     "last_slide_repeats_cover": true,
     "theme": "Нежно-розовая с сиреневыми акцентами",
-    "relevance_slide": "Обоснована задачами ведения каталога: актуальные цены и остатки, проверка ввода и поиск."
+    "relevance_slide": "Риск расхождения каталога и наличия; 133 позиции с нулевым остатком в учебном наборе. Показатель не является числом ошибок реального магазина.",
+    "relevance_main_text_words": 24
   },
   "assignment": {
     "pages_in_pdf": 1,
@@ -94,13 +95,13 @@
     },
     {
       "path": "docs/defense/catalog_defense.pptx",
-      "bytes": 130950,
-      "sha256": "620d8eacfeb6294b58ba8049c850fbff38f080205fb59cbc943efcc698cb8e6d"
+      "bytes": 130923,
+      "sha256": "0765343f859c3dc6ebec14c748ea86ed5a9eb4ccc02fccf996edac9d8b5dfed4"
     },
     {
       "path": "docs/defense/catalog_defense.pdf",
-      "bytes": 362070,
-      "sha256": "fb3b57c426fff7c6a286eaf9234a0940f409cb1d0fe10a026b092e8245f84e13"
+      "bytes": 370198,
+      "sha256": "cbb23c29da8a5edfb61b140477da11fcfda92be6ecbb0747ccc72881174c6701"
     },
     {
       "path": "docs/coursework/assignment.docx",

@@ -118,15 +118,14 @@ def build():
 
     item = slide(2, "ПОСТАНОВКА ЗАДАЧИ")
     relevance = content["relevance"]
-    text(item, relevance["headline"], .85, 1.88, 11.5, 1.55, 34, PLUM, True)
-    for i, (label, explanation) in enumerate(relevance["points"]):
-        x = .75 + i * 4.04
-        rect(item, x, 3.8, 3.75, 1.65, WHITE, BORDER, True)
-        rect(item, x + .25, 4.03, .55, .045, ROSE if i != 1 else PLUM)
-        text(item, label, x + .25, 4.22, 3.25, .52, 23, PLUM, True)
-        text(item, explanation, x + .25, 4.87, 3.25, .43, 17, MUTED)
-    rect(item, .75, 5.92, 11.83, .72, PALE, rounded=True)
-    text(item, relevance["conclusion"], .98, 6.09, 11.0, .55, 24, PLUM, True)
+    text(item, relevance["problem"], .85, 1.72, 11.5, .65, 24, PLUM, True)
+    text(item, relevance["number"], .85, 2.17, 4.9, 2.8, 144, ROSE, True)
+    text(item, relevance["meaning"], 6.05, 2.92, 6.25, 1.5, 28, INK)
+    for i, value in enumerate(relevance["theses"]):
+        text(item, value, .95 + i * 4.04, 5.2, 3.75, .55, 21, MUTED)
+    rect(item, .75, 6.02, 11.83, .66, PALE, rounded=True)
+    text(item, relevance["conclusion"], .98, 6.16, 11.0, .48, 22, PLUM, True)
+    text(item, relevance["source"], .85, 6.83, 11.5, .25, 10.5, MUTED)
 
     item = slide(3, "ПОСТАНОВКА ЗАДАЧИ")
     rect(item, .75, 1.85, 11.83, 1.4, COVER, rounded=True)
@@ -246,6 +245,16 @@ def build():
             if effect_ref is not None:
                 effect_ref.set("idx", "0")
     deck.save(OUTPUT)
+
+    # Отдельный редактируемый слайд актуальности для вставки в презентацию.
+    single = Presentation(OUTPUT)
+    keep = single.slides._sldIdLst[1]
+    for entry in list(single.slides._sldIdLst):
+        if entry is not keep:
+            single.part.drop_rel(entry.rId)
+            single.slides._sldIdLst.remove(entry)
+    single.core_properties.title = "Актуальность темы: модуль управления каталогом товаров"
+    single.save(DIRECTORY / "relevance_slide.pptx")
 
     total = sum(s["seconds"] for s in content["slides"])
     notes = [
