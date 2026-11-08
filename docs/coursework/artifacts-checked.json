@@ -47,17 +47,32 @@
     "page_count_basis": "От введения до страницы перед списком источников; титул, содержание, библиография и приложения исключены."
   },
   "presentation": {
-    "slides": 8,
+    "slides": 11,
     "speaker_notes": true,
     "all_slide_text_present_in_pdf": true,
     "student_metadata_filled": true,
     "font_note": "Arial задан в PPTX; при облачном экспорте используется Liberation Sans.",
-    "layout_review": "Просмотрены все 8 слайдов PDF; текст каждого абзаца PPTX найден в PDF.",
-    "speaker_notes_updated_on": "2026-11-02",
+    "layout_review": "Просмотрены все 11 слайдов PDF; весь текст PPTX найден в соответствующих текстовых блоках PDF. Проверены переносы задач и выводов, схема, снимок и реквизиты.",
+    "speaker_notes_updated_on": "2026-11-08",
     "rehearsal_notes_slides": [
-      1
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
     ],
-    "speaker_notes_check": "Текст вступления сохранён в заметках слайда 1 и исходнике сборки. Видимые слайды, остальные заметки и PDF сохранены."
+    "speaker_notes_check": "Все заметки совпадают с presentation.json и текстом выступления. План с паузами — 6 минут 25 секунд; репетиция с замером не выполнялась.",
+    "checked_on": "2026-11-08",
+    "goal_and_tasks_verbatim": true,
+    "introduction_source": "docs/coursework/edited/Курсовая_после_редактуры.docx",
+    "conclusions": 7,
+    "last_slide_repeats_cover": true
   },
   "assignment": {
     "pages_in_pdf": 1,
@@ -77,13 +92,13 @@
     },
     {
       "path": "docs/defense/catalog_defense.pptx",
-      "bytes": 127317,
-      "sha256": "f7d72bc385f244f28f0c74cdda1b463c1fe6d77192913e26f901513534fb67fd"
+      "bytes": 130571,
+      "sha256": "5b9b9983aff38be6cff220d966a0eaf2512e5152ff9f32adbc5e69a14900f32c"
     },
     {
       "path": "docs/defense/catalog_defense.pdf",
-      "bytes": 383587,
-      "sha256": "33fc1fc2ceb5cc016759d51f663e5cd47262e08845e7b371b18dcf1ebed63550"
+      "bytes": 359989,
+      "sha256": "a3ffdc2f073274ceb71f211327900f227a30c9c34f7382f8356422578a203707"
     },
     {
       "path": "docs/coursework/assignment.docx",

@@ -31,4 +31,6 @@ python -m scripts.build_coursework
 
 Команда пересоздаёт Word и PowerPoint из DRAFT.md, bibliography.json, student.json и снимков. PDF после этого экспортируется заново из Word/LibreOffice и PowerPoint/LibreOffice. Поля оглавления нужно обновить после экспорта или редактирования. Ручные правки Word/PPTX при повторной сборке заменяются: их следует переносить в исходный текст либо сохранять отдельно.
 
+Презентация собирается отдельно командой `python -m scripts.build_presentation`; при этом Word записки не пересоздаётся.
+
 Сведения о проверенных файлах — [artifacts-checked.json](artifacts-checked.json). Действия перед сдачей — [SUBMISSION.md](../SUBMISSION.md).

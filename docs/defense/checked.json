@@ -1,0 +1,42 @@
+{
+  "checked_on": "2026-11-08",
+  "slides": 11,
+  "pdf_pages": 11,
+  "speaker_notes_slides": 11,
+  "speaker_notes_words": 651,
+  "planned_seconds": 385,
+  "speech_duration_measured": false,
+  "introduction_source": "docs/coursework/edited/Курсовая_после_редактуры.docx",
+  "introduction_paragraph_sha256": "ce88ac834d2d76d3ba7d7bca76af09ee457083223b207fc0face74beb0209d61",
+  "goal_and_tasks_verbatim": true,
+  "conclusions_for_tasks": 7,
+  "cover_repeated_on_last_slide": true,
+  "all_slide_text_found_in_pdf": true,
+  "text_outside_its_box": 0,
+  "all_slides_visually_reviewed": true,
+  "screenshot": "figures/catalog-2026-11-08.png",
+  "screenshot_conditions": "figures/capture.json",
+  "automated_test_evidence": "docs/coursework/edited/тесты.xml",
+  "automated_test_date": "2026-10-29",
+  "browser_report_date": "2026-10-21",
+  "full_browser_tests_repeated": false,
+  "coursework_documents_unchanged": true,
+  "pdf_font": "Liberation Sans; Arial задан в PPTX.",
+  "files": [
+    {
+      "path": "catalog_defense.pptx",
+      "bytes": 130571,
+      "sha256": "5b9b9983aff38be6cff220d966a0eaf2512e5152ff9f32adbc5e69a14900f32c"
+    },
+    {
+      "path": "catalog_defense.pdf",
+      "bytes": 359989,
+      "sha256": "a3ffdc2f073274ceb71f211327900f227a30c9c34f7382f8356422578a203707"
+    },
+    {
+      "path": "SPEAKER_NOTES.md",
+      "bytes": 9950,
+      "sha256": "b9303744bd0f3eb472d2e530305a50674618854e374ba231c3e989c866dc162e"
+    }
+  ]
+}

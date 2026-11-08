@@ -15,16 +15,11 @@ from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Mm, Pt as WordPt, RGBColor as WordColor
-from pptx import Presentation
-from pptx.dml.color import RGBColor
-from pptx.enum.shapes import MSO_CONNECTOR, MSO_SHAPE
-from pptx.util import Inches, Pt
 
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 WORD_FILE = DOCS / "coursework" / "coursework_draft.docx"
 SLIDES_FILE = DOCS / "defense" / "catalog_defense.pptx"
-BLUE, INK, GRAY, BACK, WHITE = "345DE3", "18253B", "64748B", "F5F7FB", "FFFFFF"
 STUDENT = json.loads((DOCS / "coursework" / "student.json").read_text())
 
 
@@ -290,115 +285,9 @@ def make_word():
 
 
 def make_slides():
-    deck = Presentation()
-    deck.slide_width, deck.slide_height = Inches(13.333), Inches(7.5)
-    deck.core_properties.title = "Модуль управления каталогом товаров"
-    deck.core_properties.author = STUDENT["student_name"]
-    deck.core_properties.last_modified_by = "Сборка проекта"
-    deck.core_properties.created = deck.core_properties.modified = datetime.now(timezone.utc)
+    from scripts.build_presentation import build
 
-    def box(slide, x, y, w, h, color=WHITE, line=None, rounded=True):
-        shape = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE if rounded else MSO_SHAPE.RECTANGLE,
-                                      Inches(x), Inches(y), Inches(w), Inches(h))
-        shape.fill.solid(); shape.fill.fore_color.rgb = RGBColor.from_string(color)
-        if line: shape.line.color.rgb = RGBColor.from_string(line)
-        else: shape.line.fill.background()
-        return shape
-
-    def text(slide, value, x, y, w, h, size=22, color=INK, bold=False):
-        shape = slide.shapes.add_textbox(Inches(x), Inches(y), Inches(w), Inches(h))
-        frame = shape.text_frame; frame.word_wrap = True
-        frame.margin_left = frame.margin_right = 0
-        frame.margin_top = frame.margin_bottom = 0
-        for i, line in enumerate(value.split("\n")):
-            paragraph = frame.paragraphs[0] if i == 0 else frame.add_paragraph()
-            paragraph.text = line
-            paragraph.font.name = "Arial"; paragraph.font.size = Pt(size)
-            paragraph.font.bold = bold; paragraph.font.color.rgb = RGBColor.from_string(color)
-            paragraph.space_after = Pt(12)
-        return shape
-
-    def slide(title, subtitle, note):
-        item = deck.slides.add_slide(deck.slide_layouts[6])
-        item.background.fill.solid(); item.background.fill.fore_color.rgb = RGBColor.from_string(BACK)
-        box(item, .45, .5, .13, .47, BLUE, rounded=False)
-        text(item, title, .8, .48, 11.7, .7, 30, bold=True)
-        text(item, subtitle, .8, 1.25, 11.7, .65, 16, GRAY)
-        text(item, "МФЮА · Учебный проект · 2026", .8, 7.05, 10, .25, 11, GRAY)
-        text(item, f"{len(deck.slides):02d} / 08", 11.7, 7.05, .8, .25, 11, GRAY)
-        item.notes_slide.notes_text_frame.text = note
-        return item
-
-    s = slide("Модуль управления каталогом товаров", "Курсовая работа · Python / FastAPI / SQLite", "Здравствуйте. Меня зовут Чемоданов Никита Сергеевич, я студент группы ИПо-41. Представляю курсовую работу на тему «Разработка модуля управления каталогом товаров для интернет-магазина». Приложение предназначено для менеджера каталога. Через браузер он может добавлять и изменять товары, распределять их по категориям, указывать цены и остатки.")
-    text(s, "Товары, категории,\nцены и остатки", .85, 2.3, 7.5, 2.1, 44, bold=True)
-    text(s, f"{STUDENT['student_name']}\n{STUDENT['group']} ({STUDENT['group_short']}) · {STUDENT['course']}-й курс · {STUDENT['discipline']}\nРуководитель: {STUDENT['supervisor']} · {STUDENT['city']}, {STUDENT['year']}", .85, 4.85, 11.6, 1.75, 17, GRAY)
-    box(s, 9.4, 2.45, 2.9, 2.9, BLUE)
-    text(s, "К", 10.22, 2.7, 1.3, 1.6, 92, WHITE, True)
-
-    s = slide("Цель и задачи", "Менеджер ведёт ассортимент через браузер", "Показать, какие действия выполняет менеджер. Объяснить совместный отбор и изменение текущего остатка. Оплата и доставка в модуль не входят.")
-    for i, (title, body) in enumerate([
-        ("01  Данные", "Создавать и изменять товары\nи категории, просматривать карточки."),
-        ("02  Поиск", "Отбирать по названию, категории,\nцене и наличию; сортировать."),
-        ("03  Корректность", "Проверять ввод, уникальность\nи связи; подтверждать удаление."),
-    ]):
-        x = .8 + i * 4.13
-        box(s, x, 2.25, 3.9, 3.35)
-        text(s, title, x+.25, 2.65, 3.4, .6, 24, BLUE, True)
-        text(s, body, x+.25, 3.55, 3.4, 1.55, 21)
-
-    s = slide("Модель данных", "Связь категории с товарами", "Объяснить идентификаторы и внешний ключ. Цена записывается целыми копейками. Количество должно быть целым и неотрицательным. Категория с товарами не удаляется. Иерархия категорий не реализована.")
-    box(s, .85, 2.2, 4.5, 3.9)
-    text(s, "КАТЕГОРИЯ", 1.15, 2.55, 3.9, .5, 24, BLUE, True)
-    text(s, "id — первичный ключ\nНазвание — уникальное без учёта регистра\nОписание", 1.15, 3.35, 3.9, 2.0, 22)
-    box(s, 7.35, 2.2, 5.1, 3.9)
-    text(s, "ТОВАР", 7.65, 2.55, 4.4, .5, 24, BLUE, True)
-    text(s, "id · category_id · название\nУникальный артикул\nЦена в копейках · остаток\nДаты создания и изменения", 7.65, 3.35, 4.4, 2.2, 21)
-    line = s.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, Inches(5.35), Inches(4.1), Inches(7.35), Inches(4.1))
-    line.line.color.rgb = RGBColor.from_string(BLUE); line.line.width = Pt(2)
-    text(s, "1 : N", 5.8, 3.5, 1.2, .4, 20, BLUE, True)
-
-    s = slide("Как устроено приложение", "HTML и JSON API используют общие правила", "Проследить запрос: страница или API вызывает catalog.py. SQLAlchemy работает с SQLite. После успешного POST выполняется 303 и GET. При конфликте транзакция откатывается.")
-    nodes = [("Браузер", "Формы и страницы"), ("FastAPI", "HTML / JSON"), ("catalog.py", "Проверки и операции"), ("SQLite", "SQLAlchemy / Session")]
-    for i, (title, caption) in enumerate(nodes):
-        x=.8+i*3.15
-        box(s,x,2.65,2.85,2.25,BLUE if i==2 else WHITE)
-        text(s,title,x+.2,3.0,2.45,.55,24,WHITE if i==2 else BLUE,True)
-        text(s,caption,x+.2,3.85,2.45,.7,17,WHITE if i==2 else GRAY)
-        if i<3:text(s,"→",x+2.91,3.4,.23,.5,24,GRAY)
-    text(s,"Входные схемы → ограничения моделей → ограничения базы",.85,5.6,11.8,.8,23,bold=True)
-
-    s = slide("Веб-интерфейс", "Список товаров и формы", "Показать реальный список. Фильтры применяются вместе, сохраняются в URL и ссылках страниц. Показать форму; стили загружаются локально, основные операции доступны без JavaScript.")
-    text(s,"• Товары и категории\n• Поиск и фильтры\n• Карточки и формы\n• Подтверждение удаления",.85,2.5,3.15,3.4,23)
-    s.shapes.add_picture(str(DOCS/'figures/large-catalog/05-catalog-slide.png'), Inches(4.35), Inches(2.0), width=Inches(8.15))
-
-    s = slide("Демонстрационный ассортимент", "1200 учебных товаров в 12 категориях", "1200 товаров в 12 категориях. Цены и остатки заданы для демонстрации. Перед загрузкой создаётся резервная копия. Занятые артикулы пропускаются, новые записи сохраняются одной транзакцией. Повторный запуск не возвращает изменённую цену к исходной.")
-    for i,(number,label) in enumerate([("1200","товаров"),("12","категорий"),("133","без наличия"),("120","страниц")]):
-        x=.8+i*3.15
-        box(s,x,2.2,2.85,2.2)
-        text(s,number,x+.25,2.55,2.35,.85,44,BLUE,True)
-        text(s,label,x+.25,3.55,2.35,.45,19,GRAY)
-    text(s,"Перед загрузкой создаётся копия; занятые артикулы пропускаются",.85,5.05,11.6,.9,23,bold=True)
-    text(s,"Команда: python -m scripts.seed_demo",.85,6.0,11.6,.5,20,GRAY)
-
-    s = slide("Проверка результата", "Тесты базы, API, HTML и загрузчика", "Проверки базы, API, HTML и загрузчика. Отдельно 14 сценариев интерфейса и 6 на большом наборе. Есть одно известное предупреждение TestClient/HTTPX. Браузерные отчёты получены 21.10.2026. Нагрузочные испытания не проводились.")
-    for i,(number,label) in enumerate([("35","База данных"),("81","JSON API"),("31","HTML"),("7","Загрузчик")]):
-        x=.8+i*3.15
-        box(s,x,2.2,2.85,2.05)
-        text(s,number,x+.25,2.5,2.35,.85,42,BLUE,True)
-        text(s,label,x+.25,3.45,2.35,.45,18,GRAY)
-    text(s,"Chromium: 14 сценариев интерфейса и 6 проверок каталога",.85,4.85,11.7,.8,25,bold=True)
-    text(s,"Исправлены переполнение мобильной страницы и выравнивание таблицы.\nОтдельно проверены повторная загрузка, откат и резервная копия WAL.",.85,5.8,11.7,.9,19,GRAY)
-
-    s = slide("Результат и ограничения", "Локальный каталог с веб-формами и JSON API", "Назвать реализованные операции. Пояснить, что авторизация, миграции и журнал остатков пока отсутствуют. Для работы нескольких менеджеров потребуется проверка одновременной записи. Затем показать приложение.")
-    box(s,.8,2.2,5.95,3.85)
-    text(s,"РЕАЛИЗОВАНО",1.1,2.55,5.3,.5,23,BLUE,True)
-    text(s,"Товары и категории\nКарточки, поиск, фильтры\nПроверка ввода и целостности\nТесты и загрузчик примеров",1.1,3.35,5.3,2.3,23)
-    box(s,7.05,2.2,5.45,3.85)
-    text(s,"ДЛЯ НЕСКОЛЬКИХ МЕНЕДЖЕРОВ",7.35,2.55,4.85,.5,21,BLUE,True)
-    text(s,"Роли пользователей\nИстория движения остатков\nМиграции схемы\nМногопользовательские проверки",7.35,3.35,4.85,2.3,23)
-    SLIDES_FILE.parent.mkdir(parents=True,exist_ok=True)
-    deck.save(SLIDES_FILE)
-    return SLIDES_FILE
+    return build()
 
 
 if __name__ == "__main__":

@@ -30,6 +30,8 @@ python3.12 -m venv .venv
 
 PDF экспортируется из Word/LibreOffice и PowerPoint/LibreOffice. После изменения текста обновите поля оглавления и проверьте страницы. Для окончательной записки требуется установленный Times New Roman. В текущем облачном PDF использован Liberation Serif из-за отсутствия этого шрифта.
 
+Для отдельной сборки презентации и текста выступления используйте `.venv/bin/python -m scripts.build_presentation`. Команда не пересоздаёт пояснительную записку.
+
 Отдельный документ с техническими требованиями собирается командой `.venv/bin/python -m scripts.build_requirements` из `docs/requirements/REQUIREMENTS.md`. Она не пересоздаёт записку и презентацию.
 
 ## Данные
