@@ -64,6 +64,7 @@ with sync_playwright() as pw:
     created = {"price": original["price"], "quantity": original["quantity"]}
     assert created == {"price": "49.90", "quantity": 24}
     product_cases.append({
+        "id": "create_product",
         "name": "Создание товара",
         "input": {"price": "49,90", "quantity": 24},
         "expected": {"price": "49.90", "quantity": 24},
@@ -83,6 +84,7 @@ with sync_playwright() as pw:
     unchanged = context.request.get(base + "/api" + product_path).json()
     assert invalid.value.status == 422 and unchanged == original
     product_cases.append({
+        "id": "invalid_price",
         "name": "Цена с тремя знаками после точки",
         "input": {"price": "1.234"},
         "expected": {"http_status": 422, "saved_price": "49.90", "record_unchanged": True},
@@ -96,7 +98,18 @@ with sync_playwright() as pw:
     page.get_by_label("Остаток, шт. *", exact=True).fill("18")
     page.get_by_role("button", name="Сохранить изменения").click()
     expect(page.get_by_role("status")).to_have_text("Изменения сохранены")
-    assert context.request.get(base + "/api" + product_path).json()["price"] == "54.90"
+    updated = context.request.get(base + "/api" + product_path).json()
+    changed_values = {"price": updated["price"], "quantity": updated["quantity"]}
+    assert changed_values == {"price": "54.90", "quantity": 18}
+    product_cases.append({
+        "id": "update_product",
+        "name": "Изменение цены и остатка",
+        "input": {"price": "54,90", "quantity": 18},
+        "expected": {"price": "54.90", "quantity": 18},
+        "actual": changed_values,
+        "passed": True,
+    })
+    page.screenshot(path=str(args.output / "11-product-updated.png"), full_page=True)
     passed("Изменение цены и остатка видно через API")
     assortment = [
         ("Карандаш графитный HB", "PEN-002", "Письменные принадлежности", "29.00", 48),
@@ -145,15 +158,19 @@ with sync_playwright() as pw:
     expect(page.get_by_role("heading", name="Категория используется")).to_be_visible()
     expect(page.get_by_role("button", name="Удалить категорию")).to_have_count(0)
     category_path = f"/categories/{cats['Письменные принадлежности']}"
+    category_products = context.request.get(base + "/api/products", params={"category_id": cats["Письменные принадлежности"]}).json()
+    assert category_products["total"] == len(category_products["items"])
     blocked = context.request.post(base + category_path + "/delete")
     preserved = {
         "http_status": blocked.status,
         "category_retained": context.request.get(base + "/api" + category_path).status == 200,
         "product_retained": context.request.get(base + "/api" + product_path).status == 200,
+        "products_unchanged": context.request.get(base + "/api/products", params={"category_id": cats["Письменные принадлежности"]}).json() == category_products,
     }
-    expected = {"http_status": 409, "category_retained": True, "product_retained": True}
+    expected = {"http_status": 409, "category_retained": True, "product_retained": True, "products_unchanged": True}
     assert preserved == expected
     product_cases.append({
+        "id": "delete_used_category",
         "name": "Удаление категории с товарами",
         "input": {"category": "Письменные принадлежности"},
         "expected": expected,
@@ -172,14 +189,36 @@ with sync_playwright() as pw:
     assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
     page.screenshot(path=str(args.output / "09-form-mobile.png"), full_page=True)
     passed("Мобильные список и форма: 390 px, без горизонтального скролла страницы")
+    before_cancel = context.request.get(base + "/api" + product_path).json()
     page.goto(base + product_path + "/delete")
     page.get_by_role("link", name="Отмена", exact=True).click()
     expect(page.get_by_role("heading", name="Ручка шариковая синяя")).to_be_visible()
+    after_cancel = context.request.get(base + "/api" + product_path)
+    cancel_result = {"http_status": after_cancel.status, "record_unchanged": after_cancel.json() == before_cancel}
+    assert cancel_result == {"http_status": 200, "record_unchanged": True}
+    product_cases.append({
+        "id": "cancel_product_deletion",
+        "name": "Отмена удаления товара",
+        "input": {"action": "Отмена"},
+        "expected": {"http_status": 200, "record_unchanged": True},
+        "actual": cancel_result,
+        "passed": True,
+    })
     passed("Отмена удаления сохраняет товар")
     page.goto(base + product_path + "/delete")
     page.get_by_role("button", name="Удалить товар", exact=True).click()
     expect(page.get_by_role("status")).to_have_text("Товар удалён")
-    assert context.request.get(base + "/api" + product_path).status == 404
+    deleted_status = context.request.get(base + "/api" + product_path).status
+    assert deleted_status == 404
+    product_cases.append({
+        "id": "delete_product",
+        "name": "Подтверждённое удаление товара",
+        "input": {"action": "Удалить товар"},
+        "expected": {"http_status": 404},
+        "actual": {"http_status": deleted_status},
+        "passed": True,
+    })
+    page.get_by_role("status").screenshot(path=str(args.output / "12-product-deleted.png"))
     passed("Подтверждённое удаление через браузер")
     assert not errors, errors
     passed("Нет ошибок JavaScript в проверенных сценариях")

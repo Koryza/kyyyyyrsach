@@ -252,10 +252,20 @@ def test_database_path_survives_working_directory_change(tmp_path, monkeypatch):
 
 def test_app_initializes_database_and_preserves_it_on_restart(tmp_path, monkeypatch):
     import app.main as main
+    from app.database import get_db
 
     engine = create_sqlite_engine(tmp_path / "app/catalog.db")
+
+    def test_session():
+        with Session(engine) as session:
+            yield session
+
     monkeypatch.setattr(main, "engine", engine)
     monkeypatch.setattr(main, "init_db", lambda: init_db(engine))
+    monkeypatch.setattr(
+        main.app, "dependency_overrides",
+        {**main.app.dependency_overrides, get_db: test_session},
+    )
     try:
         with TestClient(main.app) as client:
             assert client.get("/health").json() == {"status": "ok"}
@@ -264,6 +274,7 @@ def test_app_initializes_database_and_preserves_it_on_restart(tmp_path, monkeypa
                 product_id = add_product(session).id
         with TestClient(main.app) as client:
             assert client.get("/").status_code == 200
+            assert client.get(f"/api/products/{product_id}").json()["sku"] == "PEN-001"
             with Session(engine) as session:
                 assert session.get(Product, product_id).sku == "PEN-001"
     finally:

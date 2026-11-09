@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-11-09T14:15:37.224419+00:00",
+  "checked_at_utc": "2026-11-09T15:02:29.685262+00:00",
   "browser": "Chromium",
   "browser_version": "154.0.8037.57",
   "viewports": [
@@ -27,6 +27,7 @@
   "temporary_database": true,
   "product_cases": [
     {
+      "id": "create_product",
       "name": "Создание товара",
       "input": {
         "price": "49,90",
@@ -43,6 +44,7 @@
       "passed": true
     },
     {
+      "id": "invalid_price",
       "name": "Цена с тремя знаками после точки",
       "input": {
         "price": "1.234"
@@ -60,6 +62,24 @@
       "passed": true
     },
     {
+      "id": "update_product",
+      "name": "Изменение цены и остатка",
+      "input": {
+        "price": "54,90",
+        "quantity": 18
+      },
+      "expected": {
+        "price": "54.90",
+        "quantity": 18
+      },
+      "actual": {
+        "price": "54.90",
+        "quantity": 18
+      },
+      "passed": true
+    },
+    {
+      "id": "delete_used_category",
       "name": "Удаление категории с товарами",
       "input": {
         "category": "Письменные принадлежности"
@@ -67,28 +87,61 @@
       "expected": {
         "http_status": 409,
         "category_retained": true,
-        "product_retained": true
+        "product_retained": true,
+        "products_unchanged": true
       },
       "actual": {
         "http_status": 409,
         "category_retained": true,
-        "product_retained": true
+        "product_retained": true,
+        "products_unchanged": true
+      },
+      "passed": true
+    },
+    {
+      "id": "cancel_product_deletion",
+      "name": "Отмена удаления товара",
+      "input": {
+        "action": "Отмена"
+      },
+      "expected": {
+        "http_status": 200,
+        "record_unchanged": true
+      },
+      "actual": {
+        "http_status": 200,
+        "record_unchanged": true
+      },
+      "passed": true
+    },
+    {
+      "id": "delete_product",
+      "name": "Подтверждённое удаление товара",
+      "input": {
+        "action": "Удалить товар"
+      },
+      "expected": {
+        "http_status": 404
+      },
+      "actual": {
+        "http_status": 404
       },
       "passed": true
     }
   ],
   "script": "scripts/browser_check.py",
-  "script_sha256": "d64874b888fb5e4e70d86eaf6991485587886a29e519fcf402f5140ec440fd69",
-  "application_revision": "c70fdcf0fb7d183365460d6d1e5994f39e7e829f",
-  "product_cases_scope": "Три подробно описанных проверки входят в 14 сценариев; отдельно к их числу не прибавляются.",
+  "script_sha256": "83dbfb9ca1276b60aedd2ded76d520dbab4668de1f3627a0d6179916e53205bc",
+  "application_revision": "216eadcb81f1462237bcd49b66c19cb05b2172bb",
+  "product_cases_scope": "Шесть подробных проверок входят в 14 браузерных сценариев и не прибавляются к их числу.",
   "large_catalog_scenarios_repeated": false,
   "screenshots": [
     "product-created.png",
+    "product-form.png",
     "invalid-price.png",
+    "combined-filters.png",
     "category-protection.png",
     "validation-message.png",
-    "product-form.png",
-    "combined-filters.png"
-  ],
-  "screenshot_note": "Карточка, форма и результат фильтрации сняты в одном прогоне 09.11.2026. Форма показывает состояние до ошибочного ввода цены; результат фильтрации — после изменения цены на 54,90 руб. и остатка на 18."
+    "product-updated.png",
+    "product-deleted.png"
+  ]
 }

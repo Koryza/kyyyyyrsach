@@ -1,10 +1,10 @@
 {
   "checked_on": "2026-11-09",
-  "slides": 11,
-  "pdf_pages": 11,
-  "speaker_notes_slides": 11,
+  "slides": 15,
+  "pdf_pages": 15,
+  "speaker_notes_slides": 15,
   "speaker_notes_words": 628,
-  "planned_seconds": 405,
+  "planned_seconds": 410,
   "speech_duration_measured": false,
   "introduction_source": "docs/coursework/edited/Курсовая_после_редактуры.docx",
   "introduction_paragraph_sha256": "ce88ac834d2d76d3ba7d7bca76af09ee457083223b207fc0face74beb0209d61",
@@ -16,8 +16,8 @@
   "all_slides_visually_reviewed": true,
   "screenshot": "figures/catalog-2026-11-08.png",
   "screenshot_conditions": "figures/capture.json",
-  "automated_test_evidence": "docs/coursework/edited/тесты.xml",
-  "automated_test_date": "2026-10-29",
+  "automated_test_evidence": "docs/defense/figures/product-testing/automated-tests.xml",
+  "automated_test_date": "2026-11-09",
   "browser_report_date": "2026-11-09",
   "full_browser_tests_repeated": false,
   "coursework_documents_unchanged": true,
@@ -25,33 +25,33 @@
   "files": [
     {
       "path": "catalog_defense.pptx",
-      "bytes": 323395,
-      "sha256": "0f005cc885719f044ed57bedb52fe9c2c6791f2bc25c3704dd5330bda57c8969"
+      "bytes": 512020,
+      "sha256": "7422530019f4280c70109e4a6507d97291923e54bfea4cc79e5fc5ce1d8ee4b9"
     },
     {
       "path": "catalog_defense.pdf",
-      "bytes": 588427,
-      "sha256": "d1b8809d26b8b140c1c8f78bb85a5e0852fb0aef37a40ae8482b1ba7f433dc28"
+      "bytes": 879757,
+      "sha256": "b8ed6b3ae26d922db03d29be08abf83b635ba89c103f6fca24add7fdd2858555"
     },
     {
       "path": "SPEAKER_NOTES.md",
-      "bytes": 9671,
-      "sha256": "ebc5cdd87cad49da7c0b132ab72212df45b55e67681234e6fbb9d175551b8971"
+      "bytes": 9960,
+      "sha256": "591f1f720d34fe678b459388826f82413d58d1c192ada60eb9867c757440d4ef"
     },
     {
       "path": "relevance_slide.pptx",
-      "bytes": 34933,
-      "sha256": "ad65d6d4d42ba083db26c1ce529be47e813bf599b9344a792f3ab9e146f5063a"
+      "bytes": 34804,
+      "sha256": "290c4b5919c8070ff5bf483e24f14b017a7ba6ff29eeb235cdf42d125ea8d019"
     },
     {
       "path": "relevance_slide.pdf",
-      "bytes": 66866,
-      "sha256": "74c13849cd7e84bc29b336aa92e15a89b709f358e14eb249893cfff2fc5f18d7"
+      "bytes": 67044,
+      "sha256": "8d07047fb1cc977afc8f1fa2e9ad12b23c3584aba4f4819e83181669ebf8fd49"
     },
     {
       "path": "relevance_slide.png",
-      "bytes": 62396,
-      "sha256": "0dea32de183b5ea0b4d70b069d8c0f6c45a2e16f077c22806b859278136cde06"
+      "bytes": 62568,
+      "sha256": "5206c7ad55596b6dc8707356eaeab7142561efe7a49a469ebad9a7920cdcf278"
     },
     {
       "path": "relevance-evidence.json",
@@ -60,18 +60,18 @@
     },
     {
       "path": "Текст_защиты.docx",
-      "bytes": 40885,
-      "sha256": "7dd2a0df66f7dc98b9a89b4da87cf27b4c27c7cf91b047f3e176d9aa7c5fb279"
+      "bytes": 40985,
+      "sha256": "e7c8dbf29376e0d7cc279f71d29edfec55c461353ed519d257b123e941a07dd8"
     },
     {
       "path": "Текст_защиты.pdf",
-      "bytes": 63393,
-      "sha256": "840714348a1fb14df9f491a547e9ddbd475baf31d4ac30a3f7b091fc04764a10"
+      "bytes": 66668,
+      "sha256": "85008e4c7cbd3a465d17677c03ee7ca7a1a73b6609ea0fd252624aa8e871dbbe"
     },
     {
       "path": "figures/product-testing/browser-report.json",
-      "bytes": 3759,
-      "sha256": "f5d4c7930d769494c4454aa01512dd8873e5efcb676a86eb026553262842ed08"
+      "bytes": 4646,
+      "sha256": "e36cf5ef5121d15a5134d71a660a88a7ca9140b09857466c0bde0dc34c3a5643"
     },
     {
       "path": "figures/product-testing/category-protection.png",
@@ -85,8 +85,8 @@
     },
     {
       "path": "figures/product-testing/product-created.png",
-      "bytes": 68838,
-      "sha256": "dd15ca2465b640e432bfdc03a1769ec9aaec8a3bdabcdf60187d02fcc6142392"
+      "bytes": 69325,
+      "sha256": "97bcc2fb2293cd59cb1bb433f70ad3736913a57de060040bd48e64678793d87e"
     },
     {
       "path": "figures/product-testing/validation-message.png",
@@ -102,6 +102,26 @@
       "path": "figures/product-testing/combined-filters.png",
       "bytes": 66902,
       "sha256": "4c8c9a2c07dbf937f4cdf9196aa76f9864908939a9f48765f00928ab6d57f016"
+    },
+    {
+      "path": "figures/product-testing/automated-tests.xml",
+      "bytes": 18558,
+      "sha256": "99df821233e9235cb15906d0f1a028573052218c59f24c833ecc1eb26eb05cc1"
+    },
+    {
+      "path": "figures/product-testing/product-deleted.png",
+      "bytes": 1967,
+      "sha256": "cdc74f20b0ef8cf5bcedb218ca2a7fc3d01417a73d2d21b80a343ba6461b1a65"
+    },
+    {
+      "path": "figures/product-testing/product-updated.png",
+      "bytes": 69638,
+      "sha256": "9fdfde96dc092ecdebc7a3a845e97cbdf49f911444c6d29d7b09e4bf808eb519"
+    },
+    {
+      "path": "figures/product-testing/run-summary.json",
+      "bytes": 1134,
+      "sha256": "e5760865fa28817de7cbc15240ee7440d372ccd9579d0df1c898975438c4c330"
     }
   ],
   "theme": {
@@ -132,9 +152,8 @@
     "pdf": "Текст_защиты.pdf",
     "pdf_pages": 3,
     "words": 628,
-    "planned_seconds": 405,
+    "planned_seconds": 410,
     "duration_measured": false,
-    "all_eleven_notes_match_source": true,
     "goal_and_tasks_verbatim": true,
     "word_text_found_in_pdf": true,
     "all_pdf_pages_visually_reviewed": true,
@@ -143,56 +162,98 @@
     "visible_slide_content_unchanged": false,
     "presentation_pdf_unchanged": false,
     "notes_changed_on_slides": [
+      2,
+      3,
+      4,
+      5,
       6,
-      8
-    ]
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "all_slide_notes_match_source": true
   },
   "historical_large_catalog_report_date": "2026-10-21",
-  "browser_check_scope": "Повторены 14 основных браузерных сценариев. Шесть сценариев большого каталога не повторялись.",
+  "browser_check_scope": "Повторены 154 автоматических теста и 14 основных сценариев Chromium. Шесть подробных проверок входят в 14. Исторические шесть сценариев большого каталога не повторялись.",
   "changed_slide_numbers": [
+    1,
+    2,
+    3,
+    4,
+    5,
     6,
-    8
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
   ],
   "data_model_slide": {
-    "description_and_dates_separate": true,
+    "relation": "1:N",
+    "all_main_attributes_on_separate_rows": true,
     "fields": [
+      "Идентификатор",
+      "Артикул",
+      "Название",
+      "Идентификатор категории",
+      "Цена в копейках",
+      "Остаток",
       "Описание",
       "Дата создания",
       "Дата изменения"
-    ]
+    ],
+    "example_products_in_separate_rows": 3,
+    "example_category_identical": true
   },
   "product_testing": {
     "checked_on": "2026-11-09",
     "report": "docs/defense/figures/product-testing/browser-report.json",
+    "automated_report": "docs/defense/figures/product-testing/automated-tests.xml",
+    "automated_passed": 154,
+    "automated_tests_repeated": true,
     "browser": "Chromium",
     "browser_checks_passed": 14,
-    "detailed_cases": 3,
+    "detailed_cases": 6,
     "cases_part_of_browser_checks": true,
     "temporary_database": true,
-    "application_code_changed": false,
     "all_expected_and_actual_results_match": true,
-    "screenshots": "figures/product-testing/",
+    "application_code_changed": false,
+    "test_isolation_fixed": true,
     "large_catalog_scenarios_repeated": false,
-    "automated_tests_repeated": false
+    "screenshots": "figures/product-testing/"
   },
   "screenshots": {
-    "count": 5,
-    "added": 3,
+    "count": 9,
     "slides": {
       "6": 2,
       "7": 1,
       "8": 1,
-      "9": 1
+      "10": 2,
+      "11": 2,
+      "12": 1
     },
-    "added_views": [
-      "Карточка товара",
-      "Форма редактирования",
-      "Результат поиска с фильтрами"
-    ],
+    "catalog_capture_date": "2026-11-08",
+    "test_capture_date": "2026-11-09",
     "source": "docs/defense/figures/product-testing/browser-report.json",
-    "capture_date": "2026-11-09",
     "original_pngs_retained_in_pptx": true,
     "image_aspect_ratios_checked": true,
-    "new_browser_run_for_layout": false
-  }
+    "new_browser_run_for_layout": true
+  },
+  "testing_slides": [
+    9,
+    10,
+    11,
+    12,
+    13
+  ]
 }

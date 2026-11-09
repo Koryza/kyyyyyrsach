@@ -1,0 +1,30 @@
+{
+  "checked_on": "2026-11-09",
+  "application_code_changed": false,
+  "automated": {
+    "tests": 154,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "warnings": 1,
+    "report": "automated-tests.xml",
+    "test_source": "tests/test_database.py",
+    "test_source_sha256": "09899eb075a588d85e459f793169f61cd366dffd6268923065c339c2a29f43c5"
+  },
+  "browser": {
+    "scenarios": 14,
+    "detailed_cases": 6,
+    "detailed_cases_part_of_scenarios": true,
+    "report": "browser-report.json",
+    "temporary_database": true
+  },
+  "initial_automated_attempt": {
+    "passed": 153,
+    "failed": 1,
+    "failed_test": "test_app_initializes_database_and_preserves_it_on_restart",
+    "reason": "HTTP-запросы использовали обычный SessionLocal вместо временной базы.",
+    "fix": "Зависимость get_db заменена на временную сессию в этом тесте; добавлена проверка чтения товара через API после перезапуска."
+  },
+  "large_catalog_scenarios_repeated": false,
+  "load_test_performed": false
+}

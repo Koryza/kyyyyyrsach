@@ -1,8 +1,10 @@
 """Собрать слайды и текст защиты: python -m scripts.build_presentation."""
 
 from datetime import datetime, timezone
+from collections import Counter
 import json
 from pathlib import Path
+from xml.etree import ElementTree
 
 from PIL import Image
 from lxml import etree
@@ -37,15 +39,15 @@ def write_speech(content, student):
     normal.font.name = FONT
     normal.font.size = WordPt(12)
     normal.font.color.rgb = WordColor.from_string(INK)
-    normal.paragraph_format.line_spacing = 1.15
-    normal.paragraph_format.space_after = WordPt(7)
+    normal.paragraph_format.line_spacing = 1.1
+    normal.paragraph_format.space_after = WordPt(5)
     normal.paragraph_format.widow_control = True
     heading = document.styles["Heading 1"]
     heading.font.name = FONT
     heading.font.size = WordPt(14)
     heading.font.bold = True
     heading.font.color.rgb = WordColor.from_string(ROSE)
-    heading.paragraph_format.space_before = WordPt(13)
+    heading.paragraph_format.space_before = WordPt(10)
     heading.paragraph_format.space_after = WordPt(4)
     heading.paragraph_format.keep_with_next = True
 
@@ -103,8 +105,9 @@ def build():
     )
     if introduction != content["introduction_paragraph"]:
         raise ValueError("Введение изменилось: нужно согласовать цель, задачи и выводы слайдов")
-    if len(content["slides"]) != 11 or len(content["conclusions"]) != 7:
-        raise ValueError("Ожидаются 11 слайдов и выводы по семи задачам введения")
+    slide_count = len(content["slides"])
+    if slide_count != 15 or len(content["conclusions"]) != 7:
+        raise ValueError("Ожидаются 15 слайдов и выводы по семи задачам введения")
     goal, development = introduction.split(" Для этого необходимо ", 1)
     development, verification = development.split(" Проверка результата включает ", 1)
     development = "Для этого необходимо " + development
@@ -115,7 +118,7 @@ def build():
     properties = deck.core_properties
     properties.title = student["topic"]
     properties.author = student["student_name"]
-    properties.subject = "Защита курсовой работы. 11 слайдов, выступление на 5–7 минут"
+    properties.subject = f"Защита курсовой работы. {slide_count} слайдов, выступление на 5–7 минут"
     properties.last_modified_by = "Сборка презентации"
     properties.created = properties.modified = datetime.now(timezone.utc)
 
@@ -175,7 +178,7 @@ def build():
             text(item, content["slides"][index - 1]["title"], .75, .68, 11.7, .65, 31, PLUM, True)
             rect(item, .75, 1.48, 11.83, .018, BORDER)
             text(item, "МФЮА  /  Чемоданов Н. С.", .75, 7.10, 9.8, .22, 10, MUTED)
-            text(item, f"{index:02d} / 11", 11.65, 7.08, .93, .25, 11, MUTED, align=PP_ALIGN.RIGHT)
+            text(item, f"{index:02d} / {slide_count}", 11.65, 7.08, .93, .25, 11, MUTED, align=PP_ALIGN.RIGHT)
         return item
 
     def cover(index, closing=False):
@@ -193,7 +196,7 @@ def build():
         text(item, "Руководитель", 7.15, 5.12, 5.4, .3, 13, MUTED)
         text(item, student["supervisor"], 7.15, 5.51, 5.4, .9, 23, PLUM, True)
         text(item, f"{student['city']}, {student['year']}", .75, 7.04, 10, .3, 14, MUTED)
-        text(item, f"{index:02d} / 11", 11.5, 7.06, 1.08, .25, 11, MUTED, align=PP_ALIGN.RIGHT)
+        text(item, f"{index:02d} / {slide_count}", 11.5, 7.06, 1.08, .25, 11, MUTED, align=PP_ALIGN.RIGHT)
         return item
 
     cover(1)
@@ -237,23 +240,28 @@ def build():
         text(item, definition, 5.0, y + .27, 7.18, .9, 24, INK)
 
     item = slide(5, "ОСНОВНАЯ ЧАСТЬ")
-    for x, w, label, fields in [
-        (.75, 4.35, "КАТЕГОРИЯ", ["Идентификатор", "Название", "Описание"]),
-        (7.2, 5.38, "ТОВАР", ["Идентификатор", "Артикул и название", "Категория", "Цена и остаток", "Описание", "Дата создания", "Дата изменения"]),
+    for x, w, height, label, fields in [
+        (.75, 4.35, 2.28, "КАТЕГОРИЯ", ["Идентификатор", "Название", "Описание"]),
+        (7.2, 5.38, 4.93, "ТОВАР", ["Идентификатор", "Артикул", "Название", "Идентификатор категории", "Цена в копейках", "Остаток", "Описание", "Дата создания", "Дата изменения"]),
     ]:
-        rect(item, x, 1.98, w, 4.2, WHITE, BORDER, True)
-        rect(item, x, 1.98, w, .72, LILAC)
-        text(item, label, x + .28, 2.17, w - .56, .37, 21, PLUM, True)
+        rect(item, x, 1.9, w, height, WHITE, BORDER, True)
+        rect(item, x, 1.9, w, .55, LILAC)
+        text(item, label, x + .28, 2.02, w - .56, .4, 21, PLUM, True)
         for j, field in enumerate(fields):
-            text(item, field, x + .28, 2.92 + j * .455, w - .56, .45, 22, INK)
-    line = item.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, Inches(5.1), Inches(3.75), Inches(7.2), Inches(3.75))
+            text(item, field, x + .28, 2.68 + j * .44, w - .56, .43, 21, INK)
+    line = item.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, Inches(5.1), Inches(3.15), Inches(7.2), Inches(3.15))
     line.line.width = Pt(2)
     line.line.color.rgb = RGBColor.from_string(ROSE)
-    text(item, "1 : N", 5.43, 3.05, 1.45, .5, 27, ROSE, True, PP_ALIGN.CENTER)
-    for index, value in enumerate(["Артикул уникален", "Цена в копейках", "Остаток от нуля"]):
-        x = .75 + index * 4.04
-        rect(item, x, 6.32, 3.75, .6, PALE, rounded=True)
-        text(item, value, x + .15, 6.45, 3.45, .33, 18, ROSE, True, PP_ALIGN.CENTER)
+    text(item, "1 : N", 5.43, 2.58, 1.45, .5, 27, ROSE, True, PP_ALIGN.CENTER)
+    text(item, "Пример: три товара одной категории", .85, 4.48, 6.0, .4, 19, ROSE, True)
+    text(item, "Категория № 1 — письменные принадлежности", .85, 4.94, 6.0, .3, 14, MUTED)
+    text(item, "Товар", 1.0, 5.36, 4.6, .3, 16, MUTED, True)
+    text(item, "Категория", 5.48, 5.36, 1.2, .3, 15, MUTED, True)
+    for index, name in enumerate(["Ручка синяя", "Ручка красная", "Ручка гелевая"]):
+        y = 5.78 + index * .36
+        rect(item, .85, y, 5.98, .33, WHITE if index % 2 == 0 else PALE, rounded=True)
+        text(item, name, 1.0, y + .02, 4.35, .3, 16, INK)
+        text(item, "1", 5.48, y + .02, 1.2, .3, 16, PLUM, True)
 
     item = slide(6, "ОСНОВНАЯ ЧАСТЬ")
     product_images = content["product_screenshots"]
@@ -283,34 +291,91 @@ def build():
     rect(item, .85, 6.54, 11.63, .44, PALE, rounded=True)
     text(item, "«РУЧКА» · 50–80 руб. · в наличии · найдено 2 товара", 1.03, 6.6, 11.27, .34, 19, PLUM, True)
 
-    item = slide(9, "ОСНОВНАЯ ЧАСТЬ")
+    item = slide(9, "ТЕСТИРОВАНИЕ")
     evidence = json.loads((ROOT / content["product_testing"]["report"]).read_text())
-    cases = evidence["product_cases"]
-    if len(cases) != 3 or any(not case["passed"] or case["expected"] != case["actual"] for case in cases):
-        raise ValueError("Для слайда нужны три подтверждённые проверки продукта")
+    cases = {case["id"]: case for case in evidence["product_cases"]}
+    if len(cases) != 6 or any(not case["passed"] or case["expected"] != case["actual"] for case in cases.values()):
+        raise ValueError("Для слайдов нужны шесть подтверждённых проверок продукта")
     checked_date = datetime.fromisoformat(evidence["checked_at_utc"]).strftime("%d.%m.%Y")
-    text(item, f"Chromium · временная база · {checked_date}", .98, 1.72, 11.1, .33, 16, MUTED)
-    columns = [.98, 4.85, 8.74]
-    for x, label in zip(columns, ["Действие", "Ожидалось", "Получено"]):
-        text(item, label, x, 2.14, 3.5, .36, 17, MUTED, True)
-    price = cases[0]["actual"]["price"].replace(".", ",")
-    quantity = cases[0]["actual"]["quantity"]
-    saved_price = cases[1]["actual"]["saved_price"].replace(".", ",")
-    invalid_price = cases[1]["input"]["price"]
+    text(item, "Для каждого сценария: ожидалось и получено", .98, 1.98, 11.2, .6, 25, PLUM, True)
+    steps = [("Действие", "Форма в браузере"), ("Ответ", "Сообщение и HTTP-код"), ("Данные", "Проверка через API")]
+    for index, (name, label) in enumerate(steps):
+        x = .75 + index * 4.04
+        rect(item, x, 3.0, 3.75, 2.0, WHITE, BORDER, True)
+        text(item, name, x + .2, 3.35, 3.35, .6, 29, ROSE, True, PP_ALIGN.CENTER)
+        text(item, label, x + .2, 4.2, 3.35, .45, 19, INK, align=PP_ALIGN.CENTER)
+        if index < 2:
+            arrow = item.shapes.add_shape(MSO_SHAPE.RIGHT_ARROW, Inches(x + 3.81), Inches(3.85), Inches(.16), Inches(.2))
+            arrow.fill.solid()
+            arrow.fill.fore_color.rgb = RGBColor.from_string(ROSE)
+            arrow.line.fill.background()
+    text(item, "Отдельная временная SQLite-база", .98, 5.75, 11.2, .5, 24, PLUM, True)
+    text(item, f"Chromium · {checked_date}", .98, 6.45, 11.2, .35, 16, MUTED)
+
+    item = slide(10, "ТЕСТИРОВАНИЕ")
+    for x, label, width in [(.98, "Операция", 1.6), (2.72, "Ожидалось", 1.55), (4.46, "Получено", 1.55)]:
+        text(item, label, x, 2.0, width, .35, 15, MUTED, True)
+    created, updated = cases["create_product"]["actual"], cases["update_product"]["actual"]
     rows = [
-        (f"Создать товар:\n{price} руб., {quantity} шт.", "Сохранить цену\nи остаток", f"{price} руб., {quantity} шт.\nсохранены"),
-        (f"Указать цену {invalid_price}", "Отклонить,\nсохранить запись", f"Ошибка; {saved_price} руб.\nбез изменений"),
-        ("Удалить категорию\nс товарами", "Сохранить категорию\nи товары", "Удаление отклонено;\nзаписи сохранены"),
+        ("Добавить", f"{created['price'].replace('.', ',')} руб.\n{created['quantity']} шт.", f"{created['price'].replace('.', ',')} руб.\n{created['quantity']} шт."),
+        ("Изменить", f"{updated['price'].replace('.', ',')} руб.\n{updated['quantity']} шт.", f"{updated['price'].replace('.', ',')} руб.\n{updated['quantity']} шт."),
+        ("Удалить", "Запись\nнедоступна", f"{cases['delete_product']['actual']['http_status']}:\nне найден"),
     ]
     for index, values in enumerate(rows):
-        y = 2.62 + index * .97
-        rect(item, .75, y, 11.83, .90, WHITE if index % 2 == 0 else PALE, rounded=True)
-        for column, (x, value) in enumerate(zip(columns, values)):
-            text(item, value, x, y + .08, 3.5, .82, 20, ROSE if column == 0 else INK, column != 1)
-    item.shapes.add_picture(str(ROOT / content["product_testing"]["screenshot"]), Inches(.98), Inches(5.7), width=Inches(11.37))
-    text(item, f"154 автотеста: 29.10.2026; {evidence['checks_passed']} сценариев Chromium: {checked_date}", .98, 6.68, 11.1, .32, 13, MUTED)
+        y = 2.5 + index * 1.06
+        rect(item, .75, y, 5.42, .95, WHITE if index % 2 == 0 else PALE, rounded=True)
+        for column, (x, value) in enumerate(zip([.98, 2.72, 4.46], values)):
+            text(item, value, x, y + .14, 1.6, .75, 17, ROSE if column == 0 else INK, column != 1)
+    text(item, "Карточка после изменения", 6.55, 1.96, 6.0, .4, 20, ROSE, True)
+    screenshot(item, ROOT / product_images["updated"], 6.55, 2.5, 6.0, (260, 226, 1416, 805))
+    text(item, "Сообщение после удаления", 6.55, 5.65, 6.0, .3, 15, MUTED)
+    screenshot(item, ROOT / product_images["deleted"], 6.55, 6.02, 4.5)
+    text(item, "Отмена удаления:\nтовар сохранён (200).", .98, 6.13, 5.1, .68, 16, PLUM, True)
 
-    item = slide(10, "РЕЗУЛЬТАТЫ")
+    item = slide(11, "ТЕСТИРОВАНИЕ")
+    invalid_case = cases["invalid_price"]
+    text(item, "Ввод в поле «Цена»", .98, 1.93, 5.2, .4, 20, MUTED)
+    text(item, invalid_case["input"]["price"], .98, 2.5, 5.2, 1.35, 68, ROSE, True)
+    text(item, "Ожидалось", .98, 4.15, 5.1, .35, 16, MUTED, True)
+    text(item, "Отказ без изменения записи", .98, 4.6, 5.1, .9, 23, PLUM, True)
+    text(item, "Получено", .98, 5.65, 5.1, .35, 16, MUTED, True)
+    text(item, f"{invalid_case['actual']['http_status']}: прежние данные сохранены", .98, 6.1, 5.1, .7, 22, PLUM, True)
+    text(item, "Фрагменты формы после отказа", 6.5, 1.93, 6.0, .4, 19, ROSE, True)
+    screenshot(item, ROOT / content["product_testing"]["screenshot"], 6.5, 2.58, 6.1)
+    screenshot(item, ROOT / product_images["invalid"], 6.5, 3.4, 6.1, (276, 832, 1106, 1118))
+    saved_price = invalid_case["actual"]["saved_price"].replace(".", ",")
+    text(item, f"В базе: {saved_price} руб.; 24 шт.", 6.5, 5.95, 6.0, .55, 23, PLUM, True)
+
+    item = slide(12, "ТЕСТИРОВАНИЕ")
+    text(item, "Ожидалось", .98, 1.98, 4.2, .4, 17, MUTED, True)
+    text(item, "Отказ в удалении.\nСвязи сохранены.", .98, 2.54, 4.2, 1.2, 24, PLUM, True)
+    text(item, str(cases["delete_used_category"]["actual"]["http_status"]), .98, 3.94, 4.2, 1.3, 66, ROSE, True)
+    text(item, "Категория и товары\nсохранены", .98, 5.35, 4.2, .95, 22, PLUM, True)
+    text(item, "Сообщение приложения", 5.5, 1.98, 7.0, .4, 20, ROSE, True)
+    screenshot(item, ROOT / product_images["category"], 5.5, 2.62, 7.0, (276, 156, 966, 470))
+    text(item, "Проверено через API: состав товаров не изменился", .98, 6.55, 11.3, .4, 19, PLUM, True)
+
+    item = slide(13, "ТЕСТИРОВАНИЕ")
+    automatic = ElementTree.parse(ROOT / content["product_testing"]["automated_report"]).getroot()
+    tests = automatic.findall(".//testcase")
+    if not tests or automatic.findall(".//failure") or automatic.findall(".//error") or automatic.findall(".//skipped"):
+        raise ValueError("В протоколе автоматических тестов есть непройденные проверки")
+    counts = Counter(test.get("classname") for test in tests)
+    rect(item, .75, 1.88, 3.25, 4.85, COVER, rounded=True)
+    text(item, str(len(tests)), 1.03, 2.7, 2.69, 1.65, 82, PLUM, True, PP_ALIGN.CENTER)
+    text(item, "автоматических\nтеста пройдены", 1.03, 4.34, 2.69, 1.25, 23, PLUM, align=PP_ALIGN.CENTER)
+    text(item, checked_date, 1.03, 6.15, 2.69, .3, 14, MUTED, align=PP_ALIGN.CENTER)
+    groups = [("tests.test_database", "База данных"), ("tests.test_api", "JSON API"), ("tests.test_pages", "HTML"), ("tests.test_demo_data", "Загрузчик")]
+    for index, (key, label) in enumerate(groups):
+        y = 2.0 + index * .84
+        text(item, label, 4.48, y, 3.2, .4, 21, INK)
+        rect(item, 7.72, y + .08, 3.82, .24, BORDER, rounded=True)
+        rect(item, 7.72, y + .08, 3.82 * counts[key] / max(counts.values()), .24, ROSE, rounded=True)
+        text(item, str(counts[key]), 11.7, y - .02, .65, .43, 23, ROSE, True, PP_ALIGN.RIGHT)
+    text(item, f"{evidence['checks_passed']} сценариев Chromium пройдены", 4.48, 5.71, 7.8, .6, 24, PLUM, True)
+    text(item, "6 подробных проверок входят в число 14", 4.48, 6.43, 7.8, .32, 15, MUTED)
+
+    item = slide(14, "РЕЗУЛЬТАТЫ")
     text(item, "Задача", .98, 1.94, 3.6, .34, 17, MUTED, True)
     text(item, "Полученный результат", 4.8, 1.94, 7.5, .34, 17, MUTED, True)
     for i, (task, result) in enumerate(content["conclusions"]):
@@ -319,7 +384,7 @@ def build():
         text(item, task, .98, y + .09, 3.6, .4, 18, ROSE, True)
         text(item, result, 4.8, y + .09, 7.5, .4, 18, INK)
 
-    cover(11, closing=True)
+    cover(15, closing=True)
     for item in deck.slides:
         for shape in item.shapes:
             sp_pr = getattr(shape._element, "spPr", None)
