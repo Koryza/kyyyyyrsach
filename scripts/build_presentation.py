@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 import json
 from pathlib import Path
 
+from PIL import Image
 from lxml import etree
 from docx import Document
 from docx.oxml import OxmlElement
@@ -153,6 +154,17 @@ def build():
             p.space_after = Pt(7)
         return shape
 
+    def screenshot(slide, path, x, y, width, region=None):
+        # Кадрирование в PowerPoint сохраняет исходный снимок внутри файла.
+        with Image.open(path) as original:
+            image_width, image_height = original.size
+        left, top, right, bottom = region or (0, 0, image_width, image_height)
+        height = width * (bottom - top) / (right - left)
+        shape = slide.shapes.add_picture(str(path), Inches(x), Inches(y), width=Inches(width), height=Inches(height))
+        shape.crop_left, shape.crop_top = left / image_width, top / image_height
+        shape.crop_right, shape.crop_bottom = 1 - right / image_width, 1 - bottom / image_height
+        return shape
+
     def slide(index, section=None):
         item = deck.slides.add_slide(deck.slide_layouts[6])
         item.background.fill.solid()
@@ -244,19 +256,22 @@ def build():
         text(item, value, x + .15, 6.45, 3.45, .33, 18, ROSE, True, PP_ALIGN.CENTER)
 
     item = slide(6, "ОСНОВНАЯ ЧАСТЬ")
-    stages = [("Браузер", "Форма товара"), ("FastAPI", "Проверка ввода"), ("catalog.py", "Операции"), ("SQLite", "Запись данных")]
-    for i, (name, label) in enumerate(stages):
+    product_images = content["product_screenshots"]
+    text(item, "Карточка товара", .85, 1.73, 6.35, .4, 20, ROSE, True)
+    text(item, "Форма редактирования", 7.65, 1.73, 4.72, .4, 20, ROSE, True)
+    screenshot(item, ROOT / product_images["detail"], .85, 2.18, 6.35, (260, 226, 1416, 805))
+    screenshot(item, ROOT / product_images["form"], 7.65, 2.18, 4.72, (276, 276, 1106, 1016))
+    text(item, "Цена, остаток и даты", .98, 5.64, 6.25, .45, 23, PLUM, True)
+    text(item, "Из карточки открывается редактирование", .98, 6.12, 6.25, .35, 17, MUTED)
+    for i, name in enumerate(["Браузер", "FastAPI", "catalog.py", "SQLite"]):
         x = .75 + i * 3.04
-        rect(item, x, 2.65, 2.7, 2.05, PALE if i == 2 else WHITE, BORDER, True)
-        text(item, name, x + .18, 3.05, 2.34, .55, 26, PLUM, True, PP_ALIGN.CENTER)
-        text(item, label, x + .18, 3.91, 2.34, .55, 18, MUTED, align=PP_ALIGN.CENTER)
+        rect(item, x, 6.62, 2.7, .37, PALE, rounded=True)
+        text(item, name, x + .12, 6.66, 2.46, .29, 16, PLUM, True, PP_ALIGN.CENTER)
         if i < 3:
-            arrow = item.shapes.add_shape(MSO_SHAPE.RIGHT_ARROW, Inches(x + 2.75), Inches(3.48), Inches(.24), Inches(.28))
+            arrow = item.shapes.add_shape(MSO_SHAPE.RIGHT_ARROW, Inches(x + 2.75), Inches(6.72), Inches(.24), Inches(.16))
             arrow.fill.solid()
             arrow.fill.fore_color.rgb = RGBColor.from_string(ROSE)
             arrow.line.fill.background()
-    text(item, "Успех записи: commit", .97, 5.55, 5.5, .55, 24, ROSE, True)
-    text(item, "Конфликт записи: rollback", 6.75, 5.55, 5.6, .55, 24, MUTED, True)
 
     item = slide(7, "ОСНОВНАЯ ЧАСТЬ")
     image = DIRECTORY / "figures/catalog-2026-11-08.png"
@@ -264,26 +279,9 @@ def build():
     text(item, "Учебный каталог. Снимок текущего интерфейса от 08.11.2026", .85, 6.91, 10.6, .2, 10, MUTED)
 
     item = slide(8, "ОСНОВНАЯ ЧАСТЬ")
-    conditions = ["РУЧКА", "Категория: ручки", "49,90–100,00 руб.", "В наличии"]
-    for i, value in enumerate(conditions):
-        x = .75 + i * 3.04
-        rect(item, x, 1.88, 2.7, .75, PALE, rounded=True)
-        text(item, value, x + .12, 2.1, 2.46, .38, 19, ROSE, True, PP_ALIGN.CENTER)
-    columns = [.98, 6.2, 8.04, 9.8]
-    for x, label, w in zip(columns, ["Позиция", "Цена, руб.", "Остаток", "Результат"], [5, 1.7, 1.6, 2.5]):
-        text(item, label, x, 2.99, w, .38, 17, MUTED, True)
-    rows = [
-        ("Ручка синяя", "49,90", "20", "Входит", True),
-        ("Ручка гелевая", "100,00", "3", "Входит", True),
-        ("РУЧКА красная", "99,00", "0", "Нет остатка", False),
-        ("Тетрадь", "20,00", "4", "Исключена", False),
-    ]
-    for i, row in enumerate(rows):
-        y = 3.53 + i * .7
-        rect(item, .75, y, 11.83, .61, WHITE if row[4] else RED_PALE, rounded=True)
-        for x, value, w in zip(columns, row[:4], [5.0, 1.7, 1.6, 2.5]):
-            text(item, value, x, y + .12, w, .4, 21, INK if row[4] else RED, x == columns[-1])
-    text(item, "Результат: 2 позиции", .98, 6.51, 11.0, .43, 24, ROSE, True)
+    screenshot(item, ROOT / product_images["filters"], 1.51, 1.77, 10.3, (276, 232, 1402, 746))
+    rect(item, .85, 6.54, 11.63, .44, PALE, rounded=True)
+    text(item, "«РУЧКА» · 50–80 руб. · в наличии · найдено 2 товара", 1.03, 6.6, 11.27, .34, 19, PLUM, True)
 
     item = slide(9, "ОСНОВНАЯ ЧАСТЬ")
     evidence = json.loads((ROOT / content["product_testing"]["report"]).read_text())

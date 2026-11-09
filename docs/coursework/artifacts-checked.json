@@ -52,7 +52,7 @@
     "all_slide_text_present_in_pdf": true,
     "student_metadata_filled": true,
     "font_note": "Arial задан в PPTX; при облачном экспорте используется Liberation Sans.",
-    "layout_review": "Просмотрены все 11 слайдов PDF и три страницы речи. На слайде 5 описание и две даты стоят отдельными строками. На слайде 9 проверены таблица результатов и снимок сообщения об ошибке. Текст помещается в блоки.",
+    "layout_review": "Проверены 11 слайдов и три страницы речи. Добавлены карточка, форма и результат поиска; всего пять снимков. Исходные PNG сохранены в PPTX, пропорции проверены. Текст помещается в блоки; описание и даты на слайде 5 остаются отдельными строками.",
     "speaker_notes_updated_on": "2026-11-09",
     "rehearsal_notes_slides": [
       1,
@@ -67,7 +67,7 @@
       10,
       11
     ],
-    "speaker_notes_check": "Все заметки совпадают с presentation.json и текстом выступления; 637 слов. План с паузами — 6 минут 45 секунд; репетиция с замером не выполнялась.",
+    "speaker_notes_check": "Все заметки совпадают с presentation.json и текстом выступления; 628 слов. План с паузами — 6 минут 45 секунд; репетиция с замером не выполнялась.",
     "checked_on": "2026-11-09",
     "goal_and_tasks_verbatim": true,
     "introduction_source": "docs/coursework/edited/Курсовая_после_редактуры.docx",
@@ -95,7 +95,8 @@
       "screenshots": "figures/product-testing/",
       "large_catalog_scenarios_repeated": false,
       "automated_tests_repeated": false
-    }
+    },
+    "screenshot_count": 5
   },
   "assignment": {
     "pages_in_pdf": 1,
@@ -115,13 +116,13 @@
     },
     {
       "path": "docs/defense/catalog_defense.pptx",
-      "bytes": 138663,
-      "sha256": "4de07bb695e9392e80fcd249cf9d20d2b69b7760bb4ac1d5fdd7fb5ced2061bb"
+      "bytes": 323395,
+      "sha256": "0f005cc885719f044ed57bedb52fe9c2c6791f2bc25c3704dd5330bda57c8969"
     },
     {
       "path": "docs/defense/catalog_defense.pdf",
-      "bytes": 376451,
-      "sha256": "ef213f0cac928c717c403e7d9be517988d6e5c7a16376271839db4f5df9c725a"
+      "bytes": 588427,
+      "sha256": "d1b8809d26b8b140c1c8f78bb85a5e0852fb0aef37a40ae8482b1ba7f433dc28"
     },
     {
       "path": "docs/coursework/assignment.docx",
@@ -145,13 +146,13 @@
     },
     {
       "path": "docs/defense/Текст_защиты.docx",
-      "bytes": 40946,
-      "sha256": "0049735be7d896803e43697dcb14fb16cec6fbccd10c25c8ee30c29993e37f54"
+      "bytes": 40885,
+      "sha256": "7dd2a0df66f7dc98b9a89b4da87cf27b4c27c7cf91b047f3e176d9aa7c5fb279"
     },
     {
       "path": "docs/defense/Текст_защиты.pdf",
-      "bytes": 63540,
-      "sha256": "a0ede0e2dc6ce035507e1fd4e071c209b17e399234a752be29930f6b52d4b51e"
+      "bytes": 63393,
+      "sha256": "840714348a1fb14df9f491a547e9ddbd475baf31d4ac30a3f7b091fc04764a10"
     }
   ],
   "office_metadata": {

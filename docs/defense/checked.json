@@ -3,7 +3,7 @@
   "slides": 11,
   "pdf_pages": 11,
   "speaker_notes_slides": 11,
-  "speaker_notes_words": 637,
+  "speaker_notes_words": 628,
   "planned_seconds": 405,
   "speech_duration_measured": false,
   "introduction_source": "docs/coursework/edited/Курсовая_после_редактуры.docx",
@@ -25,18 +25,18 @@
   "files": [
     {
       "path": "catalog_defense.pptx",
-      "bytes": 138663,
-      "sha256": "4de07bb695e9392e80fcd249cf9d20d2b69b7760bb4ac1d5fdd7fb5ced2061bb"
+      "bytes": 323395,
+      "sha256": "0f005cc885719f044ed57bedb52fe9c2c6791f2bc25c3704dd5330bda57c8969"
     },
     {
       "path": "catalog_defense.pdf",
-      "bytes": 376451,
-      "sha256": "ef213f0cac928c717c403e7d9be517988d6e5c7a16376271839db4f5df9c725a"
+      "bytes": 588427,
+      "sha256": "d1b8809d26b8b140c1c8f78bb85a5e0852fb0aef37a40ae8482b1ba7f433dc28"
     },
     {
       "path": "SPEAKER_NOTES.md",
-      "bytes": 9820,
-      "sha256": "824271fe51b48a967dd94cf7a463d3134393278ee2cd8c913b9a5ad7cf67b610"
+      "bytes": 9671,
+      "sha256": "ebc5cdd87cad49da7c0b132ab72212df45b55e67681234e6fbb9d175551b8971"
     },
     {
       "path": "relevance_slide.pptx",
@@ -60,18 +60,18 @@
     },
     {
       "path": "Текст_защиты.docx",
-      "bytes": 40946,
-      "sha256": "0049735be7d896803e43697dcb14fb16cec6fbccd10c25c8ee30c29993e37f54"
+      "bytes": 40885,
+      "sha256": "7dd2a0df66f7dc98b9a89b4da87cf27b4c27c7cf91b047f3e176d9aa7c5fb279"
     },
     {
       "path": "Текст_защиты.pdf",
-      "bytes": 63540,
-      "sha256": "a0ede0e2dc6ce035507e1fd4e071c209b17e399234a752be29930f6b52d4b51e"
+      "bytes": 63393,
+      "sha256": "840714348a1fb14df9f491a547e9ddbd475baf31d4ac30a3f7b091fc04764a10"
     },
     {
       "path": "figures/product-testing/browser-report.json",
-      "bytes": 3332,
-      "sha256": "4082b55bca5a52db21e36593dc4aff32664b8d56c6484825fb855b3de68651fd"
+      "bytes": 3759,
+      "sha256": "f5d4c7930d769494c4454aa01512dd8873e5efcb676a86eb026553262842ed08"
     },
     {
       "path": "figures/product-testing/category-protection.png",
@@ -92,6 +92,16 @@
       "path": "figures/product-testing/validation-message.png",
       "bytes": 7635,
       "sha256": "331f7903b3e84af8978f026edb50d90ca226db84f889e9cad387b290dc201434"
+    },
+    {
+      "path": "figures/product-testing/product-form.png",
+      "bytes": 69856,
+      "sha256": "6682feb5cccd7ad4bed4f0c3b34f2540b9e4897ed0d9418d105631a7226b4e37"
+    },
+    {
+      "path": "figures/product-testing/combined-filters.png",
+      "bytes": 66902,
+      "sha256": "4c8c9a2c07dbf937f4cdf9196aa76f9864908939a9f48765f00928ab6d57f016"
     }
   ],
   "theme": {
@@ -121,7 +131,7 @@
     "word": "Текст_защиты.docx",
     "pdf": "Текст_защиты.pdf",
     "pdf_pages": 3,
-    "words": 637,
+    "words": 628,
     "planned_seconds": 405,
     "duration_measured": false,
     "all_eleven_notes_match_source": true,
@@ -133,16 +143,15 @@
     "visible_slide_content_unchanged": false,
     "presentation_pdf_unchanged": false,
     "notes_changed_on_slides": [
-      5,
-      8,
-      9
+      6,
+      8
     ]
   },
   "historical_large_catalog_report_date": "2026-10-21",
   "browser_check_scope": "Повторены 14 основных браузерных сценариев. Шесть сценариев большого каталога не повторялись.",
   "changed_slide_numbers": [
-    5,
-    9
+    6,
+    8
   ],
   "data_model_slide": {
     "description_and_dates_separate": true,
@@ -165,5 +174,25 @@
     "screenshots": "figures/product-testing/",
     "large_catalog_scenarios_repeated": false,
     "automated_tests_repeated": false
+  },
+  "screenshots": {
+    "count": 5,
+    "added": 3,
+    "slides": {
+      "6": 2,
+      "7": 1,
+      "8": 1,
+      "9": 1
+    },
+    "added_views": [
+      "Карточка товара",
+      "Форма редактирования",
+      "Результат поиска с фильтрами"
+    ],
+    "source": "docs/defense/figures/product-testing/browser-report.json",
+    "capture_date": "2026-11-09",
+    "original_pngs_retained_in_pptx": true,
+    "image_aspect_ratios_checked": true,
+    "new_browser_run_for_layout": false
   }
 }

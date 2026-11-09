@@ -86,6 +86,9 @@
     "product-created.png",
     "invalid-price.png",
     "category-protection.png",
-    "validation-message.png"
-  ]
+    "validation-message.png",
+    "product-form.png",
+    "combined-filters.png"
+  ],
+  "screenshot_note": "Карточка, форма и результат фильтрации сняты в одном прогоне 09.11.2026. Форма показывает состояние до ошибочного ввода цены; результат фильтрации — после изменения цены на 54,90 руб. и остатка на 18."
 }
