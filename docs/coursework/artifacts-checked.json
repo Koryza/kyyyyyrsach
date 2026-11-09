@@ -53,7 +53,7 @@
     "student_metadata_filled": true,
     "font_note": "Arial задан в PPTX; при облачном экспорте используется Liberation Sans.",
     "layout_review": "Просмотрены все 11 слайдов PDF; весь текст PPTX найден в соответствующих текстовых блоках PDF. Проверены переносы задач и выводов, схема, снимок и реквизиты.",
-    "speaker_notes_updated_on": "2026-11-08",
+    "speaker_notes_updated_on": "2026-11-09",
     "rehearsal_notes_slides": [
       1,
       2,
@@ -67,15 +67,15 @@
       10,
       11
     ],
-    "speaker_notes_check": "Все заметки совпадают с presentation.json и текстом выступления. План с паузами — 6 минут 25 секунд; репетиция с замером не выполнялась.",
-    "checked_on": "2026-11-08",
+    "speaker_notes_check": "Все заметки совпадают с presentation.json и текстом выступления. План с паузами — 6 минут 35 секунд; репетиция с замером не выполнялась.",
+    "checked_on": "2026-11-09",
     "goal_and_tasks_verbatim": true,
     "introduction_source": "docs/coursework/edited/Курсовая_после_редактуры.docx",
     "conclusions": 7,
     "last_slide_repeats_cover": true,
     "theme": "Нежно-розовая с сиреневыми акцентами",
-    "relevance_slide": "Риск расхождения каталога и наличия; 133 позиции с нулевым остатком в учебном наборе. Показатель не является числом ошибок реального магазина.",
-    "relevance_main_text_words": 24
+    "relevance_slide": "Рост интернет-торговли и потребность магазинов в управлении ассортиментом; проблема ручного ведения каталога при расширении ассортимента. Непроверенная статистика не используется.",
+    "relevance_main_text_words": 21
   },
   "assignment": {
     "pages_in_pdf": 1,
@@ -95,13 +95,13 @@
     },
     {
       "path": "docs/defense/catalog_defense.pptx",
-      "bytes": 130923,
-      "sha256": "0765343f859c3dc6ebec14c748ea86ed5a9eb4ccc02fccf996edac9d8b5dfed4"
+      "bytes": 131089,
+      "sha256": "8fcbf01fe7dc3bd5708435f8239be01e2dfbe5d5904fb61009825d8cf1f250fc"
     },
     {
       "path": "docs/defense/catalog_defense.pdf",
-      "bytes": 370198,
-      "sha256": "cbb23c29da8a5edfb61b140477da11fcfda92be6ecbb0747ccc72881174c6701"
+      "bytes": 363448,
+      "sha256": "8dcd0151cfc8428b7eea24b893390aa6c94cb1f0119c271676ad2b75d8a85490"
     },
     {
       "path": "docs/coursework/assignment.docx",

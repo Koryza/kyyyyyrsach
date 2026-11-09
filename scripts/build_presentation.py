@@ -118,14 +118,17 @@ def build():
 
     item = slide(2, "ПОСТАНОВКА ЗАДАЧИ")
     relevance = content["relevance"]
-    text(item, relevance["problem"], .85, 1.72, 11.5, .65, 24, PLUM, True)
-    text(item, relevance["number"], .85, 2.17, 4.9, 2.8, 144, ROSE, True)
-    text(item, relevance["meaning"], 6.05, 2.92, 6.25, 1.5, 28, INK)
+    text(item, relevance["headline"], .85, 2.03, 6.3, 1.85, 94, ROSE, True)
+    text(item, relevance["context"], .92, 3.92, 6.5, .72, 36, PLUM, True)
+    rect(item, 7.65, 2.13, 4.93, 2.63, WHITE, BORDER, rounded=True)
+    text(item, "ПРОБЛЕМА", 7.95, 2.43, 4.3, .28, 11, ROSE, True)
+    text(item, relevance["problem"], 7.95, 2.98, 4.28, 1.55, 23, INK)
     for i, value in enumerate(relevance["theses"]):
-        text(item, value, .95 + i * 4.04, 5.2, 3.75, .55, 21, MUTED)
-    rect(item, .75, 6.02, 11.83, .66, PALE, rounded=True)
-    text(item, relevance["conclusion"], .98, 6.16, 11.0, .48, 22, PLUM, True)
-    text(item, relevance["source"], .85, 6.83, 11.5, .25, 10.5, MUTED)
+        x = .95 + i * 4.04
+        rect(item, x, 5.2, .48, .035, ROSE)
+        text(item, value, x, 5.43, 3.75, .55, 21, MUTED)
+    rect(item, .75, 6.25, 11.83, .59, PALE, rounded=True)
+    text(item, relevance["conclusion"], .98, 6.37, 11.0, .48, 22, PLUM, True)
 
     item = slide(3, "ПОСТАНОВКА ЗАДАЧИ")
     rect(item, .75, 1.85, 11.83, 1.4, COVER, rounded=True)

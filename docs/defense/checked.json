@@ -1,9 +1,9 @@
 {
-  "checked_on": "2026-11-08",
+  "checked_on": "2026-11-09",
   "slides": 11,
   "pdf_pages": 11,
   "speaker_notes_slides": 11,
-  "speaker_notes_words": 654,
+  "speaker_notes_words": 657,
   "planned_seconds": 395,
   "speech_duration_measured": false,
   "introduction_source": "docs/coursework/edited/Курсовая_после_редактуры.docx",
@@ -25,38 +25,38 @@
   "files": [
     {
       "path": "catalog_defense.pptx",
-      "bytes": 130923,
-      "sha256": "0765343f859c3dc6ebec14c748ea86ed5a9eb4ccc02fccf996edac9d8b5dfed4"
+      "bytes": 131089,
+      "sha256": "8fcbf01fe7dc3bd5708435f8239be01e2dfbe5d5904fb61009825d8cf1f250fc"
     },
     {
       "path": "catalog_defense.pdf",
-      "bytes": 370198,
-      "sha256": "cbb23c29da8a5edfb61b140477da11fcfda92be6ecbb0747ccc72881174c6701"
+      "bytes": 363448,
+      "sha256": "8dcd0151cfc8428b7eea24b893390aa6c94cb1f0119c271676ad2b75d8a85490"
     },
     {
       "path": "SPEAKER_NOTES.md",
-      "bytes": 10071,
-      "sha256": "37820ce0829ce0a76deca6830a4c209fe855800409f87c444a90350eb732e1eb"
+      "bytes": 10215,
+      "sha256": "14181c20509543ca64241c5406fd782f66dc24156a42d1e0aa3b6689b3f94d8c"
     },
     {
       "path": "relevance_slide.pptx",
-      "bytes": 34809,
-      "sha256": "75cd8064ebac9f03f0edb6dd7e07a420c021de784cf29820780060a3542494c6"
+      "bytes": 34976,
+      "sha256": "476f8ad0734ff383c6c94be8c95a0970045eb3866c57a84398f224ae243cbb2c"
     },
     {
       "path": "relevance_slide.pdf",
-      "bytes": 72122,
-      "sha256": "e6a952b11ad758be554fefd282a2a97aba781b26581466723955ecb570c2c2e1"
+      "bytes": 66866,
+      "sha256": "74c13849cd7e84bc29b336aa92e15a89b709f358e14eb249893cfff2fc5f18d7"
     },
     {
       "path": "relevance_slide.png",
-      "bytes": 62294,
-      "sha256": "074832205bb81692bf5952549fd9c1ac470f155dbcde218e370409f94ab123b2"
+      "bytes": 62396,
+      "sha256": "0dea32de183b5ea0b4d70b069d8c0f6c45a2e16f077c22806b859278136cde06"
     },
     {
       "path": "relevance-evidence.json",
-      "bytes": 1154,
-      "sha256": "40f0a9588a6ffd6ca97f0af80659a373dfd8fa7cd60484a0a8204b060ab666c1"
+      "bytes": 1676,
+      "sha256": "54f78accd4645efa4992a884eb70b6a0ac424c5dda4736127a9d48e61ae352ef"
     }
   ],
   "theme": {
@@ -68,11 +68,12 @@
     "description": "Нежно-розовая палитра с сиреневыми акцентами и тёмным текстом."
   },
   "relevance_slide": {
-    "problem": "Риск расхождения каталога и наличия",
-    "number": 133,
-    "metric_type": "Показатель из учебного набора проекта; не отраслевая статистика ошибок.",
+    "topic": "Рост интернет-торговли",
+    "problem": "Ручное ведение каталога усложняется при расширении ассортимента",
+    "statistic": null,
+    "statistic_note": "Отраслевую цифру проверить не удалось: доступ к АКИТ и ТАСС закрыт сетевой политикой среды. Число из учебного набора не обосновывает рост рынка; слайд использует качественное объяснение актуальности.",
     "evidence": "relevance-evidence.json",
-    "main_text_words": 24,
+    "main_text_words": 21,
     "theses": 3,
     "other_slides_unchanged": true,
     "standalone_pptx_slides": 1,
