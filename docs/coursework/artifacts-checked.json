@@ -67,7 +67,7 @@
       10,
       11
     ],
-    "speaker_notes_check": "Все заметки совпадают с presentation.json и текстом выступления. План с паузами — 6 минут 35 секунд; репетиция с замером не выполнялась.",
+    "speaker_notes_check": "Все заметки совпадают с presentation.json и текстом выступления; 622 слова. План с паузами — 6 минут 35 секунд; репетиция с замером не выполнялась.",
     "checked_on": "2026-11-09",
     "goal_and_tasks_verbatim": true,
     "introduction_source": "docs/coursework/edited/Курсовая_после_редактуры.docx",
@@ -75,7 +75,13 @@
     "last_slide_repeats_cover": true,
     "theme": "Нежно-розовая с сиреневыми акцентами",
     "relevance_slide": "Рост интернет-торговли и потребность магазинов в управлении ассортиментом; проблема ручного ведения каталога при расширении ассортимента. Непроверенная статистика не используется.",
-    "relevance_main_text_words": 21
+    "relevance_main_text_words": 21,
+    "speech_files": [
+      "docs/defense/Текст_защиты.docx",
+      "docs/defense/Текст_защиты.pdf"
+    ],
+    "speech_pdf_pages": 3,
+    "speech_text_checked": true
   },
   "assignment": {
     "pages_in_pdf": 1,
@@ -95,8 +101,8 @@
     },
     {
       "path": "docs/defense/catalog_defense.pptx",
-      "bytes": 131089,
-      "sha256": "8fcbf01fe7dc3bd5708435f8239be01e2dfbe5d5904fb61009825d8cf1f250fc"
+      "bytes": 130966,
+      "sha256": "d7721af1b984e276b22abc1d8b9b2f3be4dba4bbdef7c87587616a1a762c3b68"
     },
     {
       "path": "docs/defense/catalog_defense.pdf",
@@ -122,6 +128,16 @@
       "path": "docs/requirements/technical_requirements.pdf",
       "bytes": 227008,
       "sha256": "5d96e7786e2cbcd399cf3741308959a6c09092b6c8e6f400cf30a485728c6bf2"
+    },
+    {
+      "path": "docs/defense/Текст_защиты.docx",
+      "bytes": 40925,
+      "sha256": "86d779e46402ada524b39039361c9108a72d364ab8eb9062368222aa6416bb6c"
+    },
+    {
+      "path": "docs/defense/Текст_защиты.pdf",
+      "bytes": 63191,
+      "sha256": "ae43fb4bf8ee876772681369631384eb07d6e24eccd1f00d2bc1dbbc56545c0f"
     }
   ],
   "office_metadata": {

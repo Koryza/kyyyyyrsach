@@ -1,4 +1,4 @@
-"""Собрать 11 слайдов и текст выступления: python -m scripts.build_presentation."""
+"""Собрать слайды и текст защиты: python -m scripts.build_presentation."""
 
 from datetime import datetime, timezone
 import json
@@ -6,6 +6,9 @@ from pathlib import Path
 
 from lxml import etree
 from docx import Document
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
+from docx.shared import Cm, Pt as WordPt, RGBColor as WordColor
 from pptx import Presentation
 from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_CONNECTOR, MSO_SHAPE
@@ -20,6 +23,73 @@ MUTED, BACK, WHITE, BORDER = "726078", "FFF8FC", "FFFFFF", "EADDE9"
 PALE, RED, RED_PALE = "F0E8F7", "A44F68", "FBE9F0"
 COVER, LILAC = "F8E3EE", "E9DFF2"
 FONT = "Arial"
+
+
+def write_speech(content, student):
+    """Сохранить текст выступления в Word для чтения и печати."""
+    document = Document()
+    section = document.sections[0]
+    section.page_width, section.page_height = Cm(21), Cm(29.7)
+    section.top_margin = section.bottom_margin = Cm(1.8)
+    section.left_margin = section.right_margin = Cm(2)
+    normal = document.styles["Normal"]
+    normal.font.name = FONT
+    normal.font.size = WordPt(12)
+    normal.font.color.rgb = WordColor.from_string(INK)
+    normal.paragraph_format.line_spacing = 1.15
+    normal.paragraph_format.space_after = WordPt(7)
+    normal.paragraph_format.widow_control = True
+    heading = document.styles["Heading 1"]
+    heading.font.name = FONT
+    heading.font.size = WordPt(14)
+    heading.font.bold = True
+    heading.font.color.rgb = WordColor.from_string(ROSE)
+    heading.paragraph_format.space_before = WordPt(13)
+    heading.paragraph_format.space_after = WordPt(4)
+    heading.paragraph_format.keep_with_next = True
+
+    title = document.add_paragraph()
+    title.paragraph_format.keep_with_next = True
+    run = title.add_run("Текст защиты курсового проекта")
+    run.bold, run.font.size = True, WordPt(18)
+    run.font.color.rgb = WordColor.from_string(PLUM)
+    document.add_paragraph(student["topic"])
+    document.add_paragraph(f"{student['student_name']}, группа {student['group_short']}")
+    total = sum(item["seconds"] for item in content["slides"])
+    document.add_paragraph(
+        f"План с паузами и переходами: {total // 60} мин {total % 60:02d} с. "
+        "Это ориентир для репетиции; фактическое время нужно проверить с таймером."
+    )
+
+    elapsed = 0
+    for index, item in enumerate(content["slides"], 1):
+        end = elapsed + item["seconds"]
+        document.add_heading(f"Слайд {index}. {item['title']}", level=1)
+        timing = document.add_paragraph(
+            f"План: {elapsed // 60}:{elapsed % 60:02d}–{end // 60}:{end % 60:02d}."
+        )
+        timing.paragraph_format.keep_with_next = True
+        timing.runs[0].font.size = WordPt(10)
+        timing.runs[0].font.color.rgb = WordColor.from_string(MUTED)
+        paragraphs = item["notes"].split("\n\n")
+        for offset, value in enumerate(paragraphs):
+            paragraph = document.add_paragraph(value)
+            paragraph.paragraph_format.keep_together = True
+            paragraph.paragraph_format.keep_with_next = offset < len(paragraphs) - 1
+        elapsed = end
+
+    footer = section.footer.paragraphs[0]
+    footer.paragraph_format.alignment = 2
+    run = footer.add_run()
+    run.font.name, run.font.size = FONT, WordPt(10)
+    page_number = OxmlElement("w:fldSimple")
+    page_number.set(qn("w:instr"), "PAGE")
+    run._r.addnext(page_number)
+    document.core_properties.title = "Текст защиты курсового проекта"
+    document.core_properties.author = student["student_name"]
+    document.core_properties.last_modified_by = "Сборка проекта"
+    document.core_properties.created = document.core_properties.modified = datetime.now(timezone.utc)
+    document.save(DIRECTORY / "Текст_защиты.docx")
 
 
 def build():
@@ -277,6 +347,7 @@ def build():
         ])
         elapsed = end
     (DIRECTORY / "SPEAKER_NOTES.md").write_text("\n".join(notes))
+    write_speech(content, student)
     return OUTPUT
 
 

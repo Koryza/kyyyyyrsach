@@ -3,7 +3,7 @@
   "slides": 11,
   "pdf_pages": 11,
   "speaker_notes_slides": 11,
-  "speaker_notes_words": 657,
+  "speaker_notes_words": 622,
   "planned_seconds": 395,
   "speech_duration_measured": false,
   "introduction_source": "docs/coursework/edited/Курсовая_после_редактуры.docx",
@@ -25,8 +25,8 @@
   "files": [
     {
       "path": "catalog_defense.pptx",
-      "bytes": 131089,
-      "sha256": "8fcbf01fe7dc3bd5708435f8239be01e2dfbe5d5904fb61009825d8cf1f250fc"
+      "bytes": 130966,
+      "sha256": "d7721af1b984e276b22abc1d8b9b2f3be4dba4bbdef7c87587616a1a762c3b68"
     },
     {
       "path": "catalog_defense.pdf",
@@ -35,13 +35,13 @@
     },
     {
       "path": "SPEAKER_NOTES.md",
-      "bytes": 10215,
-      "sha256": "14181c20509543ca64241c5406fd782f66dc24156a42d1e0aa3b6689b3f94d8c"
+      "bytes": 9622,
+      "sha256": "3ecca93913eae75ae6c22e212c2e6ae0692680cb0210d71d0816b5de8e4a0eab"
     },
     {
       "path": "relevance_slide.pptx",
-      "bytes": 34976,
-      "sha256": "476f8ad0734ff383c6c94be8c95a0970045eb3866c57a84398f224ae243cbb2c"
+      "bytes": 34933,
+      "sha256": "ad65d6d4d42ba083db26c1ce529be47e813bf599b9344a792f3ab9e146f5063a"
     },
     {
       "path": "relevance_slide.pdf",
@@ -57,6 +57,16 @@
       "path": "relevance-evidence.json",
       "bytes": 1676,
       "sha256": "54f78accd4645efa4992a884eb70b6a0ac424c5dda4736127a9d48e61ae352ef"
+    },
+    {
+      "path": "Текст_защиты.docx",
+      "bytes": 40925,
+      "sha256": "86d779e46402ada524b39039361c9108a72d364ab8eb9062368222aa6416bb6c"
+    },
+    {
+      "path": "Текст_защиты.pdf",
+      "bytes": 63191,
+      "sha256": "ae43fb4bf8ee876772681369631384eb07d6e24eccd1f00d2bc1dbbc56545c0f"
     }
   ],
   "theme": {
@@ -79,5 +89,24 @@
     "standalone_pptx_slides": 1,
     "standalone_pdf_pages": 1,
     "standalone_matches_full_slide": true
+  },
+  "speech": {
+    "checked_on": "2026-11-09",
+    "source": "presentation.json",
+    "markdown": "SPEAKER_NOTES.md",
+    "word": "Текст_защиты.docx",
+    "pdf": "Текст_защиты.pdf",
+    "pdf_pages": 3,
+    "words": 622,
+    "planned_seconds": 395,
+    "duration_measured": false,
+    "all_eleven_notes_match_source": true,
+    "goal_and_tasks_verbatim": true,
+    "word_text_found_in_pdf": true,
+    "all_pdf_pages_visually_reviewed": true,
+    "page_numbers_correct": true,
+    "text_outside_page": 0,
+    "visible_slide_content_unchanged": true,
+    "presentation_pdf_unchanged": true
   }
 }
