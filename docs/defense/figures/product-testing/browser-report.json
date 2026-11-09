@@ -1,0 +1,91 @@
+{
+  "checked_at_utc": "2026-11-09T14:15:37.224419+00:00",
+  "browser": "Chromium",
+  "browser_version": "154.0.8037.57",
+  "viewports": [
+    "1440 × 1000",
+    "390 × 844"
+  ],
+  "data": "Учебный каталог на временной базе",
+  "checks_passed": 14,
+  "checks": [
+    "Переход с главной страницы и пустой каталог",
+    "Создание категории через форму",
+    "Создание товара, цена с запятой, карточка и локальное время",
+    "Серверная валидация цены с сохранением введённых полей",
+    "Изменение цены и остатка видно через API",
+    "Пагинация 10 + 3 товара и переход назад",
+    "Совместный поиск, категория, границы цены, наличие и сортировка",
+    "Пустой результат поиска",
+    "Интерфейс блокирует удаление категории с товарами",
+    "Мобильные список и форма: 390 px, без горизонтального скролла страницы",
+    "Отмена удаления сохраняет товар",
+    "Подтверждённое удаление через браузер",
+    "Нет ошибок JavaScript в проверенных сценариях",
+    "Создание через HTML-форму без JavaScript"
+  ],
+  "temporary_database": true,
+  "product_cases": [
+    {
+      "name": "Создание товара",
+      "input": {
+        "price": "49,90",
+        "quantity": 24
+      },
+      "expected": {
+        "price": "49.90",
+        "quantity": 24
+      },
+      "actual": {
+        "price": "49.90",
+        "quantity": 24
+      },
+      "passed": true
+    },
+    {
+      "name": "Цена с тремя знаками после точки",
+      "input": {
+        "price": "1.234"
+      },
+      "expected": {
+        "http_status": 422,
+        "saved_price": "49.90",
+        "record_unchanged": true
+      },
+      "actual": {
+        "http_status": 422,
+        "saved_price": "49.90",
+        "record_unchanged": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Удаление категории с товарами",
+      "input": {
+        "category": "Письменные принадлежности"
+      },
+      "expected": {
+        "http_status": 409,
+        "category_retained": true,
+        "product_retained": true
+      },
+      "actual": {
+        "http_status": 409,
+        "category_retained": true,
+        "product_retained": true
+      },
+      "passed": true
+    }
+  ],
+  "script": "scripts/browser_check.py",
+  "script_sha256": "d64874b888fb5e4e70d86eaf6991485587886a29e519fcf402f5140ec440fd69",
+  "application_revision": "c70fdcf0fb7d183365460d6d1e5994f39e7e829f",
+  "product_cases_scope": "Три подробно описанных проверки входят в 14 сценариев; отдельно к их числу не прибавляются.",
+  "large_catalog_scenarios_repeated": false,
+  "screenshots": [
+    "product-created.png",
+    "invalid-price.png",
+    "category-protection.png",
+    "validation-message.png"
+  ]
+}

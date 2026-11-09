@@ -227,21 +227,21 @@ def build():
     item = slide(5, "ОСНОВНАЯ ЧАСТЬ")
     for x, w, label, fields in [
         (.75, 4.35, "КАТЕГОРИЯ", ["Идентификатор", "Название", "Описание"]),
-        (7.2, 5.38, "ТОВАР", ["Идентификатор", "Артикул и название", "Категория", "Цена и остаток", "Описание и даты"]),
+        (7.2, 5.38, "ТОВАР", ["Идентификатор", "Артикул и название", "Категория", "Цена и остаток", "Описание", "Дата создания", "Дата изменения"]),
     ]:
-        rect(item, x, 1.98, w, 3.8, WHITE, BORDER, True)
+        rect(item, x, 1.98, w, 4.2, WHITE, BORDER, True)
         rect(item, x, 1.98, w, .72, LILAC)
         text(item, label, x + .28, 2.17, w - .56, .37, 21, PLUM, True)
         for j, field in enumerate(fields):
-            text(item, field, x + .28, 3.05 + j * .55, w - .56, .43, 23, INK)
+            text(item, field, x + .28, 2.92 + j * .455, w - .56, .45, 22, INK)
     line = item.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, Inches(5.1), Inches(3.75), Inches(7.2), Inches(3.75))
     line.line.width = Pt(2)
     line.line.color.rgb = RGBColor.from_string(ROSE)
     text(item, "1 : N", 5.43, 3.05, 1.45, .5, 27, ROSE, True, PP_ALIGN.CENTER)
     for index, value in enumerate(["Артикул уникален", "Цена в копейках", "Остаток от нуля"]):
         x = .75 + index * 4.04
-        rect(item, x, 6.13, 3.75, .6, PALE, rounded=True)
-        text(item, value, x + .15, 6.26, 3.45, .33, 18, ROSE, True, PP_ALIGN.CENTER)
+        rect(item, x, 6.32, 3.75, .6, PALE, rounded=True)
+        text(item, value, x + .15, 6.45, 3.45, .33, 18, ROSE, True, PP_ALIGN.CENTER)
 
     item = slide(6, "ОСНОВНАЯ ЧАСТЬ")
     stages = [("Браузер", "Форма товара"), ("FastAPI", "Проверка ввода"), ("catalog.py", "Операции"), ("SQLite", "Запись данных")]
@@ -286,18 +286,31 @@ def build():
     text(item, "Результат: 2 позиции", .98, 6.51, 11.0, .43, 24, ROSE, True)
 
     item = slide(9, "ОСНОВНАЯ ЧАСТЬ")
-    rect(item, .75, 1.88, 3.25, 4.83, COVER, rounded=True)
-    text(item, "154", 1.03, 2.65, 2.69, 1.65, 82, PLUM, True, PP_ALIGN.CENTER)
-    text(item, "автоматических\nтеста пройдены", 1.03, 4.3, 2.69, 1.25, 23, PLUM, align=PP_ALIGN.CENTER)
-    text(item, "Протокол: 29.10.2026", 1.03, 6.11, 2.69, .3, 13, MUTED, align=PP_ALIGN.CENTER)
-    for i, (value, label) in enumerate([(35, "База данных"), (81, "JSON API"), (31, "HTML"), (7, "Загрузчик")]):
-        y = 2.0 + i * .84
-        text(item, label, 4.48, y, 3.2, .4, 21, INK)
-        rect(item, 7.72, y + .08, 3.82, .24, BORDER, rounded=True)
-        rect(item, 7.72, y + .08, 3.82 * value / 81, .24, ROSE, rounded=True)
-        text(item, str(value), 11.7, y - .02, .65, .43, 23, ROSE, True, PP_ALIGN.RIGHT)
-    text(item, "Chromium: 14 + 6 сценариев", 4.48, 5.73, 7.8, .52, 25, PLUM, True)
-    text(item, "Отчёты: 21.10.2026", 4.48, 6.38, 7.8, .33, 14, MUTED)
+    evidence = json.loads((ROOT / content["product_testing"]["report"]).read_text())
+    cases = evidence["product_cases"]
+    if len(cases) != 3 or any(not case["passed"] or case["expected"] != case["actual"] for case in cases):
+        raise ValueError("Для слайда нужны три подтверждённые проверки продукта")
+    checked_date = datetime.fromisoformat(evidence["checked_at_utc"]).strftime("%d.%m.%Y")
+    text(item, f"Chromium · временная база · {checked_date}", .98, 1.72, 11.1, .33, 16, MUTED)
+    columns = [.98, 4.85, 8.74]
+    for x, label in zip(columns, ["Действие", "Ожидалось", "Получено"]):
+        text(item, label, x, 2.14, 3.5, .36, 17, MUTED, True)
+    price = cases[0]["actual"]["price"].replace(".", ",")
+    quantity = cases[0]["actual"]["quantity"]
+    saved_price = cases[1]["actual"]["saved_price"].replace(".", ",")
+    invalid_price = cases[1]["input"]["price"]
+    rows = [
+        (f"Создать товар:\n{price} руб., {quantity} шт.", "Сохранить цену\nи остаток", f"{price} руб., {quantity} шт.\nсохранены"),
+        (f"Указать цену {invalid_price}", "Отклонить,\nсохранить запись", f"Ошибка; {saved_price} руб.\nбез изменений"),
+        ("Удалить категорию\nс товарами", "Сохранить категорию\nи товары", "Удаление отклонено;\nзаписи сохранены"),
+    ]
+    for index, values in enumerate(rows):
+        y = 2.62 + index * .97
+        rect(item, .75, y, 11.83, .90, WHITE if index % 2 == 0 else PALE, rounded=True)
+        for column, (x, value) in enumerate(zip(columns, values)):
+            text(item, value, x, y + .08, 3.5, .82, 20, ROSE if column == 0 else INK, column != 1)
+    item.shapes.add_picture(str(ROOT / content["product_testing"]["screenshot"]), Inches(.98), Inches(5.7), width=Inches(11.37))
+    text(item, f"154 автотеста: 29.10.2026; {evidence['checks_passed']} сценариев Chromium: {checked_date}", .98, 6.68, 11.1, .32, 13, MUTED)
 
     item = slide(10, "РЕЗУЛЬТАТЫ")
     text(item, "Задача", .98, 1.94, 3.6, .34, 17, MUTED, True)

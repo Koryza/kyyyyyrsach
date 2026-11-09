@@ -52,7 +52,7 @@
     "all_slide_text_present_in_pdf": true,
     "student_metadata_filled": true,
     "font_note": "Arial задан в PPTX; при облачном экспорте используется Liberation Sans.",
-    "layout_review": "Просмотрены все 11 слайдов PDF; весь текст PPTX найден в соответствующих текстовых блоках PDF. Проверены переносы задач и выводов, схема, снимок и реквизиты.",
+    "layout_review": "Просмотрены все 11 слайдов PDF и три страницы речи. На слайде 5 описание и две даты стоят отдельными строками. На слайде 9 проверены таблица результатов и снимок сообщения об ошибке. Текст помещается в блоки.",
     "speaker_notes_updated_on": "2026-11-09",
     "rehearsal_notes_slides": [
       1,
@@ -67,7 +67,7 @@
       10,
       11
     ],
-    "speaker_notes_check": "Все заметки совпадают с presentation.json и текстом выступления; 622 слова. План с паузами — 6 минут 35 секунд; репетиция с замером не выполнялась.",
+    "speaker_notes_check": "Все заметки совпадают с presentation.json и текстом выступления; 637 слов. План с паузами — 6 минут 45 секунд; репетиция с замером не выполнялась.",
     "checked_on": "2026-11-09",
     "goal_and_tasks_verbatim": true,
     "introduction_source": "docs/coursework/edited/Курсовая_после_редактуры.docx",
@@ -81,7 +81,21 @@
       "docs/defense/Текст_защиты.pdf"
     ],
     "speech_pdf_pages": 3,
-    "speech_text_checked": true
+    "speech_text_checked": true,
+    "product_testing": {
+      "checked_on": "2026-11-09",
+      "report": "docs/defense/figures/product-testing/browser-report.json",
+      "browser": "Chromium",
+      "browser_checks_passed": 14,
+      "detailed_cases": 3,
+      "cases_part_of_browser_checks": true,
+      "temporary_database": true,
+      "application_code_changed": false,
+      "all_expected_and_actual_results_match": true,
+      "screenshots": "figures/product-testing/",
+      "large_catalog_scenarios_repeated": false,
+      "automated_tests_repeated": false
+    }
   },
   "assignment": {
     "pages_in_pdf": 1,
@@ -101,13 +115,13 @@
     },
     {
       "path": "docs/defense/catalog_defense.pptx",
-      "bytes": 130966,
-      "sha256": "d7721af1b984e276b22abc1d8b9b2f3be4dba4bbdef7c87587616a1a762c3b68"
+      "bytes": 138663,
+      "sha256": "4de07bb695e9392e80fcd249cf9d20d2b69b7760bb4ac1d5fdd7fb5ced2061bb"
     },
     {
       "path": "docs/defense/catalog_defense.pdf",
-      "bytes": 363448,
-      "sha256": "8dcd0151cfc8428b7eea24b893390aa6c94cb1f0119c271676ad2b75d8a85490"
+      "bytes": 376451,
+      "sha256": "ef213f0cac928c717c403e7d9be517988d6e5c7a16376271839db4f5df9c725a"
     },
     {
       "path": "docs/coursework/assignment.docx",
@@ -131,13 +145,13 @@
     },
     {
       "path": "docs/defense/Текст_защиты.docx",
-      "bytes": 40925,
-      "sha256": "86d779e46402ada524b39039361c9108a72d364ab8eb9062368222aa6416bb6c"
+      "bytes": 40946,
+      "sha256": "0049735be7d896803e43697dcb14fb16cec6fbccd10c25c8ee30c29993e37f54"
     },
     {
       "path": "docs/defense/Текст_защиты.pdf",
-      "bytes": 63191,
-      "sha256": "ae43fb4bf8ee876772681369631384eb07d6e24eccd1f00d2bc1dbbc56545c0f"
+      "bytes": 63540,
+      "sha256": "a0ede0e2dc6ce035507e1fd4e071c209b17e399234a752be29930f6b52d4b51e"
     }
   ],
   "office_metadata": {

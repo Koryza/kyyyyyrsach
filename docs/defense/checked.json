@@ -3,8 +3,8 @@
   "slides": 11,
   "pdf_pages": 11,
   "speaker_notes_slides": 11,
-  "speaker_notes_words": 622,
-  "planned_seconds": 395,
+  "speaker_notes_words": 637,
+  "planned_seconds": 405,
   "speech_duration_measured": false,
   "introduction_source": "docs/coursework/edited/Курсовая_после_редактуры.docx",
   "introduction_paragraph_sha256": "ce88ac834d2d76d3ba7d7bca76af09ee457083223b207fc0face74beb0209d61",
@@ -18,25 +18,25 @@
   "screenshot_conditions": "figures/capture.json",
   "automated_test_evidence": "docs/coursework/edited/тесты.xml",
   "automated_test_date": "2026-10-29",
-  "browser_report_date": "2026-10-21",
+  "browser_report_date": "2026-11-09",
   "full_browser_tests_repeated": false,
   "coursework_documents_unchanged": true,
   "pdf_font": "Liberation Sans; Arial задан в PPTX.",
   "files": [
     {
       "path": "catalog_defense.pptx",
-      "bytes": 130966,
-      "sha256": "d7721af1b984e276b22abc1d8b9b2f3be4dba4bbdef7c87587616a1a762c3b68"
+      "bytes": 138663,
+      "sha256": "4de07bb695e9392e80fcd249cf9d20d2b69b7760bb4ac1d5fdd7fb5ced2061bb"
     },
     {
       "path": "catalog_defense.pdf",
-      "bytes": 363448,
-      "sha256": "8dcd0151cfc8428b7eea24b893390aa6c94cb1f0119c271676ad2b75d8a85490"
+      "bytes": 376451,
+      "sha256": "ef213f0cac928c717c403e7d9be517988d6e5c7a16376271839db4f5df9c725a"
     },
     {
       "path": "SPEAKER_NOTES.md",
-      "bytes": 9622,
-      "sha256": "3ecca93913eae75ae6c22e212c2e6ae0692680cb0210d71d0816b5de8e4a0eab"
+      "bytes": 9820,
+      "sha256": "824271fe51b48a967dd94cf7a463d3134393278ee2cd8c913b9a5ad7cf67b610"
     },
     {
       "path": "relevance_slide.pptx",
@@ -60,13 +60,38 @@
     },
     {
       "path": "Текст_защиты.docx",
-      "bytes": 40925,
-      "sha256": "86d779e46402ada524b39039361c9108a72d364ab8eb9062368222aa6416bb6c"
+      "bytes": 40946,
+      "sha256": "0049735be7d896803e43697dcb14fb16cec6fbccd10c25c8ee30c29993e37f54"
     },
     {
       "path": "Текст_защиты.pdf",
-      "bytes": 63191,
-      "sha256": "ae43fb4bf8ee876772681369631384eb07d6e24eccd1f00d2bc1dbbc56545c0f"
+      "bytes": 63540,
+      "sha256": "a0ede0e2dc6ce035507e1fd4e071c209b17e399234a752be29930f6b52d4b51e"
+    },
+    {
+      "path": "figures/product-testing/browser-report.json",
+      "bytes": 3332,
+      "sha256": "4082b55bca5a52db21e36593dc4aff32664b8d56c6484825fb855b3de68651fd"
+    },
+    {
+      "path": "figures/product-testing/category-protection.png",
+      "bytes": 45782,
+      "sha256": "abeacff5981ba3073c8526a2043841d56c201b53edc186f651b762e75ed26402"
+    },
+    {
+      "path": "figures/product-testing/invalid-price.png",
+      "bytes": 77758,
+      "sha256": "d8054316d4065afedc8b99b800613254e6eadf749224ecb3e85c7c1b56822e8b"
+    },
+    {
+      "path": "figures/product-testing/product-created.png",
+      "bytes": 68838,
+      "sha256": "dd15ca2465b640e432bfdc03a1769ec9aaec8a3bdabcdf60187d02fcc6142392"
+    },
+    {
+      "path": "figures/product-testing/validation-message.png",
+      "bytes": 7635,
+      "sha256": "331f7903b3e84af8978f026edb50d90ca226db84f889e9cad387b290dc201434"
     }
   ],
   "theme": {
@@ -85,7 +110,6 @@
     "evidence": "relevance-evidence.json",
     "main_text_words": 21,
     "theses": 3,
-    "other_slides_unchanged": true,
     "standalone_pptx_slides": 1,
     "standalone_pdf_pages": 1,
     "standalone_matches_full_slide": true
@@ -97,8 +121,8 @@
     "word": "Текст_защиты.docx",
     "pdf": "Текст_защиты.pdf",
     "pdf_pages": 3,
-    "words": 622,
-    "planned_seconds": 395,
+    "words": 637,
+    "planned_seconds": 405,
     "duration_measured": false,
     "all_eleven_notes_match_source": true,
     "goal_and_tasks_verbatim": true,
@@ -106,7 +130,40 @@
     "all_pdf_pages_visually_reviewed": true,
     "page_numbers_correct": true,
     "text_outside_page": 0,
-    "visible_slide_content_unchanged": true,
-    "presentation_pdf_unchanged": true
+    "visible_slide_content_unchanged": false,
+    "presentation_pdf_unchanged": false,
+    "notes_changed_on_slides": [
+      5,
+      8,
+      9
+    ]
+  },
+  "historical_large_catalog_report_date": "2026-10-21",
+  "browser_check_scope": "Повторены 14 основных браузерных сценариев. Шесть сценариев большого каталога не повторялись.",
+  "changed_slide_numbers": [
+    5,
+    9
+  ],
+  "data_model_slide": {
+    "description_and_dates_separate": true,
+    "fields": [
+      "Описание",
+      "Дата создания",
+      "Дата изменения"
+    ]
+  },
+  "product_testing": {
+    "checked_on": "2026-11-09",
+    "report": "docs/defense/figures/product-testing/browser-report.json",
+    "browser": "Chromium",
+    "browser_checks_passed": 14,
+    "detailed_cases": 3,
+    "cases_part_of_browser_checks": true,
+    "temporary_database": true,
+    "application_code_changed": false,
+    "all_expected_and_actual_results_match": true,
+    "screenshots": "figures/product-testing/",
+    "large_catalog_scenarios_repeated": false,
+    "automated_tests_repeated": false
   }
 }

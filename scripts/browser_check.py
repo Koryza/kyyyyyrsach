@@ -18,6 +18,7 @@ args = parser.parse_args()
 args.output.mkdir(parents=True, exist_ok=True)
 base = "http://127.0.0.1:8001"
 checks = []
+product_cases = []
 
 
 def passed(name):
@@ -59,16 +60,37 @@ with sync_playwright() as pw:
     expect(page.get_by_role("status")).to_have_text("Товар добавлен")
     product_path = page.url.removeprefix(base).split("?")[0]
     expect(page.get_by_text("49,90 ₽", exact=False).first).to_be_visible()
+    original = context.request.get(base + "/api" + product_path).json()
+    created = {"price": original["price"], "quantity": original["quantity"]}
+    assert created == {"price": "49.90", "quantity": 24}
+    product_cases.append({
+        "name": "Создание товара",
+        "input": {"price": "49,90", "quantity": 24},
+        "expected": {"price": "49.90", "quantity": 24},
+        "actual": created,
+        "passed": True,
+    })
     page.screenshot(path=str(args.output / "02-product-detail.png"), full_page=True)
     passed("Создание товара, цена с запятой, карточка и локальное время")
     page.get_by_role("link", name="Редактировать", exact=True).click()
     page.screenshot(path=str(args.output / "03-product-form.png"), full_page=True)
     page.get_by_label("Цена, ₽ *", exact=True).fill("1.234")
-    page.get_by_role("button", name="Сохранить изменения").click()
+    with page.expect_response(lambda response: response.url == base + product_path + "/edit" and response.request.method == "POST") as invalid:
+        page.get_by_role("button", name="Сохранить изменения").click()
     expect(page.get_by_role("alert")).to_contain_text("Проверьте введённые данные")
     expect(page.get_by_label("Цена, ₽ *", exact=True)).to_have_value("1.234")
     expect(page.get_by_label("Название *", exact=True)).to_have_value("Ручка шариковая синяя")
+    unchanged = context.request.get(base + "/api" + product_path).json()
+    assert invalid.value.status == 422 and unchanged == original
+    product_cases.append({
+        "name": "Цена с тремя знаками после точки",
+        "input": {"price": "1.234"},
+        "expected": {"http_status": 422, "saved_price": "49.90", "record_unchanged": True},
+        "actual": {"http_status": invalid.value.status, "saved_price": unchanged["price"], "record_unchanged": unchanged == original},
+        "passed": True,
+    })
     page.screenshot(path=str(args.output / "04-validation.png"), full_page=True)
+    page.get_by_role("alert").screenshot(path=str(args.output / "10-validation-message.png"))
     passed("Серверная валидация цены с сохранением введённых полей")
     page.get_by_label("Цена, ₽ *", exact=True).fill("54,90")
     page.get_by_label("Остаток, шт. *", exact=True).fill("18")
@@ -122,6 +144,22 @@ with sync_playwright() as pw:
     row.get_by_role("link", name="Удалить категорию Письменные принадлежности").click()
     expect(page.get_by_role("heading", name="Категория используется")).to_be_visible()
     expect(page.get_by_role("button", name="Удалить категорию")).to_have_count(0)
+    category_path = f"/categories/{cats['Письменные принадлежности']}"
+    blocked = context.request.post(base + category_path + "/delete")
+    preserved = {
+        "http_status": blocked.status,
+        "category_retained": context.request.get(base + "/api" + category_path).status == 200,
+        "product_retained": context.request.get(base + "/api" + product_path).status == 200,
+    }
+    expected = {"http_status": 409, "category_retained": True, "product_retained": True}
+    assert preserved == expected
+    product_cases.append({
+        "name": "Удаление категории с товарами",
+        "input": {"category": "Письменные принадлежности"},
+        "expected": expected,
+        "actual": preserved,
+        "passed": True,
+    })
     page.screenshot(path=str(args.output / "07-category-protection.png"), full_page=True)
     passed("Интерфейс блокирует удаление категории с товарами")
     page.goto(base + "/products")
@@ -159,6 +197,7 @@ with sync_playwright() as pw:
 report = {"checked_at_utc": datetime.now(timezone.utc).isoformat(),
           "browser": "Chromium", "browser_version": browser_version,
           "viewports": ["1440 × 1000", "390 × 844"], "data": "Учебный каталог на временной базе",
-          "checks_passed": len(checks), "checks": checks}
+          "checks_passed": len(checks), "checks": checks,
+          "temporary_database": True, "product_cases": product_cases}
 (args.output / "browser-report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
 print(json.dumps(report, ensure_ascii=False))
