@@ -1,5 +1,7 @@
 """Общие операции каталога для API и HTML-страниц."""
 
+from dataclasses import dataclass, field
+
 from sqlalchemy import func, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, joinedload
@@ -161,14 +163,32 @@ def list_products(session: Session, filters: ProductFilters) -> tuple[list[Produ
     return list(session.scalars(query)), total
 
 
-def summarize_products(session: Session, filters: ProductFilters) -> dict[str, int]:
+@dataclass
+class CatalogSummary:
+    in_stock: int = 0
+    out_of_stock: int = 0
+    units: int = 0
+    value_kopecks: int = 0
+    by_category: dict[str, int] = field(default_factory=dict)
+
+
+def summarize_products(session: Session, filters: ProductFilters) -> CatalogSummary:
     """Остатки по всей выборке, независимо от открытой страницы."""
-    summary = {"in_stock": 0, "out_of_stock": 0, "units": 0, "value_kopecks": 0}
-    query = select(Product.price_kopecks, Product.quantity).where(*_product_conditions(session, filters))
+    summary = CatalogSummary()
+    query = (
+        select(Product.price_kopecks, Product.quantity, Category.name)
+        .join(Product.category)
+        .where(*_product_conditions(session, filters))
+    )
     # Суммы считаются целыми числами Python: несколько допустимых остатков
     # могут в сумме превышать предел одного целого числа SQLite.
-    for price, quantity in session.execute(query).yield_per(500):
-        summary["in_stock" if quantity else "out_of_stock"] += 1
-        summary["units"] += quantity
-        summary["value_kopecks"] += price * quantity
+    for price, quantity, category_name in session.execute(query).yield_per(500):
+        if quantity:
+            summary.in_stock += 1
+        else:
+            summary.out_of_stock += 1
+        value = price * quantity
+        summary.units += quantity
+        summary.value_kopecks += value
+        summary.by_category[category_name] = summary.by_category.get(category_name, 0) + value
     return summary

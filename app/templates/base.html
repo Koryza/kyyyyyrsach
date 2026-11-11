@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <title>{% block title %}Каталог{% endblock %} · Управление товарами</title>
-  <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
-  <script src="{{ url_for('static', path='/app.js') }}" defer></script>
+  <link rel="stylesheet" href="{{ asset_url(request, 'styles.css') }}">
+  <script src="{{ asset_url(request, 'app.js') }}" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Перейти к содержимому</a>

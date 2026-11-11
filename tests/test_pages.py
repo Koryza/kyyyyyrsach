@@ -12,6 +12,7 @@ class Inputs(HTMLParser):
         super().__init__()
         self.values = {}
         self.next_url = None
+        self.stylesheet_url = None
         self.feed(html)
 
     def handle_starttag(self, tag, attrs):
@@ -20,6 +21,8 @@ class Inputs(HTMLParser):
             self.values[attrs.get("name")] = attrs.get("value")
         if tag == "a" and attrs.get("rel") == "next":
             self.next_url = attrs["href"]
+        if tag == "link" and attrs.get("rel") == "stylesheet":
+            self.stylesheet_url = attrs["href"]
 
 
 class CatalogView(HTMLParser):
@@ -31,6 +34,8 @@ class CatalogView(HTMLParser):
         self.metrics = {}
         self.metric = None
         self.read_value = False
+        self.category_values = {}
+        self.availability = None
         self.feed(html)
 
     def handle_starttag(self, tag, attrs):
@@ -44,6 +49,13 @@ class CatalogView(HTMLParser):
             self.disabled += 1
         if "data-metric" in attrs:
             self.metric = attrs["data-metric"]
+        if tag == "li" and "data-category" in attrs:
+            self.category_values[attrs["data-category"]] = int(attrs["data-value"])
+        if attrs.get("data-chart") == "availability":
+            self.availability = {
+                "total": int(attrs["data-total"]), "in_stock": int(attrs["data-in-stock"]),
+                "percent": float(attrs["data-percent"]),
+            }
         if tag == "dd" and self.metric:
             self.metrics[self.metric] = {"value": int(attrs["data-value"]), "text": ""}
             self.read_value = True
@@ -239,6 +251,7 @@ def test_empty_catalog_and_invalid_filters_have_clear_totals(api_client):
     assert view.current == 1 and view.disabled == 2
     assert all(metric["value"] == 0 for metric in view.metrics.values())
     assert view.metrics["value_kopecks"]["text"] == "0,00 ₽"
+    assert not view.category_values and view.availability == {"total": 0, "in_stock": 0, "percent": 0}
     invalid = api_client.get("/products", params={"min_price": "100", "max_price": "1"})
     assert invalid.status_code == 422 and not CatalogView(invalid.text).metrics
 
@@ -254,14 +267,14 @@ def test_page_after_last_can_return_to_the_last_existing_page(api_client):
     assert "Показано 0 из 1" in response.text
 
 
-@pytest.mark.parametrize("query, expected", [
-    ({}, (3, 1, 27, 137800)),
-    ({"q": "РУЧКА", "min_price": "49.90", "max_price": "100", "in_stock": "true"}, (2, 0, 23, 129800)),
-    ({"max_price": "20"}, (1, 0, 4, 8000)),
-    ({"category_id": "paper"}, (1, 0, 4, 8000)),
-    ({"q": "Нет такого товара"}, (0, 0, 0, 0)),
+@pytest.mark.parametrize("query, expected, category_values", [
+    ({}, (3, 1, 27, 137800), {"Ручки": 129800, "Бумага": 8000}),
+    ({"q": "РУЧКА", "min_price": "49.90", "max_price": "100", "in_stock": "true"}, (2, 0, 23, 129800), {"Ручки": 129800}),
+    ({"max_price": "20"}, (1, 0, 4, 8000), {"Бумага": 8000}),
+    ({"category_id": "paper"}, (1, 0, 4, 8000), {"Бумага": 8000}),
+    ({"q": "Нет такого товара"}, (0, 0, 0, 0), {}),
 ])
-def test_catalog_metrics_follow_the_same_filters_as_products(api_client, query, expected):
+def test_catalog_metrics_follow_the_same_filters_as_products(api_client, query, expected, category_values):
     pens = new_category(api_client, "Ручки")
     paper = new_category(api_client, "Бумага")
     add_product(api_client, pens, name="Ручка синяя", sku="BLUE", price="49.90", quantity="20")
@@ -276,6 +289,12 @@ def test_catalog_metrics_follow_the_same_filters_as_products(api_client, query, 
     view = CatalogView(response.text)
     assert response.status_code == 200
     assert tuple(view.metrics[key]["value"] for key in ["in_stock", "out_of_stock", "units", "value_kopecks"]) == expected
+    assert view.category_values == category_values
+    assert sum(view.category_values.values()) == expected[3]
+    assert view.availability == {
+        "total": expected[0] + expected[1], "in_stock": expected[0],
+        "percent": 75 if not query else 100 if expected[0] else 0,
+    }
     assert "По выбранным фильтрам, все страницы" in response.text
 
 
@@ -289,6 +308,8 @@ def test_metrics_include_items_from_other_pages(api_client):
         assert view.metrics["in_stock"]["value"] == 12
         assert view.metrics["units"]["value"] == 24
         assert view.metrics["value_kopecks"] == {"value": 2640, "text": "26,40 ₽"}
+        assert view.category_values == {"Письменные принадлежности": 2640}
+        assert view.availability == {"total": 12, "in_stock": 12, "percent": 100}
     assert "Показано 11–12 из 12" in unescape(response.text)
 
 
@@ -307,3 +328,60 @@ def test_metrics_keep_integer_precision_beyond_sqlite_sum_limit(api_client, db_e
     assert metrics["units"]["value"] == 2 * SQLITE_MAX_INTEGER
     assert metrics["value_kopecks"]["value"] == 2 * SQLITE_MAX_INTEGER ** 2
     assert metrics["value_kopecks"]["text"].endswith(",98 ₽")
+    assert CatalogView(response.text).category_values == {"Большие значения": 2 * SQLITE_MAX_INTEGER ** 2}
+
+
+def test_charts_group_remaining_categories_without_losing_value(api_client):
+    for number in range(1, 9):
+        category = new_category(api_client, f"Категория {number}")
+        add_product(api_client, category, sku=f"GROUP-{number}", price="1", quantity=str(number))
+    response = api_client.get("/products?page=1")
+    view = CatalogView(response.text)
+    assert view.category_values == {
+        "Категория 8": 800, "Категория 7": 700, "Категория 6": 600,
+        "Категория 5": 500, "Категория 4": 400, "Остальные (3)": 600,
+    }
+    assert sum(view.category_values.values()) == view.metrics["value_kopecks"]["value"] == 3600
+    assert view.availability == {"total": 8, "in_stock": 8, "percent": 100}
+
+
+@pytest.mark.parametrize("price, quantity, in_stock", [("100", "0", 0), ("0", "5", 1)])
+def test_zero_stock_value_does_not_draw_misleading_bars(api_client, price, quantity, in_stock):
+    category = new_category(api_client)
+    add_product(api_client, category, price=price, quantity=quantity)
+    response = api_client.get("/products")
+    view = CatalogView(response.text)
+    assert response.status_code == 200 and "Стоимость остатка равна нулю." in response.text
+    assert not view.category_values
+    assert view.availability == {"total": 1, "in_stock": in_stock, "percent": in_stock * 100}
+
+
+def test_chart_category_labels_are_escaped(api_client):
+    name = '<img src=x onerror="alert(1)">'
+    category = new_category(api_client, name)
+    add_product(api_client, category)
+    response = api_client.get("/products")
+    assert name not in response.text and "&lt;img" in response.text
+    assert CatalogView(response.text).category_values == {name: 99800}
+
+
+def test_asset_url_changes_with_content_even_when_file_timestamp_is_unchanged(api_client, tmp_path, monkeypatch):
+    import os
+    from hashlib import sha256
+    import app.web as web
+
+    stylesheet = tmp_path / "styles.css"
+    first_content = b"body{color:#111}"
+    second_content = b"body{color:#222}"
+    stylesheet.write_bytes(first_content)
+    (tmp_path / "app.js").write_bytes(b"// test")
+    monkeypatch.setattr(web, "STATIC_DIRECTORY", tmp_path)
+    first_url = Inputs(api_client.get("/products").text).stylesheet_url
+    assert parse_qs(urlparse(first_url).query)["v"] == [sha256(first_content).hexdigest()[:12]]
+    assert Inputs(api_client.get("/categories").text).stylesheet_url == first_url
+    stat = stylesheet.stat()
+    stylesheet.write_bytes(second_content)
+    os.utime(stylesheet, ns=(stat.st_atime_ns, stat.st_mtime_ns))
+    second_url = Inputs(api_client.get("/products").text).stylesheet_url
+    assert second_url != first_url
+    assert parse_qs(urlparse(second_url).query)["v"] == [sha256(second_content).hexdigest()[:12]]

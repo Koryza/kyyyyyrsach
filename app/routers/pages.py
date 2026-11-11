@@ -14,7 +14,7 @@ from app import catalog
 from app.database import get_db
 from app.models import SQLITE_MAX_INTEGER, Product
 from app.schemas import PAGE_SIZE, CategoryWrite, ProductFilters, ProductWrite, format_price
-from app.web import render, validation_messages
+from app.web import catalog_charts, render, validation_messages
 
 router = APIRouter(include_in_schema=False)
 Database = Annotated[Session, Depends(get_db)]
@@ -92,13 +92,14 @@ def products(request: Request, session: Database):
         for number in page_numbers(filters.page, pages)
     ]
     shown_from = (filters.page - 1) * PAGE_SIZE + 1 if items else 0
+    summary = catalog.summarize_products(session, filters)
     return render(
         request, "products/list.html", active="products", values=filters.model_dump(),
         categories=categories, products=items, total=total, page=filters.page, pages=pages,
         previous_url=page_url(min(filters.page - 1, pages)) if filters.page > 1 else None,
         next_url=page_url(filters.page + 1) if filters.page < pages else None,
         errors=[], deleted=deleted,
-        page_links=page_links, summary=catalog.summarize_products(session, filters),
+        page_links=page_links, summary=summary, charts=catalog_charts(summary),
         shown_from=shown_from, shown_to=shown_from + len(items) - 1 if items else 0,
     )
 

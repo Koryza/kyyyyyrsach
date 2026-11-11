@@ -42,6 +42,7 @@
     <div class="metric" data-metric="units"><dt>Всего единиц</dt><dd data-value="{{ summary.units }}">{{ group_number(summary.units) }} шт.</dd></div>
     <div class="metric metric-value" data-metric="value_kopecks"><dt title="Сумма текущей цены, умноженной на остаток каждого найденного товара">Стоимость остатка</dt><dd data-value="{{ summary.value_kopecks }}">{{ group_rubles(summary.value_kopecks) }} ₽</dd></div>
   </dl>
+  {% include 'products/_charts.html' %}
 </div>
 </div>
 {% endif %}

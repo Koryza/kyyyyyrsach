@@ -1,0 +1,45 @@
+<section class="catalog-charts" aria-label="Диаграммы каталога">
+  <figure class="chart-card" data-chart="category-values">
+    <figcaption>
+      <h2>Стоимость остатка по категориям</h2>
+      <p>По текущим ценам товаров, ₽</p>
+    </figcaption>
+    {% if summary.value_kopecks %}
+    <ol class="category-bars" aria-label="Стоимость остатка каждой категории">
+      {% for item in charts.categories %}
+      <li class="category-bar {% if charts.others and loop.last %}is-other{% endif %}" data-category="{{ item.name }}" data-value="{{ item.value }}">
+        <div class="bar-heading"><span>{{ item.name }}</span><strong>{{ group_rubles(item.value) }} ₽</strong></div>
+        <div class="bar-track" aria-hidden="true"><span class="bar-fill" style="width: {{ item.width }}%"></span></div>
+      </li>
+      {% endfor %}
+    </ol>
+    {% if charts.others %}<p class="chart-note">Пять категорий с наибольшей стоимостью; остальные объединены.</p>{% endif %}
+    {% else %}
+    <div class="chart-empty"><p>{% if charts.total %}Стоимость остатка равна нулю.{% else %}Нет товаров для расчёта.{% endif %}</p></div>
+    {% endif %}
+  </figure>
+  <figure class="chart-card" data-chart="availability" data-total="{{ charts.total }}" data-in-stock="{{ summary.in_stock }}" data-percent="{{ charts.percentage }}">
+    <figcaption>
+      <h2>Наличие товаров</h2>
+      <p>Доля позиций с положительным остатком</p>
+    </figcaption>
+    {% if charts.total %}
+    <div class="availability-chart">
+      <div class="availability-donut">
+        <svg viewBox="0 0 192 192" role="img" aria-label="В наличии {{ group_number(summary.in_stock) }} из {{ group_number(charts.total) }} позиций, {{ charts.percentage_label }}%">
+          <circle class="donut-base" cx="96" cy="96" r="78" fill="none" stroke-width="16" />
+          {% if summary.in_stock %}<circle class="donut-available" cx="96" cy="96" r="78" fill="none" stroke-width="16" pathLength="100" stroke-dasharray="{{ charts.percentage }} 100" transform="rotate(-90 96 96)" />{% endif %}
+        </svg>
+        <div class="donut-caption" aria-hidden="true"><strong>{{ charts.percentage_label }}%</strong><span>в наличии</span></div>
+      </div>
+      <dl class="availability-legend">
+        <div><dt><span class="legend-swatch swatch-available" aria-hidden="true"></span>В наличии</dt><dd>{{ group_number(summary.in_stock) }}</dd></div>
+        <div><dt><span class="legend-swatch swatch-empty" aria-hidden="true"></span>Без остатка</dt><dd>{{ group_number(summary.out_of_stock) }}</dd></div>
+      </dl>
+    </div>
+    <p class="chart-note">Всего позиций: {{ group_number(charts.total) }}</p>
+    {% else %}
+    <div class="chart-empty"><p>Нет товаров для расчёта.</p></div>
+    {% endif %}
+  </figure>
+</section>
