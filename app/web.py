@@ -10,8 +10,20 @@ from pydantic import ValidationError
 from app.schemas import format_price
 
 APP_DIRECTORY = Path(__file__).resolve().parent
+
+
+def group_number(value: int) -> str:
+    return f"{value:,}".replace(",", "\u00a0")
+
+
+def group_rubles(value: int) -> str:
+    return f"{group_number(value // 100)},{value % 100:02d}"
+
+
 templates = Jinja2Templates(directory=APP_DIRECTORY / "templates")
 templates.env.globals["rubles"] = lambda amount: format_price(amount).replace(".", ",")
+templates.env.globals["group_number"] = group_number
+templates.env.globals["group_rubles"] = group_rubles
 templates.env.globals["utc_iso"] = lambda value: value.replace(tzinfo=timezone.utc).isoformat()
 
 

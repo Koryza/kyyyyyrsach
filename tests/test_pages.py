@@ -1,5 +1,6 @@
 """HTML-сценарии проверяются с теми же временными БД, что и API."""
 
+from html import unescape
 from html.parser import HTMLParser
 from urllib.parse import parse_qs, urlparse
 
@@ -21,10 +22,46 @@ class Inputs(HTMLParser):
             self.next_url = attrs["href"]
 
 
+class CatalogView(HTMLParser):
+    def __init__(self, html):
+        super().__init__()
+        self.pages = {}
+        self.current = None
+        self.disabled = 0
+        self.metrics = {}
+        self.metric = None
+        self.read_value = False
+        self.feed(html)
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if "page-number" in attrs.get("class", "").split():
+            number = int(attrs["aria-label"].split()[-1])
+            self.pages[number] = attrs.get("href")
+            if attrs.get("aria-current") == "page":
+                self.current = number
+        if attrs.get("class") == "page-step" and attrs.get("aria-disabled") == "true":
+            self.disabled += 1
+        if "data-metric" in attrs:
+            self.metric = attrs["data-metric"]
+        if tag == "dd" and self.metric:
+            self.metrics[self.metric] = {"value": int(attrs["data-value"]), "text": ""}
+            self.read_value = True
+
+    def handle_data(self, data):
+        if self.read_value:
+            self.metrics[self.metric]["text"] += data
+
+    def handle_endtag(self, tag):
+        if tag == "dd":
+            self.read_value = False
+            self.metric = None
+
+
 def new_category(client, name="Письменные принадлежности"):
     response = client.post("/categories", data={"name": name, "description": "Для письма"}, follow_redirects=False)
     assert response.status_code == 303
-    return client.get("/api/categories").json()[-1]["id"]
+    return next(item["id"] for item in client.get("/api/categories").json() if item["name"] == name)
 
 
 def fields(default_category_id, **changes):
@@ -136,12 +173,16 @@ def test_filters_and_pagination_preserve_combination(api_client):
     assert first.status_code == 200 and "Найдено: 12" in first.text
     assert first.text.index('class="product-name" href="/products/12"') < first.text.index('class="product-name" href="/products/11"')
     next_url = Inputs(first.text).next_url
+    assert CatalogView(first.text).pages[2] == next_url
     next_query = parse_qs(urlparse(next_url).query)
     assert next_query == {**{key: [value] for key, value in query.items()}, "page": ["2"]}
     second = api_client.get(next_url)
     assert "Страница 2 из 2" in second.text and second.text.count('class="product-name"') == 2
     assert Inputs(second.text).next_url is None
     assert "Ручка закончилась" not in first.text + second.text
+    assert parse_qs(urlparse(CatalogView(second.text).pages[1]).query) == {
+        **{key: [value] for key, value in query.items()}, "page": ["1"]
+    }
 
 
 @pytest.mark.parametrize("query", [{"min_price": "100", "max_price": "1"}, {"sort": "bad"}, {"page": "0"}, {"q": "x" * 201}])
@@ -169,3 +210,100 @@ def test_missing_or_invalid_html_address_keeps_api_error_format(api_client, path
     assert response.status_code in {404, 422} and "text/html" in response.headers["content-type"]
     api_error = api_client.get("/api/products/999")
     assert api_error.status_code == 404 and api_error.json() == {"detail": "Товар не найден"}
+
+
+@pytest.mark.parametrize("page, numbers", [
+    (1, [1, 2, 3, 4, 5, 120]),
+    (2, [1, 2, 3, 4, 5, 120]),
+    (60, [1, 58, 59, 60, 61, 62, 120]),
+    (119, [1, 116, 117, 118, 119, 120]),
+    (120, [1, 116, 117, 118, 119, 120]),
+])
+def test_numbered_pages_cover_start_middle_and_end(api_client, db_engine, page, numbers):
+    from app.demo_data import seed_catalog
+
+    seed_catalog(db_engine)
+    response = api_client.get("/products", params={"page": page})
+    view = CatalogView(response.text)
+    assert response.status_code == 200 and f"Страница {page} из 120" in response.text
+    assert sorted(view.pages) == numbers and view.current == page
+    assert view.disabled == (1 if page in {1, 120} else 0)
+    for number, url in view.pages.items():
+        if number != page:
+            assert parse_qs(urlparse(url).query)["page"] == [str(number)]
+
+
+def test_empty_catalog_and_invalid_filters_have_clear_totals(api_client):
+    response = api_client.get("/products")
+    view = CatalogView(response.text)
+    assert view.current == 1 and view.disabled == 2
+    assert all(metric["value"] == 0 for metric in view.metrics.values())
+    assert view.metrics["value_kopecks"]["text"] == "0,00 ₽"
+    invalid = api_client.get("/products", params={"min_price": "100", "max_price": "1"})
+    assert invalid.status_code == 422 and not CatalogView(invalid.text).metrics
+
+
+def test_page_after_last_can_return_to_the_last_existing_page(api_client):
+    cat = new_category(api_client)
+    add_product(api_client, cat)
+    response = api_client.get("/products", params={"page": "999"})
+    view = CatalogView(response.text)
+    assert response.status_code == 200 and "Страница 999 пуста" in response.text
+    assert view.current is None and list(view.pages) == [1]
+    assert parse_qs(urlparse(view.pages[1]).query)["page"] == ["1"]
+    assert "Показано 0 из 1" in response.text
+
+
+@pytest.mark.parametrize("query, expected", [
+    ({}, (3, 1, 27, 137800)),
+    ({"q": "РУЧКА", "min_price": "49.90", "max_price": "100", "in_stock": "true"}, (2, 0, 23, 129800)),
+    ({"max_price": "20"}, (1, 0, 4, 8000)),
+    ({"category_id": "paper"}, (1, 0, 4, 8000)),
+    ({"q": "Нет такого товара"}, (0, 0, 0, 0)),
+])
+def test_catalog_metrics_follow_the_same_filters_as_products(api_client, query, expected):
+    pens = new_category(api_client, "Ручки")
+    paper = new_category(api_client, "Бумага")
+    add_product(api_client, pens, name="Ручка синяя", sku="BLUE", price="49.90", quantity="20")
+    add_product(api_client, pens, name="Ручка гелевая", sku="GEL", price="100", quantity="3")
+    add_product(api_client, pens, name="Ручка красная", sku="RED", price="99", quantity="0")
+    add_product(api_client, paper, name="Тетрадь", sku="PAPER", price="20", quantity="4")
+    if query.get("in_stock"):
+        query = {**query, "category_id": str(pens)}
+    if query.get("category_id") == "paper":
+        query = {**query, "category_id": str(paper)}
+    response = api_client.get("/products", params=query)
+    view = CatalogView(response.text)
+    assert response.status_code == 200
+    assert tuple(view.metrics[key]["value"] for key in ["in_stock", "out_of_stock", "units", "value_kopecks"]) == expected
+    assert "По выбранным фильтрам, все страницы" in response.text
+
+
+def test_metrics_include_items_from_other_pages(api_client):
+    cat = new_category(api_client)
+    for index in range(12):
+        add_product(api_client, cat, sku=f"ITEM-{index}", price="1.10", quantity="2")
+    for page in [1, 2]:
+        response = api_client.get("/products", params={"page": page})
+        view = CatalogView(response.text)
+        assert view.metrics["in_stock"]["value"] == 12
+        assert view.metrics["units"]["value"] == 24
+        assert view.metrics["value_kopecks"] == {"value": 2640, "text": "26,40 ₽"}
+    assert "Показано 11–12 из 12" in unescape(response.text)
+
+
+def test_metrics_keep_integer_precision_beyond_sqlite_sum_limit(api_client, db_engine):
+    from sqlalchemy.orm import Session
+    from app.models import Category, Product, SQLITE_MAX_INTEGER
+
+    with Session(db_engine) as session:
+        category = Category(name="Большие значения")
+        for sku in ["MAX-1", "MAX-2"]:
+            session.add(Product(name=sku, sku=sku, category=category, price_kopecks=SQLITE_MAX_INTEGER, quantity=SQLITE_MAX_INTEGER))
+        session.commit()
+    response = api_client.get("/products")
+    assert response.status_code == 200
+    metrics = CatalogView(response.text).metrics
+    assert metrics["units"]["value"] == 2 * SQLITE_MAX_INTEGER
+    assert metrics["value_kopecks"]["value"] == 2 * SQLITE_MAX_INTEGER ** 2
+    assert metrics["value_kopecks"]["text"].endswith(",98 ₽")

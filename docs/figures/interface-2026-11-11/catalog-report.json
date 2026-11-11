@@ -1,0 +1,353 @@
+{
+  "timestamp": "2026-11-11T10:10:16.002682+00:00",
+  "browser": "154.0.8037.57",
+  "base_url": "http://127.0.0.1:8002",
+  "database": "Отдельная временная SQLite; 1200 демонстрационных товаров, 12 категорий",
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "width": 390,
+      "height": 844
+    },
+    {
+      "width": 320,
+      "height": 844
+    }
+  ],
+  "metrics_verification": "Итоги независимо рассчитаны в Python по всем страницам JSON API, цена разобрана через Decimal",
+  "checks": [
+    {
+      "name": "Первая страница: соседние номера, последняя страница и итоги всей выборки",
+      "expected": {
+        "pages": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "120"
+        ],
+        "current": "1",
+        "disabled": 1,
+        "metrics": {
+          "in_stock": 1067,
+          "out_of_stock": 133,
+          "units": 80654,
+          "value_kopecks": 1323305870
+        }
+      },
+      "actual": {
+        "pages": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "120"
+        ],
+        "current": "1",
+        "disabled": 1,
+        "metrics": {
+          "in_stock": 1067,
+          "out_of_stock": 133,
+          "units": 80654,
+          "value_kopecks": 1323305870
+        }
+      },
+      "passed": true
+    },
+    {
+      "name": "Переход по кнопке с номером страницы",
+      "expected": {
+        "page": [
+          "2"
+        ],
+        "current": "2",
+        "rows": 10,
+        "metrics": {
+          "in_stock": 1067,
+          "out_of_stock": 133,
+          "units": 80654,
+          "value_kopecks": 1323305870
+        }
+      },
+      "actual": {
+        "page": [
+          "2"
+        ],
+        "current": "2",
+        "rows": 10,
+        "metrics": {
+          "in_stock": 1067,
+          "out_of_stock": 133,
+          "units": 80654,
+          "value_kopecks": 1323305870
+        }
+      },
+      "passed": true
+    },
+    {
+      "name": "Середина каталога: семь номеров и два многоточия",
+      "expected": {
+        "pages": [
+          "1",
+          "58",
+          "59",
+          "60",
+          "61",
+          "62",
+          "120"
+        ],
+        "gaps": 2,
+        "current": "60"
+      },
+      "actual": {
+        "pages": [
+          "1",
+          "58",
+          "59",
+          "60",
+          "61",
+          "62",
+          "120"
+        ],
+        "gaps": 2,
+        "current": "60"
+      },
+      "passed": true
+    },
+    {
+      "name": "Последняя страница: следующий переход отключён",
+      "expected": {
+        "current": "120",
+        "next_disabled": true,
+        "previous": [
+          "119"
+        ],
+        "rows": 10
+      },
+      "actual": {
+        "current": "120",
+        "next_disabled": true,
+        "previous": [
+          "119"
+        ],
+        "rows": 10
+      },
+      "passed": true
+    },
+    {
+      "name": "Номера страниц сохраняют совместные фильтры и сортировку; метрики охватывают всю выборку",
+      "expected": {
+        "query": {
+          "q": [
+            "РУЧКА"
+          ],
+          "category_id": [
+            "1"
+          ],
+          "min_price": [
+            "20"
+          ],
+          "max_price": [
+            "200"
+          ],
+          "in_stock": [
+            "true"
+          ],
+          "sort": [
+            "price_desc"
+          ],
+          "page": [
+            "2"
+          ]
+        },
+        "names": [
+          "Ручка с грипом — цвет зелёный, линия 0,5 мм",
+          "Ручка со стилусом — цвет фиолетовый, линия 0,7 мм",
+          "Ручка для левшей — цвет чёрный, линия 0,5 мм",
+          "Ручка с грипом — цвет красный, линия 0,7 мм",
+          "Ручка со стилусом — цвет фиолетовый, линия 0,5 мм",
+          "Ручка с грипом — цвет красный, линия 0,5 мм",
+          "Ручка со стилусом — цвет зелёный, линия 0,7 мм",
+          "Ручка для левшей — цвет синий, линия 0,5 мм",
+          "Ручка с грипом — цвет чёрный, линия 0,7 мм",
+          "Ручка со стилусом — цвет зелёный, линия 0,5 мм"
+        ],
+        "metrics": {
+          "in_stock": 72,
+          "out_of_stock": 0,
+          "units": 5514,
+          "value_kopecks": 59377020
+        }
+      },
+      "actual": {
+        "query": {
+          "q": [
+            "РУЧКА"
+          ],
+          "category_id": [
+            "1"
+          ],
+          "min_price": [
+            "20"
+          ],
+          "max_price": [
+            "200"
+          ],
+          "in_stock": [
+            "true"
+          ],
+          "sort": [
+            "price_desc"
+          ],
+          "page": [
+            "2"
+          ]
+        },
+        "names": [
+          "Ручка с грипом — цвет зелёный, линия 0,5 мм",
+          "Ручка со стилусом — цвет фиолетовый, линия 0,7 мм",
+          "Ручка для левшей — цвет чёрный, линия 0,5 мм",
+          "Ручка с грипом — цвет красный, линия 0,7 мм",
+          "Ручка со стилусом — цвет фиолетовый, линия 0,5 мм",
+          "Ручка с грипом — цвет красный, линия 0,5 мм",
+          "Ручка со стилусом — цвет зелёный, линия 0,7 мм",
+          "Ручка для левшей — цвет синий, линия 0,5 мм",
+          "Ручка с грипом — цвет чёрный, линия 0,7 мм",
+          "Ручка со стилусом — цвет зелёный, линия 0,5 мм"
+        ],
+        "metrics": {
+          "in_stock": 72,
+          "out_of_stock": 0,
+          "units": 5514,
+          "value_kopecks": 59377020
+        }
+      },
+      "passed": true
+    },
+    {
+      "name": "Пустой поиск: одна страница, нулевые итоги, оба перехода отключены",
+      "expected": {
+        "pages": [
+          "1"
+        ],
+        "disabled": 2,
+        "metrics": {
+          "in_stock": 0,
+          "out_of_stock": 0,
+          "units": 0,
+          "value_kopecks": 0
+        }
+      },
+      "actual": {
+        "pages": [
+          "1"
+        ],
+        "disabled": 2,
+        "metrics": {
+          "in_stock": 0,
+          "out_of_stock": 0,
+          "units": 0,
+          "value_kopecks": 0
+        }
+      },
+      "passed": true
+    },
+    {
+      "name": "Неверный диапазон цены: сообщение об ошибке без ложных нулевых итогов",
+      "expected": {
+        "status": 422,
+        "metrics": 0,
+        "pagination": 0
+      },
+      "actual": {
+        "status": 422,
+        "metrics": 0,
+        "pagination": 0
+      },
+      "passed": true
+    },
+    {
+      "name": "Мобильный экран 390 px: номера помещаются в одну строку, страница не выходит за экран",
+      "expected": {
+        "overflow": false,
+        "one_row": true,
+        "numbers": 7,
+        "metrics": {
+          "in_stock": 1067,
+          "out_of_stock": 133,
+          "units": 80654,
+          "value_kopecks": 1323305870
+        }
+      },
+      "actual": {
+        "overflow": false,
+        "one_row": true,
+        "numbers": 7,
+        "metrics": {
+          "in_stock": 1067,
+          "out_of_stock": 133,
+          "units": 80654,
+          "value_kopecks": 1323305870
+        }
+      },
+      "passed": true
+    },
+    {
+      "name": "Мобильный экран 320 px: номера помещаются в одну строку, страница не выходит за экран",
+      "expected": {
+        "overflow": false,
+        "one_row": true,
+        "numbers": 7,
+        "metrics": {
+          "in_stock": 1067,
+          "out_of_stock": 133,
+          "units": 80654,
+          "value_kopecks": 1323305870
+        }
+      },
+      "actual": {
+        "overflow": false,
+        "one_row": true,
+        "numbers": 7,
+        "metrics": {
+          "in_stock": 1067,
+          "out_of_stock": 133,
+          "units": 80654,
+          "value_kopecks": 1323305870
+        }
+      },
+      "passed": true
+    },
+    {
+      "name": "Нумерация страниц и итоги работают без JavaScript",
+      "expected": {
+        "current": "2",
+        "rows": 10,
+        "metrics": {
+          "in_stock": 1067,
+          "out_of_stock": 133,
+          "units": 80654,
+          "value_kopecks": 1323305870
+        }
+      },
+      "actual": {
+        "current": "2",
+        "rows": 10,
+        "metrics": {
+          "in_stock": 1067,
+          "out_of_stock": 133,
+          "units": 80654,
+          "value_kopecks": 1323305870
+        }
+      },
+      "passed": true
+    }
+  ],
+  "passed": 10,
+  "page_errors": []
+}

@@ -127,7 +127,7 @@ def delete_product(session: Session, product_id: int) -> None:
     _commit(session)
 
 
-def list_products(session: Session, filters: ProductFilters) -> tuple[list[Product], int]:
+def _product_conditions(session: Session, filters: ProductFilters) -> list:
     conditions = []
     if filters.category_id is not None:
         get_category(session, filters.category_id)
@@ -140,7 +140,11 @@ def list_products(session: Session, filters: ProductFilters) -> tuple[list[Produ
         conditions.append(Product.price_kopecks <= filters.max_price_kopecks)
     if filters.in_stock:
         conditions.append(Product.quantity > 0)
+    return conditions
 
+
+def list_products(session: Session, filters: ProductFilters) -> tuple[list[Product], int]:
+    conditions = _product_conditions(session, filters)
     orders = {
         "name_asc": Product.name_normalized.asc(),
         "name_desc": Product.name_normalized.desc(),
@@ -155,3 +159,16 @@ def list_products(session: Session, filters: ProductFilters) -> tuple[list[Produ
         .limit(PAGE_SIZE).offset((filters.page - 1) * PAGE_SIZE)
     )
     return list(session.scalars(query)), total
+
+
+def summarize_products(session: Session, filters: ProductFilters) -> dict[str, int]:
+    """Остатки по всей выборке, независимо от открытой страницы."""
+    summary = {"in_stock": 0, "out_of_stock": 0, "units": 0, "value_kopecks": 0}
+    query = select(Product.price_kopecks, Product.quantity).where(*_product_conditions(session, filters))
+    # Суммы считаются целыми числами Python: несколько допустимых остатков
+    # могут в сумме превышать предел одного целого числа SQLite.
+    for price, quantity in session.execute(query).yield_per(500):
+        summary["in_stock" if quantity else "out_of_stock"] += 1
+        summary["units"] += quantity
+        summary["value_kopecks"] += price * quantity
+    return summary

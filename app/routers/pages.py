@@ -54,6 +54,18 @@ def category_form(request, values, *, category=None, errors=None, status=200):
     )
 
 
+def page_numbers(page: int, pages: int) -> list[int | None]:
+    """Первая, последняя и до пяти соседних страниц; None означает пропуск."""
+    start = max(1, min(page - 2, pages - 4))
+    numbers = sorted({1, pages, *range(start, min(pages, start + 4) + 1)})
+    result = []
+    for number in numbers:
+        if result and number - result[-1] > 1:
+            result.append(None)
+        result.append(number)
+    return result
+
+
 @router.get("/products")
 def products(request: Request, session: Database):
     values = dict(request.query_params)
@@ -67,6 +79,7 @@ def products(request: Request, session: Database):
             request, "products/list.html", status_code=422, active="products",
             values=values, categories=categories, products=[], total=0, page=1, pages=1,
             previous_url=None, next_url=None, errors=validation_messages(error), deleted=False,
+            page_links=[], summary=None, shown_from=0, shown_to=0,
         )
     items, total = catalog.list_products(session, filters)
     pages = max(1, (total + PAGE_SIZE - 1) // PAGE_SIZE)
@@ -74,12 +87,19 @@ def products(request: Request, session: Database):
     def page_url(page):
         return "/products?" + urlencode({**values, "page": page})
 
+    page_links = [
+        {"number": number, "url": page_url(number) if number is not None else None}
+        for number in page_numbers(filters.page, pages)
+    ]
+    shown_from = (filters.page - 1) * PAGE_SIZE + 1 if items else 0
     return render(
         request, "products/list.html", active="products", values=filters.model_dump(),
         categories=categories, products=items, total=total, page=filters.page, pages=pages,
-        previous_url=page_url(filters.page - 1) if filters.page > 1 else None,
+        previous_url=page_url(min(filters.page - 1, pages)) if filters.page > 1 else None,
         next_url=page_url(filters.page + 1) if filters.page < pages else None,
         errors=[], deleted=deleted,
+        page_links=page_links, summary=catalog.summarize_products(session, filters),
+        shown_from=shown_from, shown_to=shown_from + len(items) - 1 if items else 0,
     )
 
 
