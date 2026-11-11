@@ -18,6 +18,8 @@ from pptx.enum.shapes import MSO_CONNECTOR, MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from pptx.util import Inches, Pt
 
+from scripts.presentation_design import apply_design
+
 ROOT = Path(__file__).resolve().parent.parent
 DIRECTORY = ROOT / "docs" / "defense"
 OUTPUT = DIRECTORY / "catalog_defense.pptx"
@@ -393,6 +395,7 @@ def build():
             effect_ref = shape._element.find(".//{http://schemas.openxmlformats.org/drawingml/2006/main}effectRef")
             if effect_ref is not None:
                 effect_ref.set("idx", "0")
+    apply_design(deck)
     deck.save(OUTPUT)
 
     # Отдельный редактируемый слайд актуальности для вставки в презентацию.
