@@ -25,13 +25,13 @@
   "files": [
     {
       "path": "catalog_defense.pptx",
-      "bytes": 511411,
-      "sha256": "1f4428293bdb3deb7baf16df24df352e0d1c077fbe3825a484e87fb2a8df029a"
+      "bytes": 511310,
+      "sha256": "5fee4009684a83ff053814aa0e571db807db07d7e1974726cf897db46182c949"
     },
     {
       "path": "catalog_defense.pdf",
-      "bytes": 878649,
-      "sha256": "d9130fe24983701263a96aec0561e5455b3fd9b1d3db07a87550408146c421b9"
+      "bytes": 869471,
+      "sha256": "f5cf8a7cba8317875832d959a7c6e32bb9b44f1033005389354bfed7b7c9d05d"
     },
     {
       "path": "SPEAKER_NOTES.md",
@@ -40,18 +40,18 @@
     },
     {
       "path": "relevance_slide.pptx",
-      "bytes": 34686,
-      "sha256": "e222a859c8852ee22f1c9046eac8530e8e660b2ba921e23337d4803ca85b4644"
+      "bytes": 34682,
+      "sha256": "3e8cf5245419394aa45487ad9ffd09d34f27216ded4c57ea698fb3a62aca53aa"
     },
     {
       "path": "relevance_slide.pdf",
-      "bytes": 69594,
-      "sha256": "4ff67471107f2b7aa13adb1596d6f77be7b401315e700ecf7062b95145433182"
+      "bytes": 69584,
+      "sha256": "aa76f80895dd05a35491238bf981845f9dbd8bb8cbdd9fb01aa32d63f014724b"
     },
     {
       "path": "relevance_slide.png",
-      "bytes": 60168,
-      "sha256": "295e4ebd9cb548ad6aa47bf2025a29d6ad7edaf85e32e41f21c304280b9f8813"
+      "bytes": 56672,
+      "sha256": "fdb887fffc3fe512e2dcb482952c9c6cbeb2181ce9ebbea1d9bc8ae89b3b3794"
     },
     {
       "path": "relevance-evidence.json",
@@ -258,8 +258,8 @@
   ],
   "design_review": {
     "checked_on": "2026-11-11",
-    "source_revision": "31e4f77633c0c1bdb8383af95331fc6daf592cf8",
-    "source_pptx_sha256": "7422530019f4280c70109e4a6507d97291923e54bfea4cc79e5fc5ce1d8ee4b9",
+    "source_revision": "014127f261f65fbcf58ee0e1884694eb66dc1ece",
+    "source_pptx_sha256": "1f4428293bdb3deb7baf16df24df352e0d1c077fbe3825a484e87fb2a8df029a",
     "slides_preserved": 15,
     "text_blocks_preserved_verbatim": 194,
     "speaker_notes_preserved_verbatim": true,
@@ -274,6 +274,11 @@
     "all_slides_visually_reviewed": true,
     "source_and_report_dates_preserved": true,
     "speech_documents_unchanged": true,
-    "build_reproduces_original_content": true
+    "build_reproduces_original_content": true,
+    "iteration": 2,
+    "image_ratio_tolerance_emu": 2,
+    "slide_dimensions_preserved": true,
+    "all_content_on_original_slides": true,
+    "layout_note": "Умеренные размеры заголовков и числовых акцентов; цель широким блоком, определения строками, порядок тестирования сверху вниз. Узкие переносы заголовков и диапазона цены устранены без изменения текста."
   }
 }
