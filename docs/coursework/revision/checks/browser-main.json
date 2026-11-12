@@ -1,0 +1,132 @@
+{
+  "checked_at_utc": "2026-11-12T12:29:32.390220+00:00",
+  "browser": "Chromium",
+  "browser_version": "154.0.8037.57",
+  "viewports": [
+    "1440 × 1000",
+    "390 × 844"
+  ],
+  "data": "Учебный каталог на временной базе",
+  "checks_passed": 14,
+  "checks": [
+    "Переход с главной страницы и пустой каталог",
+    "Создание категории через форму",
+    "Создание товара, цена с запятой, карточка и локальное время",
+    "Серверная валидация цены с сохранением введённых полей",
+    "Изменение цены и остатка видно через API",
+    "Пагинация 10 + 3 товара и переход назад",
+    "Совместный поиск, категория, границы цены, наличие и сортировка",
+    "Пустой результат поиска",
+    "Интерфейс блокирует удаление категории с товарами",
+    "Мобильные список и форма: 390 px, без горизонтального скролла страницы",
+    "Отмена удаления сохраняет товар",
+    "Подтверждённое удаление через браузер",
+    "Нет ошибок JavaScript в проверенных сценариях",
+    "Создание через HTML-форму без JavaScript"
+  ],
+  "temporary_database": true,
+  "product_cases": [
+    {
+      "id": "create_product",
+      "name": "Создание товара",
+      "input": {
+        "price": "49,90",
+        "quantity": 24
+      },
+      "expected": {
+        "price": "49.90",
+        "quantity": 24
+      },
+      "actual": {
+        "price": "49.90",
+        "quantity": 24
+      },
+      "passed": true
+    },
+    {
+      "id": "invalid_price",
+      "name": "Цена с тремя знаками после точки",
+      "input": {
+        "price": "1.234"
+      },
+      "expected": {
+        "http_status": 422,
+        "saved_price": "49.90",
+        "record_unchanged": true
+      },
+      "actual": {
+        "http_status": 422,
+        "saved_price": "49.90",
+        "record_unchanged": true
+      },
+      "passed": true
+    },
+    {
+      "id": "update_product",
+      "name": "Изменение цены и остатка",
+      "input": {
+        "price": "54,90",
+        "quantity": 18
+      },
+      "expected": {
+        "price": "54.90",
+        "quantity": 18
+      },
+      "actual": {
+        "price": "54.90",
+        "quantity": 18
+      },
+      "passed": true
+    },
+    {
+      "id": "delete_used_category",
+      "name": "Удаление категории с товарами",
+      "input": {
+        "category": "Письменные принадлежности"
+      },
+      "expected": {
+        "http_status": 409,
+        "category_retained": true,
+        "product_retained": true,
+        "products_unchanged": true
+      },
+      "actual": {
+        "http_status": 409,
+        "category_retained": true,
+        "product_retained": true,
+        "products_unchanged": true
+      },
+      "passed": true
+    },
+    {
+      "id": "cancel_product_deletion",
+      "name": "Отмена удаления товара",
+      "input": {
+        "action": "Отмена"
+      },
+      "expected": {
+        "http_status": 200,
+        "record_unchanged": true
+      },
+      "actual": {
+        "http_status": 200,
+        "record_unchanged": true
+      },
+      "passed": true
+    },
+    {
+      "id": "delete_product",
+      "name": "Подтверждённое удаление товара",
+      "input": {
+        "action": "Удалить товар"
+      },
+      "expected": {
+        "http_status": 404
+      },
+      "actual": {
+        "http_status": 404
+      },
+      "passed": true
+    }
+  ]
+}

@@ -74,7 +74,7 @@
     "speaker_notes_check": "Все 15 заметок совпадают с presentation.json и текстом выступления; 628 слов. План с паузами — 6 минут 50 секунд; репетиция с замером не выполнялась.",
     "checked_on": "2026-11-11",
     "goal_and_tasks_verbatim": true,
-    "introduction_source": "docs/coursework/edited/Курсовая_после_редактуры.docx",
+    "introduction_source": "docs/coursework/Курсовая_после_редактуры.docx",
     "conclusions": 7,
     "last_slide_repeats_cover": true,
     "theme": "Чёрно-белое оформление на светлом фоне",
@@ -161,6 +161,26 @@
       "path": "docs/defense/Текст_защиты.pdf",
       "bytes": 66668,
       "sha256": "85008e4c7cbd3a465d17677c03ee7ca7a1a73b6609ea0fd252624aa8e871dbbe"
+    },
+    {
+      "path": "docs/coursework/revision/Курсовая_новая_редакция.docx",
+      "bytes": 401821,
+      "sha256": "493c27783a0f2cf903f00e19f9c2bcf547a8344d9f9d3623ab4c607b62ff0cc9"
+    },
+    {
+      "path": "docs/coursework/revision/Курсовая_новая_редакция.pdf",
+      "bytes": 695006,
+      "sha256": "a2f994867b06333b6c359c90d8c9d5eb7ae6f132077ed73e07f174005f458606"
+    },
+    {
+      "path": "docs/coursework/revision/verification.json",
+      "bytes": 5202,
+      "sha256": "7eb854769295905bb9ff4949a5c0ffcd58931e8abe0f9decf1c75bcf0efd2706"
+    },
+    {
+      "path": "docs/coursework/Курсовая_после_редактуры.docx",
+      "bytes": 379651,
+      "sha256": "d96f3aceb02778e30abdb68cc459a2f6b509ba76d8b0d2b84937e0e44d2a91e0"
     }
   ],
   "office_metadata": {
@@ -213,5 +233,17 @@
     "coursework_source_matches_pdf": true,
     "cached_contents_matches_pdf": true,
     "assignment_changed": false
+  },
+  "revised_coursework": {
+    "checked_on": "2026-11-12",
+    "word": "docs/coursework/revision/Курсовая_новая_редакция.docx",
+    "pdf": "docs/coursework/revision/Курсовая_новая_редакция.pdf",
+    "verification": "docs/coursework/revision/verification.json",
+    "pages": 41,
+    "main_text_pages": 31,
+    "base_unchanged": true,
+    "goal_and_tasks_verbatim": true,
+    "automatic_tests_passed": 173,
+    "browser_checks_passed": 27
   }
 }

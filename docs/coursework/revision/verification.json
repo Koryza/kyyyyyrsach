@@ -1,0 +1,130 @@
+{
+  "checked_on": "2026-11-12",
+  "source_revision": "0aee616739aa66cd9f80801824517826cc389a76",
+  "base_word": "docs/coursework/Курсовая_после_редактуры.docx",
+  "base_sha256": "d96f3aceb02778e30abdb68cc459a2f6b509ba76d8b0d2b84937e0e44d2a91e0",
+  "base_unchanged": true,
+  "total_pages": 41,
+  "main_text_pages": 31,
+  "main_text_range": [
+    3,
+    33
+  ],
+  "heading_pages": {
+    "ВВЕДЕНИЕ": 3,
+    "1 ТЕОРЕТИЧЕСКИЕ ОСНОВЫ И АНАЛИЗ УПРАВЛЕНИЯ ТОВАРНЫМ КАТАЛОГОМ": 5,
+    "1.1 ОСОБЕННОСТИ ВЕДЕНИЯ КАТАЛОГА ТОВАРОВ ИНТЕРНЕТ-МАГАЗИНА": 5,
+    "1.2 ПОДХОДЫ К АВТОМАТИЗАЦИИ И ТРЕБОВАНИЯ К МОДУЛЮ": 7,
+    "1.3 ОБОСНОВАНИЕ ВЫБОРА ТЕХНОЛОГИЙ": 9,
+    "2 ПРОЕКТИРОВАНИЕ МОДУЛЯ УПРАВЛЕНИЯ КАТАЛОГОМ": 12,
+    "2.1 ПОЛЬЗОВАТЕЛЬСКИЕ СЦЕНАРИИ И ФУНКЦИОНАЛЬНАЯ МОДЕЛЬ": 12,
+    "2.2 ПРОЕКТИРОВАНИЕ БАЗЫ ДАННЫХ И ОГРАНИЧЕНИЙ ЦЕЛОСТНОСТИ": 15,
+    "2.3 АРХИТЕКТУРА ПРИЛОЖЕНИЯ И ПРОЕКТИРОВАНИЕ ИНТЕРФЕЙСА": 18,
+    "3 РАЗРАБОТКА И ТЕСТИРОВАНИЕ МОДУЛЯ": 22,
+    "3.1 РЕАЛИЗАЦИЯ ОПЕРАЦИЙ С ТОВАРАМИ И КАТЕГОРИЯМИ": 22,
+    "3.2 РЕАЛИЗАЦИЯ ПОИСКА, ФИЛЬТРАЦИИ И ВЕБ-ИНТЕРФЕЙСА": 24,
+    "3.3 ТЕСТИРОВАНИЕ, АНАЛИЗ РЕЗУЛЬТАТОВ И ОГРАНИЧЕНИЯ РЕШЕНИЯ": 28,
+    "ЗАКЛЮЧЕНИЕ": 33,
+    "СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ": 34,
+    "ПРИЛОЖЕНИЕ А. ЭКРАНЫ И РЕЗУЛЬТАТЫ ДЕМОНСТРАЦИИ": 37
+  },
+  "changed_body_paragraphs": 107,
+  "new_body_paragraphs": 8,
+  "goal_and_tasks_verbatim": true,
+  "cover_data_unchanged": true,
+  "source_list_entries": 20,
+  "source_citations_complete": true,
+  "word_tables": 7,
+  "editable_diagrams": 2,
+  "screenshots": 5,
+  "all_word_text_found_in_pdf": true,
+  "contents_page_references_checked": 16,
+  "page_numbers_correct": true,
+  "blank_pages": 0,
+  "text_outside_page": 0,
+  "text_overlap": 0,
+  "text_on_images": 0,
+  "all_pages_visually_reviewed": true,
+  "body_font": "Times New Roman, 14 pt, 1.5 строки",
+  "pdf_fonts": [
+    "LiberationSerif",
+    "LiberationSerif-Bold"
+  ],
+  "automatic_tests_passed": 173,
+  "automatic_test_groups": {
+    "tests.test_api": 81,
+    "tests.test_database": 35,
+    "tests.test_demo_data": 7,
+    "tests.test_pages": 50
+  },
+  "browser_main_passed": 14,
+  "browser_catalog_passed": 13,
+  "automatic_report": "checks/tests.xml",
+  "browser_reports": [
+    "checks/browser-main.json",
+    "checks/browser-catalog.json"
+  ],
+  "demo_data_report": "checks/demo-data.json",
+  "files": [
+    {
+      "path": "docs/coursework/revision/checks/browser-catalog.json",
+      "bytes": 15488,
+      "sha256": "7a042e889fd2120dd267e7c9825bbed5f1c90b4a0005dae5069ac4236acb95eb"
+    },
+    {
+      "path": "docs/coursework/revision/checks/browser-main.json",
+      "bytes": 3975,
+      "sha256": "48d47832c154208fb35277210c03964aec718c855534184d788c4e6654845577"
+    },
+    {
+      "path": "docs/coursework/revision/checks/demo-data.json",
+      "bytes": 1443,
+      "sha256": "2b7de5cd33b1c3e532dc9459e208876c6a4e909cc6c1cd26bfcdcd2f26fd1016"
+    },
+    {
+      "path": "docs/coursework/revision/checks/tests.xml",
+      "bytes": 20989,
+      "sha256": "758ea53091fe5b401e42ba8bd8a7cbf9b252e6d67ad9c55bb14596599491f326"
+    },
+    {
+      "path": "docs/coursework/revision/content.json",
+      "bytes": 85483,
+      "sha256": "3900e3440c74483c045b6a96cbe8563727030627c5c50e68b9ba7f028260d40c"
+    },
+    {
+      "path": "docs/coursework/revision/figures/catalog.png",
+      "bytes": 101849,
+      "sha256": "fbb246f96feb1a094176f52094519b36d5a2172e2e3a4bccd1088018144a3c59"
+    },
+    {
+      "path": "docs/coursework/revision/figures/category-protection.png",
+      "bytes": 44123,
+      "sha256": "11118d32fcc310d3a2a591c0fadf8d1725e88956c9e869052f9e5229190bed35"
+    },
+    {
+      "path": "docs/coursework/revision/figures/invalid-price.png",
+      "bytes": 76912,
+      "sha256": "e2965a75bee2758fd833641ed7675e2f6d9eadc8e8fd0a514767d4e332a8b67b"
+    },
+    {
+      "path": "docs/coursework/revision/figures/product-form.png",
+      "bytes": 68551,
+      "sha256": "6b5212b5af34c07c62e65cb0627ec04336c7d8191be10ffaf67889d2babe0529"
+    },
+    {
+      "path": "docs/coursework/revision/figures/summary.png",
+      "bytes": 75725,
+      "sha256": "d28f7fe5562bd1bfd8714e32f8ec62eb4abc13077e595f9c1f3848bda3371f4b"
+    },
+    {
+      "path": "docs/coursework/revision/Курсовая_новая_редакция.docx",
+      "bytes": 401821,
+      "sha256": "493c27783a0f2cf903f00e19f9c2bcf547a8344d9f9d3623ab4c607b62ff0cc9"
+    },
+    {
+      "path": "docs/coursework/revision/Курсовая_новая_редакция.pdf",
+      "bytes": 695006,
+      "sha256": "a2f994867b06333b6c359c90d8c9d5eb7ae6f132077ed73e07f174005f458606"
+    }
+  ]
+}

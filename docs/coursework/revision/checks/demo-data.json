@@ -1,0 +1,64 @@
+{
+  "checked_on": "2026-11-12",
+  "products": 1200,
+  "categories": 12,
+  "per_category": [
+    {
+      "name": "Письменные принадлежности",
+      "products": 100
+    },
+    {
+      "name": "Бумага и бумажная продукция",
+      "products": 100
+    },
+    {
+      "name": "Тетради и блокноты",
+      "products": 100
+    },
+    {
+      "name": "Папки и файлы",
+      "products": 100
+    },
+    {
+      "name": "Архивирование документов",
+      "products": 100
+    },
+    {
+      "name": "Настольные принадлежности",
+      "products": 100
+    },
+    {
+      "name": "Карандаши и ластики",
+      "products": 100
+    },
+    {
+      "name": "Рисование и творчество",
+      "products": 100
+    },
+    {
+      "name": "Клей и клейкие ленты",
+      "products": 100
+    },
+    {
+      "name": "Степлеры и скрепление",
+      "products": 100
+    },
+    {
+      "name": "Маркеры и выделители",
+      "products": 100
+    },
+    {
+      "name": "Упаковка и маркировка",
+      "products": 100
+    }
+  ],
+  "in_stock": 1067,
+  "out_of_stock": 133,
+  "units": 80654,
+  "value_kopecks": 1323305870,
+  "min_kopecks": 1900,
+  "max_kopecks": 34610,
+  "integrity_check": "ok",
+  "foreign_key_check": [],
+  "second_products_added": 0
+}
